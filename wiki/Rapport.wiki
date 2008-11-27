@@ -1,0 +1,14 @@
+#summary Rapport - Utilisation.
+
+= Introduction =
+
+Pour utiliser le rapport, compiler, preview ...
+
+
+= Details =
+
+*compiler*
+dans une console on tape dans notre répertoire rapport _make_ simplement
+
+*preview*
+dans une console on tape dans notre répertoire rapport _make run_ simplement.
