@@ -12,5 +12,4 @@ public class DataStructureTest {
 		matrix = new DataStructure(6,7);
 		matrix.print();
 	}
-
 }
