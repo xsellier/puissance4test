@@ -7,8 +7,6 @@ public class DataStructure {
 	
 	public
 	DataStructure(int height, int width) {
-		if(height<6 & width<7)
-			return;
 		this.height=height;
 		this.width=width;
 		this.matrix = new int[height][width];
@@ -25,8 +23,9 @@ public class DataStructure {
 	
 	public void print(){
 		for(int i=0;i<height; i++){
+			System.out.print("Ligne : " + i + " | ");
 			for(int j=0;j<width; j++){
-				System.out.print(matrix[i][j]);
+				System.out.print(matrix[i][j] + " ");
 			}
 			System.out.println();
 		}
