@@ -1,0 +1,39 @@
+% -*- mode: latex; coding: latin-1-unix -*- %
+
+\section{Prototype}
+
+Une liste des prototypes des fonctions :
+
+\subsection{Structure de données}
+
+\begin{itemize}
+ \item \textsl{create\_matrix(int width, int height, int color);} -
+   crée notre matrice
+ \item \textsl{get\_matrix();} - retourne notre matrice
+ \item \textsl{set\_matrix(int i, int j, int color);} - modifie une
+   case de notre matrice
+\end{itemize}
+
+\subsection{Moteur de jeu}
+
+\begin{itemize}
+ \item \textsl{constructeur(int nb\_joueur);} - notre constructeur de
+   taille 6 * 8 de base
+ \item \textsl{constructeur(int nb\_joueur, int width, int height);}
+   - notre constructeur de taille minimale 6 * 8
+ \item \textsl{get\_grid();} - retourne notre matrice
+ \item \textsl{add\_jeton(int i, int j, int color);} - ajouter un
+   jeton au joueur correpondant
+ \item \textsl{gravity(int i, matrix grid);} - retourne la hauteur de
+   la case libre à la colonne i.
+ \item \textsl{statement();} - notre état courant
+ \item \textsl{check\_victory(matrix grid);} - vérifie si il quelqu'un
+   a gagné
+\end{itemize}
+
+\subsection{Interface Graphique}
+
+\begin{itemize}
+ \item \textsl{print\_grid(matrix grid);} - Affiche la grille
+ \item \textsl{play(int id\_player);} - Attend une action du joueur
+\end{itemize}
