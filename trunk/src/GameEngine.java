@@ -34,6 +34,10 @@ public class GameEngine {
 			start1();
 			break;
 		}
+		case 2: {
+			start1();
+			break;
+		}
 		}
 	}
 
