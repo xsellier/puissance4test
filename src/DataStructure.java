@@ -43,15 +43,9 @@ public class DataStructure {
 		}
 	}
 
-	public boolean setValue(int i, int j, int color) {
-		if (matrix[i][j] == 0) {
-			matrix[i][j] = color;
-			return true;
-		} else {
-			System.out.print("[DataStructure] : Error in setValue");
-			System.out.println();
-		}
-		return false;
+	public void setValue(int i, int j, int color) {
+		matrix[i][j] = color;
+
 	}
 
 	public int getValue(int i, int j) {
