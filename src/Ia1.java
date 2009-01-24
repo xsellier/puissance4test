@@ -10,6 +10,9 @@ public class Ia1 implements Cpu {
 	/* 1 Human wins */
 	/* 2 Break strategy */
 	/* 3 Cpu Wins */
+	/* 4 no Playable */
+	/* 5 Strategy */
+	/* 6 Block human */
 
 	private int height; /* hauteur */
 	private int width; /* largeur */
@@ -104,9 +107,13 @@ public class Ia1 implements Cpu {
 	}
 
 	private void fill_playable() {
-		for (int i = 0; i < width; ++i)
+		for (int i = 0; i < width; ++i){
 			if (cpugrid.getValue(0, i) == 0)
 				playable[i] = 0;
+			else
+				playable[i] = 4;
+		}
+		
 	}
 
 	private boolean check_line(int i, int j, int color) {
@@ -235,11 +242,12 @@ public class Ia1 implements Cpu {
 	private void winning_playable() {
 		for (int i = width; i >= 0; ++i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
-				if (cpugrid.getValue(i, j) == 0) {
+				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
 					cpugrid.setValue(i, j, 2);
 					if (check_diag(i, j, 2) || check_col(i, j, 2)
 							|| check_line(i, j, 2))
 						playable[i] = 3;
+					cpugrid.setValue(i, j, 0);
 				}
 			}
 		}
@@ -248,34 +256,117 @@ public class Ia1 implements Cpu {
 	private void no_playable() {
 		for (int i = width; i >= 0; ++i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
-				if (cpugrid.getValue(i, j) == 0) {
+				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
 					cpugrid.setValue(i, j, 2);
 					for (int k = width; k >= 0; ++k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
-							if (cpugrid.getValue(k, l) == 0) {
-								cpugrid.setValue(i, j, 1);
-								if ((check_diag(i, j, 1) || check_col(i, j, 1)
-										|| check_line(i, j, 1)) && playable[i]!=3)
-									playable[i] = 3;
-							}
+							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
+								cpugrid.setValue(k, l, 1);
+								if ((check_diag(k, l, 1) || check_col(k, l, 1) || check_line(
+										k, l, 1))
+										&& playable[i] != 3)
+									playable[i] = 1;
+								cpugrid.setValue(k, l, 0);
 							}
 						}
-
+					}
+					cpugrid.setValue(i, j, 1);
+					if (check_diag(i, j, 1) || check_col(i, j, 1)
+							|| check_line(i, j, 1))
+						playable[i] = 6;
+					cpugrid.setValue(i, j, 0);							
+				}
+			}
+		}
+	}
+	
+	private void break_strategy() {
+		for (int i = width; i >= 0; ++i) { /* reach columns */
+			for (int j = 0; j < height; ++j) { /* reach lines */
+				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
+					cpugrid.setValue(i, j, 2);
+					for (int k = width; k >= 0; ++k) { /* reach columns */
+						for (int l = 0; l < height; ++l) { /* reach lines */
+							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
+								cpugrid.setValue(k, l, 2);
+								if ((check_diag(k, l, 2) || check_line(
+										k, l, 2))
+										&& playable[i] != 3)
+									playable[i] = 2;
+								cpugrid.setValue(k, l, 0);
+							}
+						}
+					}
+					cpugrid.setValue(i, j, 0);
 				}
 			}
 		}
 	}
 
 	public int perfect_cpu() {
+		int nb_pos=0;
+		int tmp_result=-1;
 		int result = -1;
 		playable = new int[width];
 
 		fill_playable();
-
-		winning_playable();
-
-		no_playable();
-
+		
+		for(int i=0; i< width; ++i){
+			if(playable[i]!=4){
+				tmp_result = i;
+				nb_pos++;
+			}
+		}
+		
+		if(nb_pos==1)
+			result = tmp_result;
+		nb_pos=0;
+		tmp_result=-1;
+	
+		if(result==-1){
+			winning_playable();
+		
+			for(int i=0; i<width;++i)
+				if(playable[i]==3)
+					result = i;
+		}
+		
+		if(result==-1){
+			no_playable();
+			for(int i=0; i< width; ++i){
+				if(playable[i]!=4 && playable[i]!= 1){
+					tmp_result = i;
+					nb_pos++;
+				}
+				if(playable[i]==6)
+					result=i;
+			}
+			if(nb_pos==1)
+				result = tmp_result;
+			nb_pos=0;
+			tmp_result=-1;
+		}
+		
+		if(result==-1){
+			break_strategy();
+			for(int i=0; i< width; ++i){
+				if(playable[i]!=4 && playable[i]!= 1 && playable[i]!=2){
+					tmp_result = i;
+					nb_pos++;
+				}
+			}
+			if(nb_pos==1)
+				result = tmp_result;
+			nb_pos=0;
+			tmp_result=-1;
+		}
+		
+		if (result == -1) {
+			for (int i = 0; i < width; ++i)
+				if (cpugrid.getValue(0, i) == 0)
+					result = i;
+		}
+		
 		return result;
 	}
 }
