@@ -240,7 +240,7 @@ public class Ia1 implements Cpu {
 	}
 
 	private void winning_playable() {
-		for (int i = width; i >= 0; ++i) { /* reach columns */
+		for (int i = width; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
 					cpugrid.setValue(i, j, 2);
@@ -254,11 +254,11 @@ public class Ia1 implements Cpu {
 	}
 
 	private void no_playable() {
-		for (int i = width; i >= 0; ++i) { /* reach columns */
+		for (int i = width; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
 					cpugrid.setValue(i, j, 2);
-					for (int k = width; k >= 0; ++k) { /* reach columns */
+					for (int k = width; k >= 0; --k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
 							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
 								cpugrid.setValue(k, l, 1);
@@ -281,11 +281,11 @@ public class Ia1 implements Cpu {
 	}
 	
 	private void break_strategy() {
-		for (int i = width; i >= 0; ++i) { /* reach columns */
+		for (int i = width; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
 					cpugrid.setValue(i, j, 2);
-					for (int k = width; k >= 0; ++k) { /* reach columns */
+					for (int k = width; k >= 0; --k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
 							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
 								cpugrid.setValue(k, l, 2);
