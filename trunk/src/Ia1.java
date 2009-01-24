@@ -267,7 +267,7 @@ public class Ia1 implements Cpu {
 								if ((check_diag(l, k, 1) || check_col(l, k, 1) || check_line(
 										l, k, 1))
 										&& playable[i] != 3){
-									playable[i] = 1;
+									playable[k] = 1;
 								}
 								cpugrid.setValue(l, k, 0);
 							}
@@ -280,8 +280,8 @@ public class Ia1 implements Cpu {
 								cpugrid.setValue(l, k, 1);
 								if ((check_diag(l, k, 1) || check_col(l, k, 1) || check_line(
 										l, k, 1))
-										&& playable[i] != 3){
-									playable[i] = 6;
+										&& playable[i] != 3&& playable[i] != 1){
+									playable[k] = 6;
 									cpugrid.setValue(l, k, 0);
 									cpugrid.setValue(j, i, 0);	
 									return;
