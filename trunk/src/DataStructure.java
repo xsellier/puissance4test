@@ -6,6 +6,10 @@ public class DataStructure {
 	private int width;
 
 	public DataStructure(int height, int width) {
+		if (height < 0)
+			height = 6;
+		if (width < 0)
+			width = 7;
 		this.height = height;
 		this.width = width;
 		this.matrix = new int[height][width];
@@ -14,16 +18,17 @@ public class DataStructure {
 				matrix[i][j] = 0;
 			}
 		}
+
 	}
 
-	public int getHeight(){
+	public int getHeight() {
 		return height;
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return width;
 	}
-	
+
 	public int[][] getMatrix() {
 		return matrix;
 	}

@@ -9,9 +9,10 @@ public class Ia1 implements Cpu{
 	/* 0 Playable */
 	/* 1 Human wins */
 	/* 2 Break strategy */
+	/* 3 Cpu Wins */
 	
-	private int height;
-	private int width;
+	private int height; /* hauteur */
+	private int width; /* largeur */
 	
 	public void initialize(DataStructure grid, int difficulty) {
 		cpugrid = grid;
@@ -98,9 +99,29 @@ public class Ia1 implements Cpu{
 		return result;
 	}
 
+	private void fill_playable(){
+		for(int i=0; i < width; ++i)
+			if(cpugrid.getValue(0, i)==0)
+				playable[i]=0;
+	}
+	
+	private void winning_playable(){
+		
+	}
+	
+	private void no_playable(){
+		
+	}
+	
 	public int perfect_cpu() {
 		int result = -1;
 		playable = new int[cpugrid.getWidth()];
+		
+		fill_playable();
+				
+		winning_playable();
+				
+		no_playable();
 		
 		
 		return result;

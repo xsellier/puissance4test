@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import src.DataStructure;
 
-public class DataStructureTest {
+public class DataStructureTest{
 
 	DataStructure matrix;
 	@Test
