@@ -11,7 +11,7 @@ public class Ia1 implements Cpu {
 	/* 2 Break strategy */
 	/* 3 Cpu Wins */
 	/* 4 no Playable */
-	/* 5 Strategy */
+	/* 5 Strategy TODO */
 	/* 6 Block human */
 
 	private int height; /* hauteur */
@@ -384,7 +384,7 @@ public class Ia1 implements Cpu {
 
 		if (result == -1) {
 			for (int i = 0; i < width; ++i)
-				if (playable[i] != 4 && playable[i]!=2)
+				if (playable[i] != 4 && playable[i]!=2 && playable[i]!=1)
 					result = i;
 		}
 		for(int i=0; i<width; ++i){
