@@ -12,7 +12,7 @@ public class Main {
 		my_menu.show();
 
                 while(!my_menu.pushed)
-		    ;
+		    System.out.print("");
 
 		GameEngine g = new GameEngine(my_menu.choice);
 		
