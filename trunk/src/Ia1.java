@@ -329,6 +329,8 @@ public class Ia1 implements Cpu {
 
 	/* for variable result */
 	/* -1 no choice */
+	
+	/* for variable playable */
 	/* 0 Playable */
 	/* 1 Human wins */
 	/* 2 Break strategy */
@@ -351,10 +353,16 @@ public class Ia1 implements Cpu {
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 5)
 					result = i;
-				if (i < Math.round(width / 2) && playable[Math.round((width / 2 + i))] == 0 && result == -1)
+				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0 && result == -1)
 					result = width / 2 + i;
-				else if (i < Math.round(width / 2) && playable[Math.round((width / 2 - i))] == 0 && result == -1)
+				else if (i < Math.round(width / 2) && playable[width / 2 - i] == 0 && result == -1)
 					result = width / 2 - i;
+			}
+		}
+		if (result == -1) {
+			for (int i = 0; i < width; ++i) {
+				if (playable[i] == 0)
+					result = i;
 			}
 		}
 		if (result == -1) {
@@ -369,6 +377,7 @@ public class Ia1 implements Cpu {
 					result = i;
 			}
 		}
+
 		return result;
 	}
 
