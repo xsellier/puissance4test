@@ -2,8 +2,8 @@ package src;
 
 public class DataStructure {
 	private int[][] matrix;
-	int height;
-	int width;
+	private int height;
+	private int width;
 
 	public DataStructure(int height, int width) {
 		this.height = height;
@@ -16,6 +16,14 @@ public class DataStructure {
 		}
 	}
 
+	public int getHeight(){
+		return height;
+	}
+	
+	public int getWidth(){
+		return width;
+	}
+	
 	public int[][] getMatrix() {
 		return matrix;
 	}
