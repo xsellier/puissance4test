@@ -240,64 +240,68 @@ public class Ia1 implements Cpu {
 	}
 
 	private void winning_playable() {
-		for (int i = width; i >= 0; --i) { /* reach columns */
+		for (int i = width-1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
-				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
-					cpugrid.setValue(i, j, 2);
-					if (check_diag(i, j, 2) || check_col(i, j, 2)
-							|| check_line(i, j, 2))
+				if(j>0)
+					if(j>0 && cpugrid.getValue(j-1, i)!=0)
+					
+				if (cpugrid.getValue(j, i) == 0 ) {
+					
+					cpugrid.setValue(j, i, 2);
+					if (check_diag(j, i, 2) || check_col(j, i, 2)
+							|| check_line(j, i, 2))
 						playable[i] = 3;
-					cpugrid.setValue(i, j, 0);
+					cpugrid.setValue(j, i, 0);
 				}
 			}
 		}
 	}
 
 	private void no_playable() {
-		for (int i = width; i >= 0; --i) { /* reach columns */
+		for (int i = width-1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
-				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
-					cpugrid.setValue(i, j, 2);
+				if (cpugrid.getValue(j, i) == 0 && (j>0 && (cpugrid.getValue(j-1, i)!=0) || (j==0))) {
+					cpugrid.setValue(j, i, 2);
 					for (int k = width; k >= 0; --k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
-							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
-								cpugrid.setValue(k, l, 1);
-								if ((check_diag(k, l, 1) || check_col(k, l, 1) || check_line(
-										k, l, 1))
+							if (cpugrid.getValue(l, k) == 0 && (l>0 && (cpugrid.getValue(l-1, k)!=0) || (l==0))) {
+								cpugrid.setValue(l, k, 1);
+								if ((check_diag(l, k, 1) || check_col(l, k, 1) || check_line(
+										l, k, 1))
 										&& playable[i] != 3)
 									playable[i] = 1;
-								cpugrid.setValue(k, l, 0);
+								cpugrid.setValue(l, k, 0);
 							}
 						}
 					}
-					cpugrid.setValue(i, j, 1);
-					if (check_diag(i, j, 1) || check_col(i, j, 1)
-							|| check_line(i, j, 1))
+					cpugrid.setValue(j, i, 1);
+					if (check_diag(j, i, 1) || check_col(j, i, 1)
+							|| check_line(j, i, 1))
 						playable[i] = 6;
-					cpugrid.setValue(i, j, 0);							
+					cpugrid.setValue(j, i, 0);							
 				}
 			}
 		}
 	}
 	
 	private void break_strategy() {
-		for (int i = width; i >= 0; --i) { /* reach columns */
+		for (int i = width-1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
-				if (cpugrid.getValue(i, j) == 0 && cpugrid.getValue(i-1, j)!=0) {
-					cpugrid.setValue(i, j, 2);
-					for (int k = width; k >= 0; --k) { /* reach columns */
+				if (cpugrid.getValue(j, i) == 0 && (j>0 && cpugrid.getValue(j-1, i)!=0) || (j==0)) {
+					cpugrid.setValue(j, i, 2);
+					for (int k = width-1; k >= 0; --k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
-							if (cpugrid.getValue(k, l) == 0 && cpugrid.getValue(k-1, l)!=0) {
-								cpugrid.setValue(k, l, 2);
-								if ((check_diag(k, l, 2) || check_line(
-										k, l, 2))
+							if (cpugrid.getValue(l, k) == 0 && (l>0 && cpugrid.getValue(l-1, k)!=0) || (l==0)) {
+								cpugrid.setValue(l, k, 2);
+								if ((check_diag(l, k, 2) || check_line(
+										l, k, 2))
 										&& playable[i] != 3)
 									playable[i] = 2;
-								cpugrid.setValue(k, l, 0);
+								cpugrid.setValue(l, k, 0);
 							}
 						}
 					}
-					cpugrid.setValue(i, j, 0);
+					cpugrid.setValue(j, i, 0);
 				}
 			}
 		}
