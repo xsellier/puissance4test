@@ -34,10 +34,6 @@ public class GameEngine {
 			start1();
 			break;
 		}
-		case 2: {
-			start2();
-			break;
-		}
 		}
 	}
 
@@ -69,12 +65,10 @@ public class GameEngine {
 					;
 				app.played = false;
 				currently_played = app.choice;
-			} else { // silly CPU
-				CPU cpu1 = new CPU(grid, 1);
+			} else { // launch Cpu
+				Cpu cpu1 = new Ia1(); 
+				cpu1.initialize(grid, mode);
 				currently_played = cpu1.play(app.choice);
-				if (currently_played == -1) {
-					// never happen but we have to considerate that possibility
-				}
 			}
 			if (check_play(currently_played)) {
 				update_grid();
@@ -86,10 +80,7 @@ public class GameEngine {
 				System.out.print("");
 			}
 		}
-
-	}
-
-	public void start2() {
+		app.game_ended(!current_player);
 	}
 
 	private void update_grid() {
