@@ -1,5 +1,8 @@
 package src;
 
+import java.awt.Component;
+import java.awt.Window;
+
 public class GameEngine {
 
 	private DataStructure grid;
@@ -17,7 +20,7 @@ public class GameEngine {
 		this.grid = new DataStructure(6, 7);
 		this.current_player = false;
 		rule = new Foor_in_a_row();
-		app = new GUI();
+		app = new GUI_own(); // to change GUI
 		app.initGui(grid);
 		app.setSize(500, 550);
 		app.setLocation(100, 100);
@@ -71,7 +74,7 @@ public class GameEngine {
 
 	public void reset_grid(){
 		grid.reset_matrix();
-		app.reset=false;
+		app.set_Reset(false);
 		app.enable_all_button();
 		app.updateScreen(grid);
 		
