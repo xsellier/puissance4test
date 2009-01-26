@@ -206,7 +206,7 @@ public class Ia_foor_in_a_row implements Cpu {
 			}
 		}
 	}
-	
+
 	private void strategy(){
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
@@ -236,7 +236,7 @@ public class Ia_foor_in_a_row implements Cpu {
 
 	/* for variable result */
 	/* -1 no choice */
-	
+
 	/* for variable playable */
 	/* 0 Playable */
 	/* 1 Human wins */

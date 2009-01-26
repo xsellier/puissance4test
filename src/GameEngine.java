@@ -8,11 +8,13 @@ public class GameEngine {
 	private GUI app;
 	private int mode;
 	private rules rule;
+    private Player player1;
+    private Player player2;
 	int counter;
 
 	@SuppressWarnings("deprecation")
 	public GameEngine() {
-		this.grid = new DataStructure(10, 10);
+		this.grid = new DataStructure(6, 7);
 		this.current_player = false;
 		rule = new Foor_in_a_row();
 		app = new GUI();
@@ -25,59 +27,38 @@ public class GameEngine {
 	public void start(int my_mode){
 		this.mode = my_mode;
 		counter = 0;
+         player1 = new HumanPlayer(app,grid);
 		if(mode==0){
-			start0(); // human vs human
+            player2 = new HumanPlayer(app,grid);
+			start(); // human vs human
 		}
 		else{
-			start1();
+            player2 = new CpuPlayer(app,grid,my_mode,rule);
+			start();
 		}
 	}
 
-	public void start0() {
+	public void start() {
 
 		while ((!rule.isComplete(grid)) && (counter < grid.getWidth() * grid.getHeight())) {
-			while (!app.played)
-				;
-			app.played = false;
-			currently_played = app.choice;
-			if (rule.check_play(currently_played, grid)) {
-				update_grid();
-				app.updateScreen(grid);
-				current_player = !current_player;
-				rule.grey_out(app,grid);
-				counter++;
-			} else {
-				System.out.print("");
-			}
+            currently_played = player1.play(grid, app);
+            check_grid();
+            currently_played = player2.play(grid, app);
+            check_grid();
 		}
 
 		app.game_ended(!current_player);
 	}
 
-	public void start1() {
-		while ((!rule.isComplete(grid)) && (counter < grid.getWidth() * grid.getHeight())) {
-			if (!current_player) { // human player
-				while (!app.played)
-					;
-				app.played = false;
-				currently_played = app.choice;
-			} else { // launch Cpu
-				Cpu player2=new Ia_foor_in_a_row();
-				player2.initialize(grid, mode);
-				currently_played = player2.play(app.choice,rule);
-			}
-			if (rule.check_play(currently_played,grid)) {
+    public void check_grid(){
+        if (rule.check_play(currently_played, grid)) {
 				update_grid();
+                current_player = !current_player;
 				app.updateScreen(grid);
-				current_player = !current_player;
-				rule.grey_out(app,grid);
-				counter++;
-			} else {
+                } else {
 				System.out.print("");
 			}
-		}
-		app.game_ended(!current_player);
-	}
+    }
 
 	private void update_grid() {
 		int value = currently_played;
