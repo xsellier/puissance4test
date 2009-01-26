@@ -1,8 +1,5 @@
 package src;
 
-import java.awt.Component;
-import java.awt.Window;
-
 public class GameEngine {
 
 	private DataStructure grid;
@@ -15,7 +12,6 @@ public class GameEngine {
 	private Player player2;
 	int counter;
 
-	@SuppressWarnings("deprecation")
 	public GameEngine() {
 		this.grid = new DataStructure(6, 7);
 		this.current_player = false;
