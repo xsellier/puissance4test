@@ -161,7 +161,7 @@ public class Ia_foor_in_a_row implements Cpu {
 								cpugrid.setValue(l, k, 1);
 								if ((rule.check_diag(l, k, 1, cpugrid) || rule.check_col(l, k, 1, cpugrid) || rule.check_line(
 										l, k, 1, cpugrid))
-										&& playable[i] != 3 && playable[i] != 1) {
+										&& playable[i] == 0) {
 									playable[k] = 6;
 									cpugrid.setValue(l, k, 0);
 									cpugrid.setValue(j, i, 0);
