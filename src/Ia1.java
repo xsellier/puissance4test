@@ -314,8 +314,35 @@ public class Ia1 implements Cpu {
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
 								if ((check_diag(l, k, 2) || check_line(l, k, 2))
-										&& playable[i] != 3) {
-									playable[i] = 2;
+										&& playable[i] == 0) {
+									playable[k] = 2;
+								}
+								cpugrid.setValue(l, k, 0);
+							}
+						}
+					}
+					cpugrid.setValue(j, i, 0);
+				}
+			}
+		}
+	}
+	
+	private void strategy(){
+		for (int i = width - 1; i >= 0; --i) { /* reach columns */
+			for (int j = 0; j < height; ++j) { /* reach lines */
+				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
+						.getValue(j + 1, i) != 0)
+						|| (cpugrid.getValue(j, i) == 0 && j == height - 1)) {
+					cpugrid.setValue(j, i, 2);
+					for (int k = width - 1; k >= 0; --k) { /* reach columns */
+						for (int l = 0; l < height; ++l) { /* reach lines */
+							if ((cpugrid.getValue(l, k) == 0 && l < height - 1 && cpugrid
+									.getValue(l + 1, k) != 0)
+									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
+								cpugrid.setValue(l, k, 2);
+								if ((check_diag(l, k, 2) || check_line(l, k, 2))
+										&& playable[i] == 0) {
+									playable[i] = 5;
 								}
 								cpugrid.setValue(l, k, 0);
 							}
@@ -443,6 +470,10 @@ public class Ia1 implements Cpu {
 		}
 
 		if (result == -1) {
+			strategy();
+			for(int i=0; i < width;++i)
+				System.out.print(i + " " + playable[i] + " ");
+			System.out.println();
 			result = next_choice();
 		}
 
