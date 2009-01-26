@@ -31,4 +31,6 @@ public interface GUI {
 	public boolean get_Reset();
 	
 	public void set_Reset(boolean reset);
+
+	public abstract void dispose();
 }

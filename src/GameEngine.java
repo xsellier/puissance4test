@@ -36,6 +36,10 @@ public class GameEngine {
 		}
 	}
 
+	public void close(){
+		app.dispose();
+	}
+	
 	public void start() {
 
 		while ((!rule.isComplete(grid))
