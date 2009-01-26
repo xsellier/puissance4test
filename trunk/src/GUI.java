@@ -1,6 +1,9 @@
-
 package src;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -13,13 +16,7 @@ public class GUI extends JFrame {
 	private javax.swing.JScrollPane jScrollPane;
 	private javax.swing.JToggleButton jToggleButton;
 	private javax.swing.JLabel outPut;
-	private javax.swing.JButton play1;
-	private javax.swing.JButton play2;
-	private javax.swing.JButton play3;
-	private javax.swing.JButton play4;
-	private javax.swing.JButton play5;
-	private javax.swing.JButton play6;
-	private javax.swing.JButton play7;
+	private ArrayList<javax.swing.JButton> play = new ArrayList<javax.swing.JButton>();
 	private javax.swing.JPanel playGround;
 	private javax.swing.JPanel playZone;
 	private javax.swing.JLabel title;
@@ -31,9 +28,9 @@ public class GUI extends JFrame {
 		played = false;
 	}
 
-	public void initGui() {
-		initComponents();
-		for (int i = 0; i < 42; i++) {
+	public void initGui(DataStructure grid) {
+		initComponents(grid);
+		for (int i = 0; i < grid.getHeight() * grid.getWidth(); i++) {
 			javax.swing.JButton tmpPan = new javax.swing.JButton();
 			tmpPan.setEnabled(false);
 			playZone.add(tmpPan);
@@ -41,17 +38,13 @@ public class GUI extends JFrame {
 		outPut.setText("C'est parti !");
 	}
 
-	private void initComponents() {
+	private void initComponents(DataStructure grid) {
+		int j = 1;
 		jToggleButton = new javax.swing.JToggleButton();
 		playGround = new javax.swing.JPanel();
 		jPanel1 = new javax.swing.JPanel();
-		play1 = new javax.swing.JButton();
-		play2 = new javax.swing.JButton();
-		play3 = new javax.swing.JButton();
-		play4 = new javax.swing.JButton();
-		play5 = new javax.swing.JButton();
-		play6 = new javax.swing.JButton();
-		play7 = new javax.swing.JButton();
+		for (int i = 0; i < grid.getWidth(); ++i)
+			play.add(new javax.swing.JButton());
 		playZone = new javax.swing.JPanel();
 		jPanel2 = new javax.swing.JPanel();
 		NewButton = new javax.swing.JButton();
@@ -70,74 +63,24 @@ public class GUI extends JFrame {
 
 		playGround.setLayout(new java.awt.BorderLayout());
 
-		jPanel1.setLayout(new java.awt.GridLayout(1, 7));
-
-		play1.setText("1");
-		play1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 0);
-			}
-		});
-
-		jPanel1.add(play1);
-
-		play2.setText("2");
-		play2.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 1);
-			}
-		});
-
-		jPanel1.add(play2);
-
-		play3.setText("3");
-		play3.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 2);
-			}
-		});
-
-		jPanel1.add(play3);
-
-		play4.setText("4");
-		play4.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 3);
-			}
-		});
-
-		jPanel1.add(play4);
-
-		play5.setText("5");
-		play5.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 4);
-			}
-		});
-
-		jPanel1.add(play5);
-
-		play6.setText("6");
-		play6.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 5);
-			}
-		});
-
-		jPanel1.add(play6);
-
-		play7.setText("7");
-		play7.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				playIActionPerformed(evt, 6);
-			}
-		});
-
-		jPanel1.add(play7);
+		jPanel1.setLayout(new java.awt.GridLayout(1, grid.getWidth()));
+		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
+			final int k = j;
+			JButton n = (JButton) i.next();
+			n.setText(j + "");
+			n.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					playIActionPerformed(evt, k-1);
+				}
+			});
+			j++;
+			jPanel1.add(n);
+		}
 
 		playGround.add(jPanel1, java.awt.BorderLayout.SOUTH);
 
-		playZone.setLayout(new java.awt.GridLayout(6, 7));
+		playZone.setLayout(new java.awt.GridLayout(grid.getHeight(), grid
+				.getWidth()));
 
 		playZone.setBackground(new java.awt.Color(51, 51, 255));
 		playGround.add(playZone, java.awt.BorderLayout.CENTER);
@@ -193,22 +136,21 @@ public class GUI extends JFrame {
 
 	}
 
-
 	private void exitForm(java.awt.event.WindowEvent evt) {
 		System.exit(0);
 	}
 
 	public void updateScreen(DataStructure my_grid) {
-		for (int i = 0; i < 6; i++)
-			for (int j = 0; j < 7; j++) {
+		for (int i = 0; i < my_grid.getHeight(); i++)
+			for (int j = 0; j < my_grid.getWidth(); j++) {
 				if (my_grid.getValue(i, j) == 0)
-					playZone.getComponent(j + (7 * i)).setBackground(
+					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
 							new java.awt.Color(240, 240, 240));
 				if (my_grid.getValue(i, j) == 1)
-					playZone.getComponent(j + (7 * i)).setBackground(
+					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
 							new java.awt.Color(255, 0, 0));
 				if (my_grid.getValue(i, j) == 2)
-					playZone.getComponent(j + (7 * i)).setBackground(
+					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
 							new java.awt.Color(255, 255, 0));
 			}
 	}
@@ -221,29 +163,14 @@ public class GUI extends JFrame {
 	}
 
 	public void grey_button(int num) {
-		switch (num) {
-		case 0:
-			play1.setEnabled(false);
-			break;
-		case 1:
-			play2.setEnabled(false);
-			break;
-		case 2:
-			play3.setEnabled(false);
-			break;
-		case 3:
-			play4.setEnabled(false);
-			break;
-		case 4:
-			play5.setEnabled(false);
-			break;
-		case 5:
-			play6.setEnabled(false);
-			break;
-		case 6:
-			play7.setEnabled(false);
-			break;
+		int j = 0;
+		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
+			JButton n = (JButton) i.next();
+			if (j == num)
+				n.setEnabled(false);
+			j++;
 		}
+
 	}
 
 }
