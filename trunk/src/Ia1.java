@@ -126,7 +126,7 @@ public class Ia1 implements Cpu {
 
 		if (j < 6) {
 			j = real_j + 1;
-			while ((j < 7) && (j < (real_j + 4))
+			while ((j < width) && (j < (real_j + 4))
 					&& (cpugrid.getValue(i, j) == color)) {
 				count_right++;
 				j++;
@@ -152,9 +152,9 @@ public class Ia1 implements Cpu {
 				i--;
 			}
 		}
-		if (i < 5) {
+		if (i < (height-1)) {
 			i = real_i + 1;
-			while ((i < 6) && (i < (real_i + 4))
+			while ((i < height) && (i < (real_i + 4))
 					&& (cpugrid.getValue(i, j) == color)) {
 				count_up++;
 				i++;
@@ -187,10 +187,10 @@ public class Ia1 implements Cpu {
 			}
 		}
 
-		if ((i < 5) && (j < 6)) {
+		if ((i < (height-1)) && (j < (width-1))) {
 			i = real_i + 1;
 			j = real_j + 1;
-			while ((i < 6) && (i < (real_i + 4)) && (j < 7)
+			while ((i < height) && (i < (real_i + 4)) && (j < width)
 					&& (j < (real_j + 4)) && (cpugrid.getValue(i, j) == color)) {
 				count2++;
 				i++;
@@ -204,10 +204,10 @@ public class Ia1 implements Cpu {
 		count1 = 0;
 		count2 = 0;
 
-		if ((i > 0) && (j < 6)) {
+		if ((i > 0) && (j < (width-1))) {
 			i = real_i - 1;
 			j = real_j + 1;
-			while ((i >= 0) && (i > (real_i - 4)) && (j < 7)
+			while ((i >= 0) && (i > (real_i - 4)) && (j < width)
 					&& (j < (real_j + 4)) && (cpugrid.getValue(i, j) == color)) {
 				count1++;
 				i--;
@@ -215,10 +215,10 @@ public class Ia1 implements Cpu {
 			}
 		}
 
-		if ((i < 5) && (j > 0)) {
+		if ((i < (height-1)) && (j > 0)) {
 			i = real_i + 1;
 			j = real_j - 1;
-			while ((i < 6) && (i < (real_i + 4)) && (j >= 0)
+			while ((i < height) && (i < (real_i + 4)) && (j >= 0)
 					&& (j >= (real_j - 4)) && (cpugrid.getValue(i, j) == color)) {
 				count2++;
 				i++;
