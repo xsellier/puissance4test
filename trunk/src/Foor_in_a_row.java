@@ -157,6 +157,6 @@ public class Foor_in_a_row implements rules{
 		for (i = 0; i < grid.getWidth(); i++)
 			if (grid.getValue(0, i) != 0)
 				app.grey_button(i);
-
 	}
+	
 }
