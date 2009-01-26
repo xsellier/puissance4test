@@ -6,7 +6,7 @@ public class Ia1 implements Cpu {
 	private DataStructure cpugrid;
 	private int last_played;
 	private int[] playable;
-
+	private rules rule;
 	private int height; /* hauteur */
 	private int width; /* largeur */
 
@@ -17,8 +17,9 @@ public class Ia1 implements Cpu {
 		width = cpugrid.getWidth();
 	};
 
-	public int play(int played) {
+	public int play(int played, rules new_rule) {
 		last_played = played;
+		rule = new_rule;
 		if (mode == 1)
 			return easy_cpu();
 		return perfect_cpu();
@@ -109,128 +110,7 @@ public class Ia1 implements Cpu {
 
 	}
 
-	private boolean check_line(int i, int j, int color) {
-		int count_left = 0;
-		int count_right = 0;
 
-		int real_j = j;
-
-		if (j > 0) {
-			j = real_j - 1;
-			while ((j >= 0) && (j > (real_j - 4))
-					&& (cpugrid.getValue(i, j) == color)) {
-				count_left++;
-				j--;
-			}
-		}
-
-		if (j < 6) {
-			j = real_j + 1;
-			while ((j < width) && (j < (real_j + 4))
-					&& (cpugrid.getValue(i, j) == color)) {
-				count_right++;
-				j++;
-			}
-		}
-		if ((count_left + count_right) >= 3)
-			return true;
-		else
-			return false;
-	}
-
-	private boolean check_col(int i, int j, int color) {
-		int count_up = 0;
-		int count_down = 0;
-
-		int real_i = i;
-
-		if (i > 0) {
-			i = real_i - 1;
-			while ((i >= 0) && (i > (real_i - 4))
-					&& (cpugrid.getValue(i, j) == color)) {
-				count_down++;
-				i--;
-			}
-		}
-		if (i < (height-1)) {
-			i = real_i + 1;
-			while ((i < height) && (i < (real_i + 4))
-					&& (cpugrid.getValue(i, j) == color)) {
-				count_up++;
-				i++;
-			}
-		}
-
-		if ((count_up + count_down) >= 3)
-			return true;
-		else
-			return false;
-
-	}
-
-	private boolean check_diag(int i, int j, int color) {
-
-		int count1 = 0;
-		int count2 = 0;
-
-		int real_i = i;
-		int real_j = j;
-
-		if ((i > 0) && (j > 0)) {
-			i = real_i - 1;
-			j = real_j - 1;
-			while ((i >= 0) && (i > (real_i - 4)) && (j >= 0)
-					&& (j > (real_j - 4)) && (cpugrid.getValue(i, j) == color)) {
-				count1++;
-				i--;
-				j--;
-			}
-		}
-
-		if ((i < (height-1)) && (j < (width-1))) {
-			i = real_i + 1;
-			j = real_j + 1;
-			while ((i < height) && (i < (real_i + 4)) && (j < width)
-					&& (j < (real_j + 4)) && (cpugrid.getValue(i, j) == color)) {
-				count2++;
-				i++;
-				j++;
-			}
-		}
-
-		if ((count1 + count2) >= 3)
-			return true;
-
-		count1 = 0;
-		count2 = 0;
-
-		if ((i > 0) && (j < (width-1))) {
-			i = real_i - 1;
-			j = real_j + 1;
-			while ((i >= 0) && (i > (real_i - 4)) && (j < width)
-					&& (j < (real_j + 4)) && (cpugrid.getValue(i, j) == color)) {
-				count1++;
-				i--;
-				j++;
-			}
-		}
-
-		if ((i < (height-1)) && (j > 0)) {
-			i = real_i + 1;
-			j = real_j - 1;
-			while ((i < height) && (i < (real_i + 4)) && (j >= 0)
-					&& (j >= (real_j - 4)) && (cpugrid.getValue(i, j) == color)) {
-				count2++;
-				i++;
-				j--;
-			}
-		}
-
-		if ((count1 + count2) >= 3)
-			return true;
-
-		return false;
-	}
 
 	private void winning_playable() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
@@ -240,8 +120,8 @@ public class Ia1 implements Cpu {
 						|| (cpugrid.getValue(j, i) == 0 && j == height - 1)) {
 
 					cpugrid.setValue(j, i, 2);
-					if (check_diag(j, i, 2) || check_col(j, i, 2)
-							|| check_line(j, i, 2)) {
+					if (rule.check_diag(j, i, 2, cpugrid) || rule.check_col(j, i, 2, cpugrid)
+							|| rule.check_line(j, i, 2, cpugrid)) {
 						playable[i] = 3;
 					}
 					cpugrid.setValue(j, i, 0);
@@ -263,8 +143,8 @@ public class Ia1 implements Cpu {
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((check_diag(l, k, 1) || check_col(l, k, 1) || check_line(
-										l, k, 1))
+								if ((rule.check_diag(l, k, 1, cpugrid) || rule.check_col(l, k, 1, cpugrid) || rule.check_line(
+										l, k, 1, cpugrid))
 										&& playable[i] != 3) {
 									playable[k] = 1;
 								}
@@ -279,8 +159,8 @@ public class Ia1 implements Cpu {
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((check_diag(l, k, 1) || check_col(l, k, 1) || check_line(
-										l, k, 1))
+								if ((rule.check_diag(l, k, 1, cpugrid) || rule.check_col(l, k, 1, cpugrid) || rule.check_line(
+										l, k, 1, cpugrid))
 										&& playable[i] != 3 && playable[i] != 1) {
 									playable[k] = 6;
 									cpugrid.setValue(l, k, 0);
@@ -291,8 +171,8 @@ public class Ia1 implements Cpu {
 							}
 						}
 					}
-					if (check_diag(j, i, 1) || check_col(j, i, 1)
-							|| check_line(j, i, 1))
+					if (rule.check_diag(j, i, 1, cpugrid) || rule.check_col(j, i, 1, cpugrid)
+							|| rule.check_line(j, i, 1, cpugrid))
 						playable[i] = 6;
 					cpugrid.setValue(j, i, 0);
 				}
@@ -313,7 +193,7 @@ public class Ia1 implements Cpu {
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((check_diag(l, k, 2) || check_line(l, k, 2))
+								if ((rule.check_diag(l, k, 2, cpugrid) || rule.check_line(l, k, 2, cpugrid))
 										&& playable[i] == 0) {
 									playable[k] = 2;
 								}
@@ -340,7 +220,7 @@ public class Ia1 implements Cpu {
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((check_diag(l, k, 2) || check_line(l, k, 2))
+								if ((rule.check_diag(l, k, 2, cpugrid) || rule.check_line(l, k, 2, cpugrid))
 										&& playable[i] == 0) {
 									playable[i] = 5;
 								}
