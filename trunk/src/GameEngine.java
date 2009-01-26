@@ -8,8 +8,8 @@ public class GameEngine {
 	private GUI app;
 	private int mode;
 	private rules rule;
-    private Player player1;
-    private Player player2;
+	private Player player1;
+	private Player player2;
 	int counter;
 
 	@SuppressWarnings("deprecation")
@@ -23,42 +23,53 @@ public class GameEngine {
 		app.setLocation(100, 100);
 		app.show();
 	}
-	
-	public void start(int my_mode){
+
+	public void start(int my_mode) {
 		this.mode = my_mode;
 		counter = 0;
-         player1 = new HumanPlayer(app,grid);
-		if(mode==0){
-            player2 = new HumanPlayer(app,grid);
+		player1 = new HumanPlayer();
+		if (mode == 0) {
+			player2 = new HumanPlayer();
 			start(); // human vs human
-		}
-		else{
-            player2 = new CpuPlayer(app,grid,my_mode,rule);
+		} else {
+			player2 = new CpuPlayer(my_mode, rule);
 			start();
 		}
 	}
 
 	public void start() {
 
-		while ((!rule.isComplete(grid)) && (counter < grid.getWidth() * grid.getHeight())) {
-            currently_played = player1.play(grid, app);
-            check_grid();
-            currently_played = player2.play(grid, app);
-            check_grid();
+		while ((!rule.isComplete(grid))
+				&& (counter < grid.getWidth() * grid.getHeight())) {
+			if (!current_player) { // Player 1
+				currently_played = player1.play(grid, app);
+				while (!rule.check_play(currently_played, grid))
+					currently_played = player1.play(grid, app);
+			} else { // Player 2
+				currently_played = player2.play(grid, app);
+				while (!rule.check_play(currently_played, grid))
+					currently_played = player1.play(grid, app);
+			}
+			check_grid();
+			rule.grey_out(app, grid);
+			counter++;
 		}
-
-		app.game_ended(!current_player);
+		if (rule.isComplete(grid))
+			app.game_ended(!current_player);
+		else
+			app.game_ended();
+		System.out.print("");
 	}
 
-    public void check_grid(){
-        if (rule.check_play(currently_played, grid)) {
-				update_grid();
-                current_player = !current_player;
-				app.updateScreen(grid);
-                } else {
-				System.out.print("");
-			}
-    }
+	public void check_grid() {
+		if (rule.check_play(currently_played, grid)) {
+			update_grid();
+			current_player = !current_player;
+			app.updateScreen(grid);
+		} else {
+			System.out.print("");
+		}
+	}
 
 	private void update_grid() {
 		int value = currently_played;
@@ -75,9 +86,9 @@ public class GameEngine {
 
 		if (empty) {
 			if (current_player == false)
-				grid.setValue(grid.getHeight()-1, value, 1);
+				grid.setValue(grid.getHeight() - 1, value, 1);
 			else
-				grid.setValue(grid.getHeight()-1, value, 2);
+				grid.setValue(grid.getHeight() - 1, value, 2);
 		} else {
 			if (i != 0) {
 				if (current_player == false)
@@ -90,15 +101,8 @@ public class GameEngine {
 	}
 
 	/*
-	 * Unused method
-	private ArrayList<Integer> playable() {
-		int i;
-		ArrayList<Integer> cols = new ArrayList<Integer>();
-		for (i = 0; i < 7; i++) {
-			if (check_play(i))
-				cols.add(i);
-		}
-		return cols;
-	}
-	*/
+	 * Unused method private ArrayList<Integer> playable() { int i;
+	 * ArrayList<Integer> cols = new ArrayList<Integer>(); for (i = 0; i < 7;
+	 * i++) { if (check_play(i)) cols.add(i); } return cols; }
+	 */
 }

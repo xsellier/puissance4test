@@ -11,17 +11,13 @@ package src;
  */
 public class CpuPlayer implements Player {
 
-    private GUI gui;
-   private DataStructure data;
    private int mode;
    public int currently_played;
    private rules rule;
 
 
-    public CpuPlayer(GUI gui, DataStructure data, int mode, rules rule){
-        this.data = data;
-        this.gui = gui ;
-        this.mode = mode;
+    public CpuPlayer(int mode, rules rule){
+          this.mode = mode;
         this.rule = rule;
     }
 
