@@ -12,7 +12,7 @@ public class GameEngine {
 	int counter;
 
 	@SuppressWarnings("deprecation")
-	public GameEngine(int my_mode) {
+	public GameEngine() {
 		this.grid = new DataStructure(6, 7);
 		this.current_player = false;
 
@@ -21,23 +21,17 @@ public class GameEngine {
 		app.setSize(500, 550);
 		app.setLocation(100, 100);
 		app.show();
-
+	}
+	
+	public void start(int my_mode){
 		this.mode = my_mode;
 		counter = 0;
 
-		switch (mode) {
-		case 0: {
+		if(mode==0){
 			start0(); // human vs human
-			break;
 		}
-		case 1: {
+		else{
 			start1();
-			break;
-		}
-		case 2: {
-			start1();
-			break;
-		}
 		}
 	}
 
