@@ -8,8 +8,6 @@ public class GameEngine {
 	private GUI app;
 	private int mode;
 	private rules rule;
-	//private Player player1;
-	private Player player2;
 	int counter;
 
 	@SuppressWarnings("deprecation")
@@ -27,13 +25,10 @@ public class GameEngine {
 	public void start(int my_mode){
 		this.mode = my_mode;
 		counter = 0;
-		//player1 = new Human();
 		if(mode==0){
-			//player2 = new Human();
 			start0(); // human vs human
 		}
 		else{
-			player2 = new Ia_foor_in_a_row();
 			start1();
 		}
 	}
@@ -67,6 +62,7 @@ public class GameEngine {
 				app.played = false;
 				currently_played = app.choice;
 			} else { // launch Cpu
+				Cpu player2=new Ia_foor_in_a_row();
 				player2.initialize(grid, mode);
 				currently_played = player2.play(app.choice,rule);
 			}
