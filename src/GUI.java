@@ -156,12 +156,25 @@ public class GUI extends JFrame {
 	}
 
 	public void game_ended(boolean winner) {
+		grey_all_button();
 		if (!winner)
 			outPut.setText("Joueur 1 a gagne !~");
 		else
 			outPut.setText("Joueur 2 a gagne !~");
 	}
+	
+	public void game_ended() {
+		grey_all_button();
+		outPut.setText("Match nul !~");
+	}
 
+	public void grey_all_button(){
+		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
+			JButton n = (JButton) i.next();
+				n.setEnabled(false);
+		}
+	}
+	
 	public void grey_button(int num) {
 		int j = 0;
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
