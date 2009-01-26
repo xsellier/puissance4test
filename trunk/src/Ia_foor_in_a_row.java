@@ -1,6 +1,6 @@
 package src;
 
-public class Ia1 implements Cpu {
+public class Ia_foor_in_a_row implements Cpu {
 
 	private int mode;
 	private DataStructure cpugrid;
