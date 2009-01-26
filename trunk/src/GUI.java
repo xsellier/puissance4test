@@ -23,7 +23,7 @@ public class GUI extends JFrame {
 
 	public int choice;
 	public boolean played;
-
+	public boolean reset = false;
 	public GUI() {
 		played = false;
 	}
@@ -89,7 +89,7 @@ public class GUI extends JFrame {
 
 		jPanel2.setLayout(new java.awt.GridLayout(1, 3));
 
-		NewButton.setText("Nouveau");
+		NewButton.setText("Reset");
 		NewButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				NewButActionPerformed(evt);
@@ -133,7 +133,7 @@ public class GUI extends JFrame {
 	}
 
 	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {
-
+		reset=true;
 	}
 
 	private void exitForm(java.awt.event.WindowEvent evt) {
@@ -172,6 +172,14 @@ public class GUI extends JFrame {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
 				n.setEnabled(false);
+		}
+		NewButton.setEnabled(false);
+	}
+
+	public void enable_all_button(){
+		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
+			JButton n = (JButton) i.next();
+				n.setEnabled(true);
 		}
 	}
 	

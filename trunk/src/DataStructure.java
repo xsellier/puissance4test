@@ -43,8 +43,14 @@ public class DataStructure {
 		}
 	}
 
+	public void reset_matrix(){
+		for(int i=0;i<width;++i)
+			for(int j=0;j<height;++j)
+				setValue(j, i, 0);
+	}
+	
 	public boolean setValue(int i, int j, int color) {
-		if(i>=6 || j>=7)
+		if(i>=height || j>=width)
 			return false;
 		else{
 		matrix[i][j] = color;
