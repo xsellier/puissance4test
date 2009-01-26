@@ -43,10 +43,19 @@ public class GameEngine {
 				&& (counter < grid.getWidth() * grid.getHeight())) {
 			if (!current_player) { // Player 1
 				currently_played = player1.play(grid, app);
+				if(currently_played==-2){
+					reset_grid();
+					continue;
+				}
 				while (!rule.check_play(currently_played, grid))
 					currently_played = player1.play(grid, app);
 			} else { // Player 2
 				currently_played = player2.play(grid, app);
+				if(currently_played==-2){
+					reset_grid();
+					current_player=!current_player;
+					continue;
+				}
 				while (!rule.check_play(currently_played, grid))
 					currently_played = player1.play(grid, app);
 			}
@@ -61,6 +70,13 @@ public class GameEngine {
 		System.out.print("");
 	}
 
+	public void reset_grid(){
+		grid.reset_matrix();
+		app.reset=false;
+		app.enable_all_button();
+		app.updateScreen(grid);
+	}
+	
 	public void check_grid() {
 		if (rule.check_play(currently_played, grid)) {
 			update_grid();
@@ -70,7 +86,7 @@ public class GameEngine {
 			System.out.print("");
 		}
 	}
-
+	
 	private void update_grid() {
 		int value = currently_played;
 		int i = 0;
