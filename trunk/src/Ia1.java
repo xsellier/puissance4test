@@ -471,9 +471,6 @@ public class Ia1 implements Cpu {
 
 		if (result == -1) {
 			strategy();
-			for(int i=0; i < width;++i)
-				System.out.print(i + " " + playable[i] + " ");
-			System.out.println();
 			result = next_choice();
 		}
 
