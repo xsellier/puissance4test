@@ -3,6 +3,7 @@ package src;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Menu extends JFrame {
     
     private javax.swing.JButton close;

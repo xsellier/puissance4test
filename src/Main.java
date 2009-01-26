@@ -1,9 +1,8 @@
 package src;
 
-import java.util.Scanner;
-
 public class Main {
-        public static void main(String[] args) {
+        @SuppressWarnings("deprecation")
+		public static void main(String[] args) {
 
 		Menu my_menu = new Menu();
 		my_menu.initMenu();
@@ -14,8 +13,8 @@ public class Main {
                 while(!my_menu.pushed)
 		    System.out.print("");
 
-		GameEngine g = new GameEngine(my_menu.choice);
-		
+		GameEngine g = new GameEngine();
+		g.start(my_menu.choice);
         }
 }
 
