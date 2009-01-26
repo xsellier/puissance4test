@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package src;
 
@@ -10,22 +6,21 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 
-	// Variables graphiques
-	private javax.swing.JButton NewBut;
+	private javax.swing.JButton NewButton;
 	private javax.swing.JButton close;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JToggleButton jToggleButton1;
+	private javax.swing.JScrollPane jScrollPane;
+	private javax.swing.JToggleButton jToggleButton;
 	private javax.swing.JLabel outPut;
-	private javax.swing.JButton play;
+	private javax.swing.JButton play1;
 	private javax.swing.JButton play2;
 	private javax.swing.JButton play3;
 	private javax.swing.JButton play4;
 	private javax.swing.JButton play5;
 	private javax.swing.JButton play6;
 	private javax.swing.JButton play7;
-	private javax.swing.JPanel playGroundPan;
+	private javax.swing.JPanel playGround;
 	private javax.swing.JPanel playZone;
 	private javax.swing.JLabel title;
 
@@ -43,14 +38,14 @@ public class GUI extends JFrame {
 			tmpPan.setEnabled(false);
 			playZone.add(tmpPan);
 		}
-		outPut.setText("C'est parti !!!");
+		outPut.setText("C'est parti !");
 	}
 
 	private void initComponents() {
-		jToggleButton1 = new javax.swing.JToggleButton();
-		playGroundPan = new javax.swing.JPanel();
+		jToggleButton = new javax.swing.JToggleButton();
+		playGround = new javax.swing.JPanel();
 		jPanel1 = new javax.swing.JPanel();
-		play = new javax.swing.JButton();
+		play1 = new javax.swing.JButton();
 		play2 = new javax.swing.JButton();
 		play3 = new javax.swing.JButton();
 		play4 = new javax.swing.JButton();
@@ -59,13 +54,13 @@ public class GUI extends JFrame {
 		play7 = new javax.swing.JButton();
 		playZone = new javax.swing.JPanel();
 		jPanel2 = new javax.swing.JPanel();
-		NewBut = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
+		NewButton = new javax.swing.JButton();
+		jScrollPane = new javax.swing.JScrollPane();
 		outPut = new javax.swing.JLabel();
 		close = new javax.swing.JButton();
 		title = new javax.swing.JLabel();
 
-		jToggleButton1.setText("jToggleButton1");
+		jToggleButton.setText("jToggleButton1");
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -73,18 +68,18 @@ public class GUI extends JFrame {
 			}
 		});
 
-		playGroundPan.setLayout(new java.awt.BorderLayout());
+		playGround.setLayout(new java.awt.BorderLayout());
 
 		jPanel1.setLayout(new java.awt.GridLayout(1, 7));
 
-		play.setText("1");
-		play.addActionListener(new java.awt.event.ActionListener() {
+		play1.setText("1");
+		play1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				playIActionPerformed(evt, 0);
 			}
 		});
 
-		jPanel1.add(play);
+		jPanel1.add(play1);
 
 		play2.setText("2");
 		play2.addActionListener(new java.awt.event.ActionListener() {
@@ -140,30 +135,30 @@ public class GUI extends JFrame {
 
 		jPanel1.add(play7);
 
-		playGroundPan.add(jPanel1, java.awt.BorderLayout.SOUTH);
+		playGround.add(jPanel1, java.awt.BorderLayout.SOUTH);
 
 		playZone.setLayout(new java.awt.GridLayout(6, 7));
 
 		playZone.setBackground(new java.awt.Color(51, 51, 255));
-		playGroundPan.add(playZone, java.awt.BorderLayout.CENTER);
+		playGround.add(playZone, java.awt.BorderLayout.CENTER);
 
-		getContentPane().add(playGroundPan, java.awt.BorderLayout.CENTER);
+		getContentPane().add(playGround, java.awt.BorderLayout.CENTER);
 
 		jPanel2.setLayout(new java.awt.GridLayout(1, 3));
 
-		NewBut.setText("Nouveau");
-		NewBut.addActionListener(new java.awt.event.ActionListener() {
+		NewButton.setText("Nouveau");
+		NewButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				NewButActionPerformed(evt);
 			}
 		});
 
-		jPanel2.add(NewBut);
+		jPanel2.add(NewButton);
 
 		outPut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jScrollPane1.setViewportView(outPut);
+		jScrollPane.setViewportView(outPut);
 
-		jPanel2.add(jScrollPane1);
+		jPanel2.add(jScrollPane);
 
 		close.setText("Fermer");
 		close.addActionListener(new java.awt.event.ActionListener() {
@@ -185,23 +180,21 @@ public class GUI extends JFrame {
 		pack();
 	}
 
-	private void playIActionPerformed(java.awt.event.ActionEvent evt, int i) {// GEN-FIRST:event_play7ActionPerformed
+	private void playIActionPerformed(java.awt.event.ActionEvent evt, int i) {
 		choice = i;
 		played = true;
-	}// GEN-LAST:event_play7ActionPerformed
+	}
 
-	private void closeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closeActionPerformed
-		// Add your handling code here:
+	private void closeActionPerformed(java.awt.event.ActionEvent evt) {
 		System.exit(0);
-	}// GEN-LAST:event_closeActionPerformed
+	}
 
-	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NewButActionPerformed
-		// Add your handling code here:
+	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {
 
 	}
 
-	// Exit the Application /
-	private void exitForm(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_exitForm
+
+	private void exitForm(java.awt.event.WindowEvent evt) {
 		System.exit(0);
 	}
 
@@ -225,14 +218,12 @@ public class GUI extends JFrame {
 			outPut.setText("Joueur 1 a gagne !~");
 		else
 			outPut.setText("Joueur 2 a gagne !~");
-
-		// play.setEnabled(false);
 	}
 
 	public void grey_button(int num) {
 		switch (num) {
 		case 0:
-			play.setEnabled(false);
+			play1.setEnabled(false);
 			break;
 		case 1:
 			play2.setEnabled(false);
