@@ -1,7 +1,7 @@
 package src;
 
 public class Foor_in_a_row implements rules{
-	
+
 	public boolean check_line(int i, int j, int color, DataStructure grid) {
 		int count_left = 0;
 		int count_right = 0;
@@ -124,7 +124,7 @@ public class Foor_in_a_row implements rules{
 
 		return false;
 	}
-	
+
 	public boolean isComplete(DataStructure grid) {
 		int color;
 		int i, j;
@@ -143,7 +143,7 @@ public class Foor_in_a_row implements rules{
 		}
 		return false;
 	}
-	
+
 	public boolean check_play(int play, DataStructure grid){
 		if (grid.getValue(0, play) == 0)
 			return true;
@@ -151,12 +151,12 @@ public class Foor_in_a_row implements rules{
 			return true;
 		return false;
 	}
-	
+
 	public void grey_out(GUI app, DataStructure grid) {
 		int i;
 		for (i = 0; i < grid.getWidth(); i++)
 			if (grid.getValue(0, i) != 0)
 				app.grey_button(i);
 	}
-	
+
 }
