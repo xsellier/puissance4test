@@ -24,12 +24,10 @@ public class GUI_own extends JFrame implements GUI {
 	public int choice;
 	public boolean played;
 	public boolean reset;
-	public boolean game_ended;
 	
 	public GUI_own() {
 		reset = false;
 		played = false;
-		game_ended=false;
 	}
 
 	public boolean get_Played(){
@@ -156,10 +154,7 @@ public class GUI_own extends JFrame implements GUI {
 	}
 
 	private void closeActionPerformed(java.awt.event.ActionEvent evt) {
-		if(game_ended)
-			this.dispose();
-		else
-			System.exit(1);
+		System.exit(1);
 	}
 
 	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,10 +162,7 @@ public class GUI_own extends JFrame implements GUI {
 	}
 
 	private void exitForm(java.awt.event.WindowEvent evt) {
-		if(game_ended)
-			this.dispose();
-		else
-			System.exit(1);
+		System.exit(1);
 	}
 
 	/* (non-Javadoc)
@@ -195,7 +187,6 @@ public class GUI_own extends JFrame implements GUI {
 	 * @see src.GUI2#game_ended(boolean)
 	 */
 	public void game_ended(boolean winner) {
-		game_ended=true;
 		grey_all_button();
 		if (!winner)
 			outPut.setText("Joueur 1 a gagne !~");
@@ -207,7 +198,6 @@ public class GUI_own extends JFrame implements GUI {
 	 * @see src.GUI2#game_ended()
 	 */
 	public void game_ended() {
-		game_ended=true;
 		grey_all_button();
 		outPut.setText("Match nul !~");
 	}
