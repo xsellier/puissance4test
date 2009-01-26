@@ -1,6 +1,6 @@
 package src;
 
-public class Ia_foor_in_a_row implements Cpu {
+public class Ia_foor_in_a_row implements Player {
 
 	private int mode;
 	private DataStructure cpugrid;

@@ -8,15 +8,17 @@ public class GameEngine {
 	private GUI app;
 	private int mode;
 	private rules rule;
+	//private Player player1;
+	private Player player2;
 	int counter;
 
 	@SuppressWarnings("deprecation")
 	public GameEngine() {
-		this.grid = new DataStructure(6, 7);
+		this.grid = new DataStructure(10, 10);
 		this.current_player = false;
 		rule = new Foor_in_a_row();
 		app = new GUI();
-		app.initGui();
+		app.initGui(grid);
 		app.setSize(500, 550);
 		app.setLocation(100, 100);
 		app.show();
@@ -25,11 +27,13 @@ public class GameEngine {
 	public void start(int my_mode){
 		this.mode = my_mode;
 		counter = 0;
-
+		//player1 = new Human();
 		if(mode==0){
+			//player2 = new Human();
 			start0(); // human vs human
 		}
 		else{
+			player2 = new Ia_foor_in_a_row();
 			start1();
 		}
 	}
@@ -63,9 +67,8 @@ public class GameEngine {
 				app.played = false;
 				currently_played = app.choice;
 			} else { // launch Cpu
-				Cpu cpu1 = new Ia_foor_in_a_row(); // change this line to use another ai
-				cpu1.initialize(grid, mode);
-				currently_played = cpu1.play(app.choice,rule);
+				player2.initialize(grid, mode);
+				currently_played = player2.play(app.choice,rule);
 			}
 			if (rule.check_play(currently_played,grid)) {
 				update_grid();
