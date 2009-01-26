@@ -23,9 +23,13 @@ public class GUI extends JFrame {
 
 	public int choice;
 	public boolean played;
-	public boolean reset = false;
+	public boolean reset;
+	public boolean game_ended;
+	
 	public GUI() {
+		reset = false;
 		played = false;
+		game_ended=false;
 	}
 
 	public void initGui(DataStructure grid) {
@@ -70,7 +74,7 @@ public class GUI extends JFrame {
 			n.setText(j + "");
 			n.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
-					playIActionPerformed(evt, k-1);
+					playIActionPerformed(evt, k - 1);
 				}
 			});
 			j++;
@@ -129,60 +133,68 @@ public class GUI extends JFrame {
 	}
 
 	private void closeActionPerformed(java.awt.event.ActionEvent evt) {
-		System.exit(0);
+		if(game_ended)
+			this.dispose();
+		else
+			System.exit(1);
 	}
 
 	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {
-		reset=true;
+		reset = true;
 	}
 
 	private void exitForm(java.awt.event.WindowEvent evt) {
-		System.exit(0);
+		if(game_ended)
+			this.dispose();
+		else
+			System.exit(1);
 	}
 
 	public void updateScreen(DataStructure my_grid) {
 		for (int i = 0; i < my_grid.getHeight(); i++)
 			for (int j = 0; j < my_grid.getWidth(); j++) {
 				if (my_grid.getValue(i, j) == 0)
-					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
-							new java.awt.Color(240, 240, 240));
+					playZone.getComponent(j + (my_grid.getWidth() * i))
+							.setBackground(new java.awt.Color(240, 240, 240));
 				if (my_grid.getValue(i, j) == 1)
-					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
-							new java.awt.Color(255, 0, 0));
+					playZone.getComponent(j + (my_grid.getWidth() * i))
+							.setBackground(new java.awt.Color(255, 0, 0));
 				if (my_grid.getValue(i, j) == 2)
-					playZone.getComponent(j + (my_grid.getWidth() * i)).setBackground(
-							new java.awt.Color(255, 255, 0));
+					playZone.getComponent(j + (my_grid.getWidth() * i))
+							.setBackground(new java.awt.Color(255, 255, 0));
 			}
 	}
 
 	public void game_ended(boolean winner) {
+		game_ended=true;
 		grey_all_button();
 		if (!winner)
 			outPut.setText("Joueur 1 a gagne !~");
 		else
 			outPut.setText("Joueur 2 a gagne !~");
 	}
-	
+
 	public void game_ended() {
+		game_ended=true;
 		grey_all_button();
 		outPut.setText("Match nul !~");
 	}
 
-	public void grey_all_button(){
+	public void grey_all_button() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
-				n.setEnabled(false);
+			n.setEnabled(false);
 		}
 		NewButton.setEnabled(false);
 	}
 
-	public void enable_all_button(){
+	public void enable_all_button() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
-				n.setEnabled(true);
+			n.setEnabled(true);
 		}
 	}
-	
+
 	public void grey_button(int num) {
 		int j = 0;
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {

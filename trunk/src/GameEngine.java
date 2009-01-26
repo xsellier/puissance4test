@@ -67,7 +67,6 @@ public class GameEngine {
 			app.game_ended(!current_player);
 		else
 			app.game_ended();
-		System.out.print("");
 	}
 
 	public void reset_grid(){
@@ -75,6 +74,7 @@ public class GameEngine {
 		app.reset=false;
 		app.enable_all_button();
 		app.updateScreen(grid);
+		
 	}
 	
 	public void check_grid() {
