@@ -1,7 +1,5 @@
 package src;
 
-import java.util.*;
-
 public class GameEngine {
 
 	private DataStructure grid;
@@ -64,7 +62,7 @@ public class GameEngine {
 				app.played = false;
 				currently_played = app.choice;
 			} else { // launch Cpu
-				Cpu cpu1 = new Ia1(); 
+				Cpu cpu1 = new Ia1(); // change this line to use another ai
 				cpu1.initialize(grid, mode);
 				currently_played = cpu1.play(app.choice);
 			}
