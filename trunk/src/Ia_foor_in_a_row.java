@@ -1,6 +1,6 @@
 package src;
 
-public class Ia_foor_in_a_row implements Player {
+public class Ia_foor_in_a_row implements Cpu {
 
 	private int mode;
 	private DataStructure cpugrid;
@@ -40,7 +40,7 @@ public class Ia_foor_in_a_row implements Player {
 			// attempt
 			// a line 3
 			for (int i = 1; i < height; ++i) {
-				if (cpugrid.getValue(height - i, last_played - 2) == cpugrid
+				if (last_played+1 < height && cpugrid.getValue(height - i, last_played - 2) == cpugrid
 						.getValue(height - i, last_played - 1)
 						&& cpugrid.getValue(height - i, last_played - 1) == cpugrid
 								.getValue(height - i, last_played)
@@ -74,7 +74,7 @@ public class Ia_foor_in_a_row implements Player {
 			if (last_played < height && last_played > 1) // human attempt a line
 				// 2
 				for (int i = 1; i < height; ++i) {
-					if (cpugrid.getValue(height - i, last_played - 1) == cpugrid
+					if (last_played+1 < height && cpugrid.getValue(height - i, last_played - 1) == cpugrid
 							.getValue(height - i, last_played)
 							&& cpugrid.getValue(height - i, last_played + 1) == 0
 							&& cpugrid.getValue(height - i, last_played) != 0)
@@ -85,7 +85,7 @@ public class Ia_foor_in_a_row implements Player {
 			if (last_played > 0 && last_played < height) // human attempt a line
 				// 2
 				for (int i = 1; i < height; ++i) {
-					if (cpugrid.getValue(height - i, last_played + 1) == cpugrid
+					if (last_played+1 < height && cpugrid.getValue(height - i, last_played + 1) == cpugrid
 							.getValue(height - i, last_played)
 							&& cpugrid.getValue(height - i, last_played - 1) == 0
 							&& cpugrid.getValue(height - i, last_played) != 0)

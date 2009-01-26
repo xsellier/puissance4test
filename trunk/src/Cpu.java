@@ -1,6 +1,6 @@
 package src;
 
-public interface Player {
+public interface Cpu {
 
 	public int play(int played, rules new_rule);
 	
