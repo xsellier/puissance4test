@@ -43,8 +43,14 @@ public class DataStructure {
 		}
 	}
 
-	public void setValue(int i, int j, int color) {
+	public boolean setValue(int i, int j, int color) {
+		if(i>=6 || j>=7)
+			return false;
+		else{
 		matrix[i][j] = color;
+		return true;
+		}
+		
 
 	}
 
