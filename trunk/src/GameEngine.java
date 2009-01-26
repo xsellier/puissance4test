@@ -255,10 +255,13 @@ public class GameEngine {
 	private boolean check_play(int play) {
 		if (grid.getValue(0, play) == 0)
 			return true;
+		if(play>=0 && play < grid.getWidth())
+			return true;
 		return false;
 	}
 
-	@SuppressWarnings("unused")
+	/*
+	 * Unused method
 	private ArrayList<Integer> playable() {
 		int i;
 		ArrayList<Integer> cols = new ArrayList<Integer>();
@@ -268,7 +271,7 @@ public class GameEngine {
 		}
 		return cols;
 	}
-
+	 */
 	private void grey_out() {
 		int i;
 		for (i = 0; i < 7; i++)
