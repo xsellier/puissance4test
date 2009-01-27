@@ -6,3 +6,4 @@ public interface Cpu {
 
 	public void initialize(DataStructure grid, int difficulty);
 }
+

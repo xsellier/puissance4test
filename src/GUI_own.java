@@ -248,3 +248,4 @@ public class GUI_own extends JFrame implements GUI {
 	}
 
 }
+

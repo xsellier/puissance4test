@@ -160,3 +160,4 @@ public class Foor_in_a_row implements rules{
 	}
 
 }
+
