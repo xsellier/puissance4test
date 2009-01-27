@@ -27,9 +27,9 @@ public class GUI_own extends JFrame implements GUI {
 	public boolean game_ended;
 	
 	public GUI_own() {
-		reset = false;
-		played = false;
-		game_ended=false;
+		reset = false; // initialize reset
+		played = false; // initialize played
+		game_ended=false; // initialise game_ended
 	}
 
 	public boolean get_Played(){
@@ -52,9 +52,6 @@ public class GUI_own extends JFrame implements GUI {
 		this.reset=reset;
 	}
 	
-	/* (non-Javadoc)
-	 * @see src.GUI2#initGui(src.DataStructure)
-	 */
 	public void initGui(DataStructure grid) {
 		initComponents(grid);
 		for (int i = 0; i < grid.getHeight() * grid.getWidth(); i++) {
@@ -91,6 +88,10 @@ public class GUI_own extends JFrame implements GUI {
 		playGround.setLayout(new java.awt.BorderLayout());
 
 		jPanel1.setLayout(new java.awt.GridLayout(1, grid.getWidth()));
+		
+		/* 
+		 * create a button for each columns
+		 */
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			final int k = j;
 			JButton n = (JButton) i.next();
@@ -150,24 +151,28 @@ public class GUI_own extends JFrame implements GUI {
 		pack();
 	}
 
+	// a player has played
 	private void playIActionPerformed(java.awt.event.ActionEvent evt, int i) {
 		choice = i;
 		played = true;
 	}
 
+	// close game or window game
 	private void closeActionPerformed(java.awt.event.ActionEvent evt) {
-		if(game_ended)
+		if(game_ended) // if game is end, another menu has appear so we just close grid windows
 			this.dispose();
 		else
 			System.exit(1);
 	}
 
+	// reset grid
 	private void NewButActionPerformed(java.awt.event.ActionEvent evt) {
 		reset = true;
 	}
 
+	// close game or window game
 	private void exitForm(java.awt.event.WindowEvent evt) {
-		if(game_ended)
+		if(game_ended) // if game is end, another menu has appear so we just close grid windows
 			this.dispose();
 		else
 			System.exit(1);
@@ -191,30 +196,23 @@ public class GUI_own extends JFrame implements GUI {
 			}
 	}
 
-	/* (non-Javadoc)
-	 * @see src.GUI2#game_ended(boolean)
-	 */
+	// a player wins
 	public void game_ended(boolean winner) {
-		game_ended=true;
-		grey_all_button();
+		game_ended=true; // to close windows
+		grey_all_button(); // to disable buttons
 		if (!winner)
 			outPut.setText("Joueur 1 a gagne !~");
 		else
 			outPut.setText("Joueur 2 a gagne !~");
 	}
 
-	/* (non-Javadoc)
-	 * @see src.GUI2#game_ended()
-	 */
+	// it is a draw
 	public void game_ended() {
-		game_ended=true;
-		grey_all_button();
+		game_ended=true; // to close windows
+		grey_all_button(); // to disable buttons
 		outPut.setText("Match nul !~");
 	}
 
-	/* (non-Javadoc)
-	 * @see src.GUI2#grey_all_button()
-	 */
 	public void grey_all_button() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
@@ -223,9 +221,7 @@ public class GUI_own extends JFrame implements GUI {
 		NewButton.setEnabled(false);
 	}
 
-	/* (non-Javadoc)
-	 * @see src.GUI2#enable_all_button()
-	 */
+	// enable all button
 	public void enable_all_button() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
@@ -233,9 +229,7 @@ public class GUI_own extends JFrame implements GUI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see src.GUI2#grey_button(int)
-	 */
+	//	grey out button number num
 	public void grey_button(int num) {
 		int j = 0;
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {

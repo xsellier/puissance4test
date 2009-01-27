@@ -2,6 +2,7 @@ package src;
 
 public class Foor_in_a_row implements rules{
 
+	// look for a 4 in a line
 	public boolean check_line(int i, int j, int color, DataStructure grid) {
 		int count_left = 0;
 		int count_right = 0;
@@ -31,6 +32,7 @@ public class Foor_in_a_row implements rules{
 			return false;
 	}
 
+	// look for 4 in a column
 	public boolean check_col(int i, int j, int color, DataStructure grid) {
 		int count_up = 0;
 		int count_down = 0;
@@ -61,6 +63,7 @@ public class Foor_in_a_row implements rules{
 
 	}
 
+	// look for 4 in a diagonal
 	public boolean check_diag(int i, int j, int color, DataStructure grid) {
 
 		int count1 = 0;
@@ -125,6 +128,7 @@ public class Foor_in_a_row implements rules{
 		return false;
 	}
 
+	// verify grid complete by a victory
 	public boolean isComplete(DataStructure grid) {
 		int color;
 		int i, j;
@@ -144,6 +148,7 @@ public class Foor_in_a_row implements rules{
 		return false;
 	}
 
+	// validate play into grid
 	public boolean check_play(int play, DataStructure grid){
 		if (grid.getValue(0, play) == 0)
 			return true;
@@ -152,6 +157,7 @@ public class Foor_in_a_row implements rules{
 		return false;
 	}
 
+	// grey out a button if it column is full
 	public void grey_out(GUI app, DataStructure grid) {
 		int i;
 		for (i = 0; i < grid.getWidth(); i++)

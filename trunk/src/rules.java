@@ -2,6 +2,12 @@ package src;
 
 public interface rules {
 
+	/*
+	 * this interface define rules of 4 in a row
+	 * but we can change these rules to another like tic tac toe
+	 * if we change rule, you may change GUI and AI
+	 */
+	
 	public boolean check_diag(int i, int j, int color, DataStructure grid);
 
 	public boolean check_col(int i, int j, int color, DataStructure grid);
