@@ -357,3 +357,4 @@ public class Ia_foor_in_a_row implements Cpu{
 		return result;
 	}
 }
+

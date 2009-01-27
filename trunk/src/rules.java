@@ -14,3 +14,4 @@ public interface rules {
 
 	public void grey_out(GUI app, DataStructure grid);
 }
+
