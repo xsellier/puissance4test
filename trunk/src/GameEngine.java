@@ -77,7 +77,7 @@ public class GameEngine {
 		app.set_Reset(false);
 		app.enable_all_button();
 		app.updateScreen(grid);
-		
+		counter=0;
 	}
 	
 	public void check_grid() {
