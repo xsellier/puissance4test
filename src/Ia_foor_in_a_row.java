@@ -6,9 +6,18 @@ public class Ia_foor_in_a_row implements Cpu{
 	private DataStructure cpugrid;
 	private int last_played;
 	private int[] playable;
+	/* for variable playable */
+	/* 0 Playable */
+	/* 1 Human wins */
+	/* 2 Break strategy */
+	/* 3 Cpu Wins */
+	/* 4 no Playable */
+	/* 5 Strategy */
+	/* 6 Block human */
+
 	private rules rule;
-	private int height; /* hauteur */
-	private int width; /* largeur */
+	private int height;
+	private int width;
 
 	public void initialize(DataStructure grid, int difficulty) {
 		cpugrid = grid;
@@ -18,14 +27,16 @@ public class Ia_foor_in_a_row implements Cpu{
 	};
 
 	public int play(int played, rules new_rule) {
-		last_played = played;
+		last_played = played; // last_position played (by a human player)
 		rule = new_rule;
-		if (mode == 1)
+		if (mode == 1) // easy mode
 			return easy_cpu();
-		return perfect_cpu();
+		return perfect_cpu(); // hard mode
 	}
 
 	public int easy_cpu() {
+		/* for variable result */
+		/* -1 no choice */
 		int result = -1;
 		for (int i = 1; i < width - 3; ++i) { // human attempt a column 3
 			if (cpugrid.getValue(height - i, last_played) == cpugrid.getValue(
@@ -92,7 +103,8 @@ public class Ia_foor_in_a_row implements Cpu{
 						result = last_played - 1;
 				}
 		}
-		if (result == -1) {
+		if (result == -1) { // to choose a position
+							// it is a sequential choice
 			for (int i = 0; i < width; ++i)
 				if (cpugrid.getValue(0, i) == 0)
 					result = i;
@@ -100,6 +112,8 @@ public class Ia_foor_in_a_row implements Cpu{
 		return result;
 	}
 
+	// for IA Hard
+	
 	private void fill_playable() {
 		for (int i = 0; i < width; ++i) {
 			if (cpugrid.getValue(0, i) == 0)
@@ -110,8 +124,7 @@ public class Ia_foor_in_a_row implements Cpu{
 
 	}
 
-
-
+	// if Cpu can win at next token playable[i] = 3
 	private void winning_playable() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
@@ -130,6 +143,8 @@ public class Ia_foor_in_a_row implements Cpu{
 		}
 	}
 
+	// if human can win at next token by cpu playing i (column) playable[i] = 1
+	// if human can win at next token or with tow tokens playable[i] = 6
 	private void no_playable() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
@@ -180,6 +195,8 @@ public class Ia_foor_in_a_row implements Cpu{
 		}
 	}
 
+	// if by playing column i human player can block a 3 in a row playable[i] = 2
+	// because human will be able to break cpu strategy
 	private void break_strategy() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
@@ -207,6 +224,7 @@ public class Ia_foor_in_a_row implements Cpu{
 		}
 	}
 
+	// look for token in line, in column or in diagonal and playable[i] = 5
 	private void strategy(){
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
@@ -234,126 +252,53 @@ public class Ia_foor_in_a_row implements Cpu{
 		}
 	}
 
-	/* for variable result */
-	/* -1 no choice */
-
-	/* for variable playable */
-	/* 0 Playable */
-	/* 1 Human wins */
-	/* 2 Break strategy */
-	/* 3 Cpu Wins */
-	/* 4 no Playable */
-	/* 5 Strategy TODO */
-	/* 6 Block human */
-
-	private int next_choice() {
+	// to optimize calculation
+	public int perfect_cpu() {
+		playable = new int[width];
 		int result = -1;
+		fill_playable();
+		winning_playable();
 		for (int i = 0; i < width; ++i)
-			if (playable[i] == 3)
+			if (playable[i] == 3) // Cpu can win with next token
 				result = i;
-		if (result == -1) {
+		if (result == -1) { // No choice
+			no_playable();
 			for (int i = 0; i < width; ++i)
-				if (playable[i] == 6)
+				if (playable[i] == 6) // Human can win if Cpu doesn't play i
 					result = i;
 		}
-		if (result == -1) {
+		if (result == -1) { // No choice
+			break_strategy();
+			strategy();
 			for (int i = 0; i < width; ++i) {
-				if (playable[i] == 5)
+				if (playable[i] == 5) // Cpu has a strategy
 					result = i;
+				// if game is blocked, playable doesn't contain any 3 or 5, Cpu plays where he can without make human win
+				// Cpu will play at grid center (best probability to win)
 				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0 && result == -1)
 					result = width / 2 + i;
 				else if (i < Math.round(width / 2) && playable[width / 2 - i] == 0 && result == -1)
 					result = width / 2 - i;
 			}
 		}
-		if (result == -1) {
+		if (result == -1) { // choose a border column
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 0)
 					result = i;
 			}
 		}
-		if (result == -1) {
+		if (result == -1) { // choose to break strategy
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 2)
 					result = i;
 			}
 		}
-		if (result == -1) {
+		if (result == -1) { // Cpu lost, but continue to play
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 1)
 					result = i;
 			}
 		}
-
-		return result;
-	}
-
-	public int perfect_cpu() {
-		int nb_pos = 0;
-		int tmp_result = -1;
-		int result = -1;
-		playable = new int[width];
-
-		fill_playable();
-
-		for (int i = 0; i < width; ++i) {
-			if (playable[i] != 4) {
-				tmp_result = i;
-				nb_pos++;
-			}
-		}
-
-		if (nb_pos == 1 && result == -1)
-			result = tmp_result;
-		nb_pos = 0;
-		tmp_result = -1;
-
-		if (result == -1) {
-			winning_playable();
-
-			for (int i = 0; i < width; ++i)
-				if (playable[i] == 3)
-					result = i;
-		}
-
-		if (result == -1) {
-			no_playable();
-			for (int i = 0; i < width; ++i) {
-				if (playable[i] != 4 && playable[i] != 1 && playable[i] != 2
-						&& playable[i] != 6) {
-					tmp_result = i;
-					nb_pos++;
-				}
-				if (playable[i] == 6) {
-					result = i;
-				}
-			}
-			if (nb_pos == 1 && result == -1)
-				result = tmp_result;
-			nb_pos = 0;
-			tmp_result = -1;
-		}
-
-		if (result == -1) {
-			break_strategy();
-			for (int i = 0; i < width; ++i) {
-				if (playable[i] != 4 && playable[i] != 1 && playable[i] != 2
-						&& playable[i] != 6) {
-					tmp_result = i;
-					nb_pos++;
-				}
-			}
-			if (nb_pos == 1 && result == -1)
-				result = tmp_result;
-			nb_pos = 0;
-			tmp_result = -1;
-		}
-
-		if (result == -1) {
-			strategy();
-			result = next_choice();
-		}
-
 		return result;
 	}
 }

@@ -5,6 +5,7 @@ public class DataStructure {
 	private int height;
 	private int width;
 
+	// create a matrix
 	public DataStructure(int height, int width) {
 		if (height < 0)
 			height = 6;
