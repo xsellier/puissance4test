@@ -15,7 +15,7 @@ public class Main {
 			GameEngine g = new GameEngine(); // initialize game
 			my_menu.setVisible(false); // make disappear Menu
 			if(!g.initMode(my_menu.choice)) //  initialize game mode
-					System.exit(0);
+					System.exit(0); // game cannot be initialize
 			g.start(); // launch game
 			my_menu.pushed=false; // re-initialize menu
 			my_menu.setVisible(true); // show menu
