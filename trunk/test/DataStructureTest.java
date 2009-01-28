@@ -14,13 +14,14 @@ public class DataStructureTest extends TestCase{
 	private DataStructure matrix;
 	private DataStructure zero_matrix;
 	private DataStructure negative_matrix;
+	private DataStructure big_matrix;
 	
 	@Before
 	public void setUp(){
 		matrix = new DataStructure(6,7);
 		zero_matrix = new DataStructure(0,0);
 		negative_matrix = new DataStructure(-1,-3);
-		
+		big_matrix = new DataStructure(100,100);
 	}
 
 	
@@ -44,6 +45,15 @@ public class DataStructureTest extends TestCase{
 		
 		int resultZW = zero_matrix.getWidth();
 		assertEquals("la largeur d'une matrice_zero est 0", resultZW , 0);
+	}
+	
+	@Test
+	public void testBigMatrix() {
+		int resultZH = big_matrix.getHeight();
+		assertEquals("la hauteur d'une matrice 100*100 est 100", 100, resultZH);
+		
+		int resultZW = big_matrix.getWidth();
+		assertEquals("la largeur d'une matrice 100*100 est 100", 100 , resultZW);
 	}
 
 	@Test
