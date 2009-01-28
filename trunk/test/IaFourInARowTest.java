@@ -13,8 +13,10 @@ public class IaFourInARowTest {
 	public int main(int argc, String argv){
 		DataStructure grid = new DataStructure(6,7);
 		Rules rule = new FourInARow();
+		Cpu Ia = new IaFourInARow();
 		mode = 1; // easy mode
 		mode = 2; // hard mode
+		Ia.initialize(grid, mode);
 		return 1;
 	}
 	
