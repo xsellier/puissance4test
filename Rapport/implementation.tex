@@ -338,10 +338,46 @@ milieu de la grille. Sinon dans l'ordre des priorités pour
 \texttt{playable[i]} l'ordinateur joue de cette manière : \texttt{3 -
   6 -  5 -  0 -  2 -  1}.
 
-\subsection{Rules}
-\subsubsection{Implémentation}
-
 \subsubsection{Jeux de test}
+
+TODO
+
+\subsection{Rules}
+
+\texttt{Rules} est une interface. Cela nous permet d'implémenter de
+nouvelles règles. Ca peut être utile si on veut transformer notre
+Puissance 4 en Morpion, ou si on veut faire un Puissance 5 ...
+
+\subsubsection{FourInARow}
+Cette classe implémente \texttt{Rules}.
+
+\begin{verbatim}
+    public boolean checkDiag(int i, int j, int color, DataStructure grid);
+    public boolean checkCol(int i, int j, int color, DataStructure grid);
+    public boolean checkLine(int i, int j, int color, DataStructure grid);
+    public boolean isComplete(DataStructure grid);
+    public boolean checkPlay(int play, DataStructure grid);
+    public void greyOut(GUI app, DataStructure grid);
+\end{verbatim}
+
+\texttt{checkDiag()} retourne \texttt{true} si il existe un alignement
+de 4 jetons d'une même couleur en diagonale. Il retourne
+\texttt{false} sinon. \texttt{checkCol()} retourne \texttt{true} si il existe un alignement
+de 4 jetons d'une même couleur en colonne. Il retourne
+\texttt{false} sinon. \texttt{checkLine()} retourne \texttt{true} si il existe un alignement
+de 4 jetons d'une même couleur en Ligne. Il retourne
+\texttt{false} sinon. \texttt{isComplete()} va faire appel aux trois
+méthodes précédentes afin de vérifier si il y a un gagnant. Auquel cas
+cette méthode retourne \texttt{true}, sinon elle renvoie
+\texttt{false}. La méthode \texttt{checkPlay()} vérifie que la
+position passée en argument est jouable, elle renvoie \texttt{true} si
+cést jouable, et \texttt{false} sinon.
+
+La dernière méthode, \texttt{greyOut()}, va quand a elle griser les bouttons des colonnes
+pleines correspondantes.
+
+\subsubsection{Tests de FourInARow}
+TODO
 
 \subsection{GameEngine}
 \subsubsection{Implémentation}
