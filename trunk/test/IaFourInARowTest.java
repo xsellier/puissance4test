@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import src.*;
@@ -9,17 +10,20 @@ import src.*;
 public class IaFourInARowTest {
 
 	int mode;
+	DataStructure grid;
+	Rules rule;
+	Cpu Ia;
 	
-	public int main(int argc, String argv){
-		DataStructure grid = new DataStructure(6,7);
-		Rules rule = new FourInARow();
-		Cpu Ia = new IaFourInARow();
+	@Before
+	public void setUp() throws Exception {
+
+		grid = new DataStructure(6,7);
+		rule = new FourInARow();
+		Ia = new IaFourInARow();
 		mode = 1; // easy mode
 		mode = 2; // hard mode
 		Ia.initialize(grid, mode);
-		return 1;
-	}
-	
+}
 	@Test
 	public void testInitialize() {
 		fail("Not yet implemented");
