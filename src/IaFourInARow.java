@@ -212,7 +212,8 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// to optimize calculation
-	public int perfectCpu() {
+	public int perfectCpu()
+	 {
 		playable = new int[width];
 		int result = -1;
 		fillPlayable();
