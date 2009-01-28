@@ -150,10 +150,9 @@ public class FourInARow implements Rules{
 
 	// validate play into grid
 	public boolean checkPlay(int play, DataStructure grid){
-		if (grid.getValue(0, play) == 0)
-			return true;
 		if(play>=0 && play < grid.getWidth())
-			return true;
+			if (grid.getValue(0, play) == 0)
+				return true;
 		return false;
 	}
 
