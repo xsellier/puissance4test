@@ -7,9 +7,9 @@ public class DataStructure {
 
 	// create a matrix
 	public DataStructure(int height, int width) {
-		if (height < 0)
+		if (height < 6)
 			height = 6;
-		if (width < 0)
+		if (width < 7)
 			width = 7;
 		this.height = height;
 		this.width = width;
