@@ -49,7 +49,7 @@ public class GameEngine {
 		app.dispose(); // make disappear GUI and close it
 	}
 	
-	public void start() {
+	public boolean start() {
 
 		while ((!rule.isComplete(grid))
 				&& (counter < grid.getWidth() * grid.getHeight())) {
@@ -66,6 +66,7 @@ public class GameEngine {
 						continue;
 					}
 				}
+			
 			} else { // Player 2 plays (can be a Cpu or an human
 				currently_played = player2.play(grid, app);
 				if(currently_played==-2){
@@ -86,10 +87,14 @@ public class GameEngine {
 			rule.greyOut(app, grid); // if column is complete, grey out it button
 			counter++; // increment counter
 		}
-		if (rule.isComplete(grid))
+		if (rule.isComplete(grid)){
 			app.gameEnded(!current_player); // A player wins
+			return current_player;
+		}
+		
 		else
 			app.gameEnded(); // it's a draw
+		return !current_player;
 	}
 
 	public void resetGrid(){
@@ -138,7 +143,12 @@ public class GameEngine {
 		}
 
 	}
+	
+	public int getMode(){
+		return mode;
+	}
 
+	
 	/*
 	 * Unused method private ArrayList<Integer> playable() { int i;
 	 * ArrayList<Integer> cols = new ArrayList<Integer>(); for (i = 0; i < 7;
