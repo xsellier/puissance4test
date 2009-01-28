@@ -9,7 +9,7 @@ public class CpuPlayer implements Player {
 	 * 2 - Human vs Cpu Hard
 	 */
 	
-	public int currently_played; // actual player
+	private int currently_played;
 	private Rules rule; // rule of 4 in a row
 
 	public CpuPlayer(int mode, Rules rule) {
