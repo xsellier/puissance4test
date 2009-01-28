@@ -1,0 +1,40 @@
+% -*- mode: latex; coding: latin-1-unix -*- %
+
+\section{Spécifications}
+Le programme ici spécifié donne la possibilité à un utilisateur de jouer au jeu 'Puissance 4' dans les conditions décrites ci-dessous:
+
+\subsection{Application des règles de puissance 4}
+
+Règles concernant les joueurs:\newline
+Le jeu se fait intervenir deux joueurs. Chaque joueur possède des jetons d'une couleur propre et ajoute lors de chaque tour un jeton dans une des colonnes d'une grille de dimensions n x m (par défaut 6 x 7). Un joueur est déclaré gagnant s'il aligne quatre jetons verticalement, horizontalement ou en diagonale dans la grille. Si la grille est remplie alors qu'aucun joueur n'a été déclaré gagnant, la partie est nulle.\newline\newline
+
+Propriétés de la grille:\newline
+Pour jouer à Puissance 4, on utilise comme support une grille dont les dimensions standard sont de 6 lignes et 7 colonnes, que l'on numérotera respectivement de 0 à 5 et de 0 à 6. Ce support doit être présent dans notre programme.\newline\newline
+
+Déroulement de la partie:\newline
+Au début de la partie, la grille est vide. Pendant la partie, des jetons de 2 couleurs différentes sont ajoutés successivement dans la grille jusqu'à ce qu'elle soit remplie ou que l'un des joueurs forme un alignement de 4 jetons de sa couleur. Un jeton est ajouté à la grille en fournissant le numéro de colonne. En effet, le numéro de ligne ne fait pas partie du choix du joueur dans le sens où un jeton descend nécessairement au niveau le plus bas accessible dans la grille. Par exemple, le premier jeton descend à la ligne numero 5 (la plus basse). Si une colonne est remplie (6 jetons on été insérés dans la même colonne), aucun joueur ne peut jouer de jeton dans cette colonne jusqu'à la fin de la partie.\newline\newline
+
+On s'assurera que chacune de ces règles sera respectée dans notre programme.\newline
+
+\subsection{Configurations de jeu et types de joueurs}
+
+ Un joueur peut être un humain ou une entité controllée par l'ordinateur. Ainsi, on peut avoir les configurations de jeu suivantes: cpu vs joueur ou joueur vs joueur.
+Quelle que soit la configuration, le programme contiendra une entité représentant le joueur 1 et le joueur 2. En fonction du mode choisi par l'utilisateur, le joueur 2 sera humain ou controllé par l'ordinateur. Le joueur 1 sera toujours humain. Un humain commence toujours la partie.\newline\newline
+
+- IA : tous les deux tours la main est donnée à l'ordinateur. On veut pouvoir choisir différents niveaux de difficulté (i.e: l'ordinateur est plus ou moins performant selon le niveau choisi). Il doit être possible d'ajouter de nouveaux modes de difficulté facilement. Chaque niveau sera représenté par un algorithme qui déterminera le prochain coup que l'ordinateur va jouer (i.e le prochain numéro de colonne).\newline\newline
+
+- humain : tous les deux tours la main est donnée à l'utilisateur. A chaque fois que le tour d'un humain vient, le programme attendra que l'utilisateur saisisse son choix.\newline\newline
+
+Quelque soit le type de joueur, un choix de colonne doit être effectué à chaque tour de manière à ce que le programme s'exécute correctement. Dans le cas du joueur humain, on attendra que l'utilisateur fasse son choix grâce à une interaction avec l'interface (graphique ou dans le terminal).
+
+
+\subsection{Visualisation}
+
+ L'utilisateur du programme doit pouvoir visualiser en temps réel le déroulement du jeu, c'est-à-dire les coups joués par l'ordinateur ou l'humain. Dans un premier temps, on utilisera un affichage en mode console, puis si le planning le permet, une interface graphique plus agréable pour l'utilisateur. L'outil de visualisation doit être facilement interchangeable.\newline
+En premier lieu, l'utilisateur doit pourvoir choisir, au travers de l'interface, quel type de configuration il souhaite utiliser et instancier une partie.\newline
+Ensuite, lors du déroulement de la partie, il doit pouvoir connaître grâce à l'affichage quels sont les coups qui ont été joués jusqu'à l'instant où il lui est demandé de jouer. Enfin, il doit pouvoir interagir avec le panneau visuel de manière à faire connaître son choix pour le coup en cours au programme lorsque c'est à lui de jouer. Lorsqu'une partie est terminée, l'utilisateur doit être averti de l'issue de celle-ci (joueur 1 gagne, joueur 2 gagne ou match nul).
+Eventuellement, il doit alors pouvoir jouer une nouvelle partie.\newline
+
+\subsection{Tests associés}
+
+a voir avec le groupe
