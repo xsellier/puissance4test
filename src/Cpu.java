@@ -14,9 +14,15 @@ public interface Cpu {
 	public int play(Rules new_rule);
 
 	public void initialize(DataStructure grid, int difficulty);
-	
+
+	public int[] getPlayable();
+
 	public int getHeight();
 	
+	public int getWidth();
 	
+	public int getMode();
+	
+	public void setPlayable(int i, int value);
 }
 

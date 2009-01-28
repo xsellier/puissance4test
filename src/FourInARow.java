@@ -1,6 +1,6 @@
 package src;
 
-public class FourInARow implements Rules{
+public class FourInARow implements Rules {
 
 	// look for a 4 in a line
 	public boolean checkLine(int i, int j, int color, DataStructure grid) {
@@ -8,7 +8,8 @@ public class FourInARow implements Rules{
 		int count_right = 0;
 
 		int real_j = j;
-
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+			return false;
 		if (j > 0) {
 			j = real_j - 1;
 			while ((j >= 0) && (j > (real_j - 4))
@@ -28,8 +29,7 @@ public class FourInARow implements Rules{
 		}
 		if ((count_left + count_right) >= 3)
 			return true;
-		else
-			return false;
+		return false;
 	}
 
 	// look for 4 in a column
@@ -39,6 +39,9 @@ public class FourInARow implements Rules{
 
 		int real_i = i;
 
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+			return false;
+
 		if (i > 0) {
 			i = real_i - 1;
 			while ((i >= 0) && (i > (real_i - 4))
@@ -47,7 +50,7 @@ public class FourInARow implements Rules{
 				i--;
 			}
 		}
-		if (i < (grid.getHeight()-1)) {
+		if (i < (grid.getHeight() - 1)) {
 			i = real_i + 1;
 			while ((i < grid.getHeight()) && (i < (real_i + 4))
 					&& (grid.getValue(i, j) == color)) {
@@ -72,6 +75,9 @@ public class FourInARow implements Rules{
 		int real_i = i;
 		int real_j = j;
 
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+			return false;
+
 		if ((i > 0) && (j > 0)) {
 			i = real_i - 1;
 			j = real_j - 1;
@@ -83,11 +89,12 @@ public class FourInARow implements Rules{
 			}
 		}
 
-		if ((i < (grid.getHeight()-1)) && (j < (grid.getWidth()-1))) {
+		if ((i < (grid.getHeight() - 1)) && (j < (grid.getWidth() - 1))) {
 			i = real_i + 1;
 			j = real_j + 1;
-			while ((i < grid.getHeight()) && (i < (real_i + 4)) && (j < grid.getWidth())
-					&& (j < (real_j + 4)) && (grid.getValue(i, j) == color)) {
+			while ((i < grid.getHeight()) && (i < (real_i + 4))
+					&& (j < grid.getWidth()) && (j < (real_j + 4))
+					&& (grid.getValue(i, j) == color)) {
 				count2++;
 				i++;
 				j++;
@@ -100,7 +107,7 @@ public class FourInARow implements Rules{
 		count1 = 0;
 		count2 = 0;
 
-		if ((i > 0) && (j < (grid.getWidth()-1))) {
+		if ((i > 0) && (j < (grid.getWidth() - 1))) {
 			i = real_i - 1;
 			j = real_j + 1;
 			while ((i >= 0) && (i > (real_i - 4)) && (j < grid.getWidth())
@@ -111,7 +118,7 @@ public class FourInARow implements Rules{
 			}
 		}
 
-		if ((i < (grid.getHeight()-1)) && (j > 0)) {
+		if ((i < (grid.getHeight() - 1)) && (j > 0)) {
 			i = real_i + 1;
 			j = real_j - 1;
 			while ((i < grid.getHeight()) && (i < (real_i + 4)) && (j >= 0)
@@ -149,8 +156,8 @@ public class FourInARow implements Rules{
 	}
 
 	// validate play into grid
-	public boolean checkPlay(int play, DataStructure grid){
-		if(play>=0 && play < grid.getWidth())
+	public boolean checkPlay(int play, DataStructure grid) {
+		if (play >= 0 && play < grid.getWidth())
 			if (grid.getValue(0, play) == 0)
 				return true;
 		return false;
@@ -165,4 +172,3 @@ public class FourInARow implements Rules{
 	}
 
 }
-
