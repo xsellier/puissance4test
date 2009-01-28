@@ -12,7 +12,7 @@ public class GameEngine {
 	 * 1 - Human vs Cpu Easy
 	 * 2 - Human vs Cpu Hard
 	 */
-	private rules rule;
+	private Rules rule;
 	private Player player1;
 	private Player player2;
 	int counter;
@@ -21,8 +21,8 @@ public class GameEngine {
 	public GameEngine() { // initialize game
 		this.grid = new DataStructure(6, 7); // create a grid size 6*7
 		this.current_player = false; // human player start
-		rule = new Foor_in_a_row(); // define rule of the game, there 4 in a row
-		app = new GUI_own(); // create GUI, you can change this line to use another GUI
+		rule = new FourInARow(); // define rule of the game, there 4 in a row
+		app = new GUIOwn(); // create GUI, you can change this line to use another GUI
 							 // app = new GUI_another_one();
 		app.initGui(grid); // initialize GUI with grid
 		app.setSize(500, 550);
