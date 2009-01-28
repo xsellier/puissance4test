@@ -1,250 +1,111 @@
 package test;
 
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
+import src.*;
 
-import src.DataStructure;
+public class FourInARowTest {
 
-
-public class FourInARowTest extends TestCase{
-	
-	
 	private DataStructure matrix;
-	
-	/*matrices utilisés dans la méthode testCheck_play()
-	private DataStructure matrixW_1;
-	private DataStructure matrixW1;
-	private DataStructure matrixW2;
-	private DataStructure matrixW6;
-	private DataStructure matrixW7;*/
-	
-	
-	
-	@Before
-	public void setUp(){
-		
-		matrix = new DataStructure(6,7);
-		
-	}
+	private Rules rule;
 
 	@Before
-	public void tearDown(){
-		
-		matrix = null;
-		
-	}
-	
-	public boolean check_line(int i, int j, int color, DataStructure grid) {
-		int count_left = 0;
-		int count_right = 0;
-
-		int real_j = j;
-
-		if (j > 0) {
-			j = real_j - 1;
-			while ((j >= 0) && (j > (real_j - 4))
-					&& (grid.getValue(i, j) == color)) {
-				count_left++;
-				j--;
-			}
-		}
-
-		if (j < 6) {
-			j = real_j + 1;
-			while ((j < grid.getWidth()) && (j < (real_j + 4))
-					&& (grid.getValue(i, j) == color)) {
-				count_right++;
-				j++;
-			}
-		}
-		if ((count_left + count_right) >= 3)
-			return true;
-		else
-			return false;
+	public void setUp() throws Exception {
+		matrix = new DataStructure(6, 7);
+		rule = new FourInARow();
 	}
 
-	
 	@Test
-	public void testCheck_line() {
-		
-		
+	public void testCheckLine() {
+
+		/*
+		 * create a 4 in a line
+		 */
 		assertTrue(matrix.setValue(0, 0, 1));
 		assertTrue(matrix.setValue(0, 1, 1));
 		assertTrue(matrix.setValue(0, 2, 1));
 		assertTrue(matrix.setValue(0, 3, 1));
-		 
-		assertTrue(check_line(0, -1, 1, matrix));
-		assertTrue(check_line(0, 0, 1, matrix));
-		assertTrue(check_line(0, 1, 1, matrix));
-		assertTrue(check_line(0, 2, 1, matrix));
-		assertTrue(check_line(0, 3, 1, matrix));
-		assertTrue(check_line(0, 4, 1, matrix));
-		
-		assertFalse(check_line(0, 5, 1, matrix));
-		assertFalse(check_line(0, 6, 1, matrix));
-		assertFalse(check_line(0, 7, 1, matrix));
-	}
 
-	public boolean check_col(int i, int j, int color, DataStructure grid) {
-		int count_up = 0;
-		int count_down = 0;
-
-		int real_i = i;
-
-		if (i > 0) {
-			i = real_i - 1;
-			while ((i >= 0) && (i > (real_i - 4))
-					&& (grid.getValue(i, j) == color)) {
-				count_down++;
-				i--;
+		/* make a full test  to check line */
+		for (int i = -1; i <= matrix.getWidth(); ++i) {
+			for (int j = -1; j <= matrix.getHeight(); ++j) {
+				if (i == 0 && j>=0 && j < matrix.getWidth()- 2) {
+					assertTrue(rule.checkLine(i, j, 1, matrix));
+					assertFalse(rule.checkLine(i, j, 2, matrix));
+				} else {
+					assertFalse(rule.checkLine(i, j, 1, matrix));
+					assertFalse(rule.checkLine(i, j, 2, matrix));
+				}
 			}
 		}
-		if (i < (grid.getHeight()-1)) {
-			i = real_i + 1;
-			while ((i < grid.getHeight()) && (i < (real_i + 4))
-					&& (grid.getValue(i, j) == color)) {
-				count_up++;
-				i++;
-			}
-		}
-
-		if ((count_up + count_down) >= 3)
-			return true;
-		else
-			return false;
-
 	}
 
-	
 	@Test
-	public void testCheck_col() {
+	public void testCheckCol() {
+		
+		/*
+		 * create a 4 in a column
+		 */
 		assertTrue(matrix.setValue(0, 1, 2));
 		assertTrue(matrix.setValue(1, 1, 2));
 		assertTrue(matrix.setValue(2, 1, 2));
 		assertTrue(matrix.setValue(3, 1, 2));
 		
-		
-		
-		assertTrue(check_col(-1, 1, 2, matrix));   // attention à partir de i = -1 ca marche
-		assertTrue(check_col(0, 1, 2, matrix));
-		assertTrue(check_col(1, 1, 2, matrix));
-		assertTrue(check_col(2, 1, 2, matrix));
-		assertTrue(check_col(4, 1, 2, matrix));    // et jusqu'à i = 4;
-		
-		assertFalse(check_col(5, 1, 2, matrix));   // Le test ne passe plus
-	}
-
-	public boolean check_diag(int i, int j, int color, DataStructure grid) {
-
-		int count1 = 0;
-		int count2 = 0;
-
-		int real_i = i;
-		int real_j = j;
-
-		if ((i > 0) && (j > 0)) {
-			i = real_i - 1;
-			j = real_j - 1;
-			while ((i >= 0) && (i > (real_i - 4)) && (j >= 0)
-					&& (j > (real_j - 4)) && (grid.getValue(i, j) == color)) {
-				count1++;
-				i--;
-				j--;
+		/* make a full test  to check column */
+		for (int i = -1; i <= matrix.getWidth(); ++i) {
+			for (int j = -1; j <= matrix.getHeight(); ++j) {
+				if (i>=0 && i < matrix.getHeight()-1 && j == 1) {
+					assertFalse(rule.checkCol(i, j, 1, matrix));
+					assertTrue(rule.checkCol(i, j, 2, matrix));
+				} else {
+					assertFalse(rule.checkCol(i, j, 1, matrix));
+					assertFalse(rule.checkCol(i, j, 2, matrix));
+				}
 			}
 		}
-
-		if ((i < (grid.getHeight()-1)) && (j < (grid.getWidth()-1))) {
-			i = real_i + 1;
-			j = real_j + 1;
-			while ((i < grid.getHeight()) && (i < (real_i + 4)) && (j < grid.getWidth())
-					&& (j < (real_j + 4)) && (grid.getValue(i, j) == color)) {
-				count2++;
-				i++;
-				j++;
-			}
-		}
-
-		if ((count1 + count2) >= 3)
-			return true;
-
-		count1 = 0;
-		count2 = 0;
-
-		if ((i > 0) && (j < (grid.getWidth()-1))) {
-			i = real_i - 1;
-			j = real_j + 1;
-			while ((i >= 0) && (i > (real_i - 4)) && (j < grid.getWidth())
-					&& (j < (real_j + 4)) && (grid.getValue(i, j) == color)) {
-				count1++;
-				i--;
-				j++;
-			}
-		}
-
-		if ((i < (grid.getHeight()-1)) && (j > 0)) {
-			i = real_i + 1;
-			j = real_j - 1;
-			while ((i < grid.getHeight()) && (i < (real_i + 4)) && (j >= 0)
-					&& (j >= (real_j - 4)) && (grid.getValue(i, j) == color)) {
-				count2++;
-				i++;
-				j--;
-			}
-		}
-
-		if ((count1 + count2) >= 3)
-			return true;
-
-		return false;
 	}
 
 	@Test
-	public void testCheck_diag() { // à revoir
+	public void testCheckDiag() {
+		
+		/*
+		 * create an impossible diagonal to our test
+		 */
 		assertTrue(matrix.setValue(0, 0, 0));
 		assertTrue(matrix.setValue(1, 1, 0));
 		assertTrue(matrix.setValue(2, 2, 0));
 		assertTrue(matrix.setValue(3, 3, 0));
-		 
-		assertTrue(check_diag(0, 0, 0, matrix));
-		assertTrue(check_diag(1, 1, 0, matrix));
-		assertTrue(check_diag(2, 2, 0, matrix));
-		assertTrue(check_diag(3, 3, 0, matrix));
-		assertTrue(check_diag(4, 4, 0, matrix));
-		assertTrue(check_diag(-1, 7, 0, matrix));
-	}
 
-	public boolean isComplete(DataStructure grid) {
-		int color;
-		int i, j;
-		for (i = 0; i < grid.getHeight(); i++) {
-			for (j = 0; j < grid.getWidth(); j++) {
-				color = grid.getValue(i, j);
-				if (color != 0) {
-					if (check_line(i, j, color, grid))
-						return true;
-					if (check_col(i, j, color, grid))
-						return true;
-					if (check_diag(i, j, color, grid))
-						return true;
+		/* make a full test  to check diagonal */
+		for (int i = -1; i <= matrix.getWidth(); ++i) {
+			for (int j = -1; j <= matrix.getHeight(); ++j) {
+				if (i < matrix.getHeight() && i>= 0 && j < matrix.getWidth() && j>= 0) {
+					assertTrue(rule.checkDiag(i, j, 0, matrix));
+					assertFalse(rule.checkDiag(i, j, 1, matrix));
+					assertFalse(rule.checkDiag(i, j, 2, matrix));
+				} else {
+					assertFalse(rule.checkDiag(i, j, 0, matrix));
+					assertFalse(rule.checkDiag(i, j, 1, matrix));
+					assertFalse(rule.checkDiag(i, j, 2, matrix));
 				}
 			}
 		}
-		return false;
 	}
-	
+
 	@Test
 	public void testIsComplete() {
 
+		/*
+		 * create a four in a row
+		 */
 		assertTrue(matrix.setValue(0, 1, 2));
 		assertTrue(matrix.setValue(1, 1, 2));
 		assertTrue(matrix.setValue(2, 1, 2));
 		assertTrue(matrix.setValue(3, 1, 2));
-		
-		boolean result = isComplete(matrix);
-		assertTrue("la grille est complète", result);
+
+		assertTrue("la grille est complète", rule.isComplete(matrix));
 	}
 
 	@Test
@@ -254,98 +115,89 @@ public class FourInARowTest extends TestCase{
 		assertTrue(matrix.setValue(1, 2, 0));
 		assertTrue(matrix.setValue(2, 5, 0));
 		assertTrue(matrix.setValue(0, 4, 0));
-		
-		boolean result = isComplete(matrix);
-		assertFalse("la grille n'est pas complète", result);
+
+		assertFalse("la grille n'est pas complète", rule.isComplete(matrix));
 	}
-	
-	public boolean check_play(int play, DataStructure grid){
-		if (grid.getValue(0, play) == 0)
-			return true;
-		if(play>=0 && play < grid.getWidth())
-			return true;
-		return false;
-	}
-	
+
 	@Test
-	public void testCheck_play() { // un doute , voir avec dorian ..
-		
+	public void testCheckPlay() {
+
+		/*
+		 * fill line on top
+		 */
 		assertTrue(matrix.setValue(0, 0, 1));
 		assertTrue(matrix.setValue(0, 1, 1));
 		assertTrue(matrix.setValue(0, 2, 1));
 		assertTrue(matrix.setValue(0, 3, 1));
 		assertTrue(matrix.setValue(0, 4, 1));
 		assertTrue(matrix.setValue(0, 5, 1));
-		assertTrue(matrix.setValue(0, 6, 1));
-		assertTrue(matrix.setValue(1, 6, 0));
-		assertTrue(matrix.setValue(2, 6, 1));
-		assertTrue(matrix.setValue(3, 6, 0));
-		assertTrue(matrix.setValue(4, 6, 1));
-		assertTrue(matrix.setValue(5, 6, 0));
+		assertTrue(matrix.setValue(0, 6, 0));
 		
-		assertTrue(check_play(6, matrix)); /// ici !!!!
-		
-		/*assertTrue(matrix.setValue(1, 0, 1));
-		assertTrue(matrix.setValue(1, 1, 1));
-		assertTrue(matrix.setValue(1, 2, 1));
-		assertTrue(matrix.setValue(1, 3, 1));
-		assertTrue(matrix.setValue(1, 4, 1));
-		assertTrue(matrix.setValue(1, 5, 1));
+		/*
+		 * fill colum 6
+		 */
 		assertTrue(matrix.setValue(1, 6, 1));
-		
-		assertFalse(matrix.setValue(1, 7, 0));
-		
-		assertTrue(matrix.setValue(2, 0, 1));
-		assertTrue(matrix.setValue(2, 1, 1));
-		assertTrue(matrix.setValue(2, 2, 1));
-		assertTrue(matrix.setValue(2, 3, 1));
-		assertTrue(matrix.setValue(2, 4, 1));
-		assertTrue(matrix.setValue(2, 5, 1));
-		assertTrue(matrix.setValue(2, 6, 1));
-		assertTrue(matrix.setValue(3, 0, 1));
-		assertTrue(matrix.setValue(3, 1, 1));
-		assertTrue(matrix.setValue(3, 2, 1));
-		assertTrue(matrix.setValue(3, 3, 1));
-		assertTrue(matrix.setValue(3, 4, 1));
-		assertTrue(matrix.setValue(3, 5, 1));
+		assertTrue(matrix.setValue(2, 6, 0));
 		assertTrue(matrix.setValue(3, 6, 1));
-		assertTrue(matrix.setValue(4, 0, 1));
-		assertTrue(matrix.setValue(4, 1, 1));
-		assertTrue(matrix.setValue(4, 2, 1));
-		assertTrue(matrix.setValue(4, 3, 1));
-		assertTrue(matrix.setValue(4, 4, 1));
-		assertTrue(matrix.setValue(4, 5, 1));
-		assertTrue(matrix.setValue(4, 6, 1));
-		assertTrue(matrix.setValue(5, 0, 1));
-		assertTrue(matrix.setValue(5, 1, 1));
-		assertTrue(matrix.setValue(5, 2, 1));
-		assertTrue(matrix.setValue(5, 3, 1));
-		assertTrue(matrix.setValue(5, 4, 1));
-		assertTrue(matrix.setValue(5, 5, 1));
+		assertTrue(matrix.setValue(4, 6, 0));
 		assertTrue(matrix.setValue(5, 6, 1));
-		*/
-		
-		
-		
-		/*assertTrue(matrix.setValue(0, 1, 1));
-		assertTrue(check_play(0, matrix));
-		assertTrue(check_play(1, matrix));
-		assertTrue(check_play(2, matrix));
-		assertTrue(check_play(6, matrix));
-		
-		assertTrue(matrix.setValue(1, 4, 2));
-		assertTrue(check_play(1, matrix));
-		
-		assertTrue(matrixW2.setValue(0, 1, 2));
-		assertTrue(check_play(1, matrixW2));
-		
-		assertTrue(matrixW6.setValue(0, 2, 0));
-		
-		assertFalse(matrixW7.setValue(0, 8, 0));
-		
-		assertTrue(matrix.setValue(0, 6, 0));*/
-	}
 
-	
+		/*
+		 * test if we can play in a fully column
+		 */
+		assertFalse(rule.checkPlay(0, matrix));
+		
+		/*
+		 * test if we can play in a uncompleted column
+		 */
+		assertTrue(rule.checkPlay(6, matrix));
+		/*
+		 * assertTrue(matrix.setValue(1, 0, 1)); assertTrue(matrix.setValue(1,
+		 * 1, 1)); assertTrue(matrix.setValue(1, 2, 1));
+		 * assertTrue(matrix.setValue(1, 3, 1)); assertTrue(matrix.setValue(1,
+		 * 4, 1)); assertTrue(matrix.setValue(1, 5, 1));
+		 * assertTrue(matrix.setValue(1, 6, 1));
+		 * 
+		 * assertFalse(matrix.setValue(1, 7, 0));
+		 * 
+		 * assertTrue(matrix.setValue(2, 0, 1)); assertTrue(matrix.setValue(2,
+		 * 1, 1)); assertTrue(matrix.setValue(2, 2, 1));
+		 * assertTrue(matrix.setValue(2, 3, 1)); assertTrue(matrix.setValue(2,
+		 * 4, 1)); assertTrue(matrix.setValue(2, 5, 1));
+		 * assertTrue(matrix.setValue(2, 6, 1)); assertTrue(matrix.setValue(3,
+		 * 0, 1)); assertTrue(matrix.setValue(3, 1, 1));
+		 * assertTrue(matrix.setValue(3, 2, 1)); assertTrue(matrix.setValue(3,
+		 * 3, 1)); assertTrue(matrix.setValue(3, 4, 1));
+		 * assertTrue(matrix.setValue(3, 5, 1)); assertTrue(matrix.setValue(3,
+		 * 6, 1)); assertTrue(matrix.setValue(4, 0, 1));
+		 * assertTrue(matrix.setValue(4, 1, 1)); assertTrue(matrix.setValue(4,
+		 * 2, 1)); assertTrue(matrix.setValue(4, 3, 1));
+		 * assertTrue(matrix.setValue(4, 4, 1)); assertTrue(matrix.setValue(4,
+		 * 5, 1)); assertTrue(matrix.setValue(4, 6, 1));
+		 * assertTrue(matrix.setValue(5, 0, 1)); assertTrue(matrix.setValue(5,
+		 * 1, 1)); assertTrue(matrix.setValue(5, 2, 1));
+		 * assertTrue(matrix.setValue(5, 3, 1)); assertTrue(matrix.setValue(5,
+		 * 4, 1)); assertTrue(matrix.setValue(5, 5, 1));
+		 * assertTrue(matrix.setValue(5, 6, 1));
+		 */
+
+		/*
+		 * assertTrue(matrix.setValue(0, 1, 1)); assertTrue(check_play(0,
+		 * matrix)); assertTrue(check_play(1, matrix)); assertTrue(check_play(2,
+		 * matrix)); assertTrue(check_play(6, matrix));
+		 * 
+		 * assertTrue(matrix.setValue(1, 4, 2)); assertTrue(check_play(1,
+		 * matrix));
+		 * 
+		 * assertTrue(matrixW2.setValue(0, 1, 2)); assertTrue(check_play(1,
+		 * matrixW2));
+		 * 
+		 * assertTrue(matrixW6.setValue(0, 2, 0));
+		 * 
+		 * assertFalse(matrixW7.setValue(0, 8, 0));
+		 * 
+		 * assertTrue(matrix.setValue(0, 6, 0));
+		 */
+	}
 
 }
