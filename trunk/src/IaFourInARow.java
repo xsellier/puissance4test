@@ -4,7 +4,6 @@ public class IaFourInARow implements Cpu{
 
 	private int mode;
 	private DataStructure cpugrid;
-	private int last_played;
 	private int[] playable;
 	/* for variable playable */
 	/* 0 Playable */
@@ -26,8 +25,7 @@ public class IaFourInARow implements Cpu{
 		width = cpugrid.getWidth();
 	};
 
-	public int play(int played, Rules new_rule) {
-		last_played = played; // last_position played (by a human player)
+	public int play(Rules new_rule) {
 		rule = new_rule;
 		if (mode == 1) // easy mode
 			return easyCpu();
@@ -35,79 +33,40 @@ public class IaFourInARow implements Cpu{
 	}
 
 	public int easyCpu() {
-		/* for variable result */
-		/* -1 no choice */
+		playable = new int[width];
 		int result = -1;
-		for (int i = 1; i < width - 3; ++i) { // human attempt a column 3
-			if (cpugrid.getValue(height - i, last_played) == cpugrid.getValue(
-					height - (i + 1), last_played)
-					&& cpugrid.getValue(height - i, last_played) == cpugrid
-							.getValue(height - (i + 2), last_played)
-					&& cpugrid.getValue(height - (i + 3), last_played) == 0
-					&& cpugrid.getValue(6 - i, last_played) != 0)
-				result = last_played;
-		}
-		if (last_played < height && last_played > 1 && result == -1) // human
-			// attempt
-			// a line 3
-			for (int i = 1; i < height; ++i) {
-				if (last_played+1 < height && cpugrid.getValue(height - i, last_played - 2) == cpugrid
-						.getValue(height - i, last_played - 1)
-						&& cpugrid.getValue(height - i, last_played - 1) == cpugrid
-								.getValue(height - i, last_played)
-						&& cpugrid.getValue(height - i, last_played + 1) == 0
-						&& cpugrid.getValue(height - i, last_played) != 0)
-					result = last_played + 1;
-			}
-		if (last_played > 0 && last_played < width - 3 && result == -1) // human
-			// attempt
-			// a line 3
-			for (int i = 1; i < height; ++i) {
-				if (cpugrid.getValue(height - i, last_played + 2) == cpugrid
-						.getValue(height - i, last_played + 1)
-						&& cpugrid.getValue(height - i, last_played + 1) == cpugrid
-								.getValue(height - i, last_played)
-						&& cpugrid.getValue(height - i, last_played - 1) == 0
-						&& cpugrid.getValue(height - i, last_played) != 0)
-					result = last_played - 1;
-			}
-
-		if (result == -1) {
-			for (int i = 1; i < width - 3; ++i) { // human attempt a column 2
-				if (cpugrid.getValue(height - i, last_played) == cpugrid
-						.getValue(height - (i + 1), last_played)
-						&& cpugrid.getValue(height - (i + 2), last_played) == 0
-						&& cpugrid.getValue(height - i, last_played) != 0)
-					result = last_played;
-			}
-		}
-		if (result == -1) {
-			if (last_played < height && last_played > 1) // human attempt a line
-				// 2
-				for (int i = 1; i < height; ++i) {
-					if (last_played+1 < height && cpugrid.getValue(height - i, last_played - 1) == cpugrid
-							.getValue(height - i, last_played)
-							&& cpugrid.getValue(height - i, last_played + 1) == 0
-							&& cpugrid.getValue(height - i, last_played) != 0)
-						result = last_played + 1;
-				}
-		}
-		if (result == -1) {
-			if (last_played > 0 && last_played < height) // human attempt a line
-				// 2
-				for (int i = 1; i < height; ++i) {
-					if (last_played+1 < height && cpugrid.getValue(height - i, last_played + 1) == cpugrid
-							.getValue(height - i, last_played)
-							&& cpugrid.getValue(height - i, last_played - 1) == 0
-							&& cpugrid.getValue(height - i, last_played) != 0)
-						result = last_played - 1;
-				}
-		}
-		if (result == -1) { // to choose a position
-							// it is a sequential choice
+		fillPlayable();
+		winningPlayable();
+		for (int i = 0; i < width; ++i)
+			if (playable[i] == 3) // Cpu can win with next token
+				result = i;
+		if (result == -1) { // No choice
+			noPlayable();
 			for (int i = 0; i < width; ++i)
-				if (cpugrid.getValue(0, i) == 0)
+				if (playable[i] == 6) // Human can win if Cpu doesn't play i
 					result = i;
+		}
+		if (result == -1) { // No choice
+			for (int i = 0; i < width; ++i) {
+				// if game is blocked, playable doesn't contain any 3 , Cpu plays where he can without make human win
+				// Cpu will play at grid center (best probability to win)
+				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0 && result == -1)
+					result = width / 2 + i;
+				else if (i < Math.round(width / 2) && playable[width / 2 - i] == 0 && result == -1)
+					result = width / 2 - i;
+			}
+		}
+		if (result == -1) { // choose a border column
+			for (int i = 0; i < width; ++i) {
+				if (playable[i] == 0)
+					result = i;
+			}
+		}
+		if (result == -1) { // Cpu lost, but continue to play
+			for (int i = 0; i < width; ++i) {
+				if (playable[i] == 1)
+					result = i;
+			}
 		}
 		return result;
 	}
