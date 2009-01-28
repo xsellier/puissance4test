@@ -55,6 +55,21 @@ La méthode \texttt{print} va elle afficher la matrice.
 
 
 \subsubsection{Tests de la matrice}
+Ces tests consistent a s'assurer que la structure de données, qui
+représente notre grille de Puissance 4, est robuste.
+
+Le premier test envisagé est d'instancier une \texttt{DataStructure} 6$\times$7
+correspondant à la grille classique. Tout en vérifiant par les
+accesseurs que les dimensions de la matrice sont celles attendues.
+
+On réalise ensuite des tests aux limites sur notre structure de
+données, par exemple 0$\times$0. Pour continuer sur quelques tests
+aléatoires 100$\times$100.
+
+Nous allons tester des ajouts de valeurs prises de manière aléatoire
+mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux bornes. Donc en valeur
+\texttt{i} et \texttt{j} négatives ou supérieures à \texttt{height} et
+à \texttt{width}.
 
 \subsection{Player}
 \subsubsection{Implémentation}
