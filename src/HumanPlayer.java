@@ -10,12 +10,12 @@ public class HumanPlayer implements Player {
     }
 
     public int play(DataStructure grid, GUI gui){
-        while(!gui.get_Played() && !gui.get_Reset())
+        while(!gui.getPlayed() && !gui.getReset())
             System.out.print(""); //Instruction trivial pour Javac
-        if(gui.get_Reset()) // reset button pushed
+        if(gui.getReset()) // reset button pushed
         	return -2;
-        currently_played = gui.get_Choice(); 
-        gui.set_Played(false); // to play just one time
+        currently_played = gui.getChoice(); 
+        gui.setPlayed(false); // to play just one time
        return currently_played;
     }
 }

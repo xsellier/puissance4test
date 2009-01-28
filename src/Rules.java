@@ -8,16 +8,16 @@ public interface Rules {
 	 * if we change rule, you may change GUI and AI
 	 */
 	
-	public boolean check_diag(int i, int j, int color, DataStructure grid);
+	public boolean checkDiag(int i, int j, int color, DataStructure grid);
 
-	public boolean check_col(int i, int j, int color, DataStructure grid);
+	public boolean checkCol(int i, int j, int color, DataStructure grid);
 
-	public boolean check_line(int i, int j, int color, DataStructure grid);
+	public boolean checkLine(int i, int j, int color, DataStructure grid);
 
 	public boolean isComplete(DataStructure grid);
 
-	public boolean check_play(int play, DataStructure grid);
+	public boolean checkPlay(int play, DataStructure grid);
 
-	public void grey_out(GUI app, DataStructure grid);
+	public void greyOut(GUI app, DataStructure grid);
 }
 

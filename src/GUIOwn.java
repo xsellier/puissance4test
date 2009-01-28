@@ -32,23 +32,23 @@ public class GUIOwn extends JFrame implements GUI {
 		game_ended=false; // initialise game_ended
 	}
 
-	public boolean get_Played(){
+	public boolean getPlayed(){
 		return played;
 	}
 
-	public int get_Choice(){
+	public int getChoice(){
 		return choice;
 	}
 	
-	public void set_Played(boolean played){
+	public void setPlayed(boolean played){
 		this.played=played;
 	}
 	
-	public boolean get_Reset(){
+	public boolean getReset(){
 		return reset;
 	}
 	
-	public void set_Reset(boolean reset){
+	public void setReset(boolean reset){
 		this.reset=reset;
 	}
 	
@@ -197,9 +197,9 @@ public class GUIOwn extends JFrame implements GUI {
 	}
 
 	// a player wins
-	public void game_ended(boolean winner) {
+	public void gameEnded(boolean winner) {
 		game_ended=true; // to close windows
-		grey_all_button(); // to disable buttons
+		greyAllButton(); // to disable buttons
 		if (!winner)
 			outPut.setText("Joueur 1 a gagne !~");
 		else
@@ -207,13 +207,13 @@ public class GUIOwn extends JFrame implements GUI {
 	}
 
 	// it is a draw
-	public void game_ended() {
+	public void gameEnded() {
 		game_ended=true; // to close windows
-		grey_all_button(); // to disable buttons
+		greyAllButton(); // to disable buttons
 		outPut.setText("Match nul !~");
 	}
 
-	public void grey_all_button() {
+	public void greyAllButton() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
 			n.setEnabled(false);
@@ -222,7 +222,7 @@ public class GUIOwn extends JFrame implements GUI {
 	}
 
 	// enable all button
-	public void enable_all_button() {
+	public void enableAllButton() {
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
 			n.setEnabled(true);
@@ -230,7 +230,7 @@ public class GUIOwn extends JFrame implements GUI {
 	}
 
 	//	grey out button number num
-	public void grey_button(int num) {
+	public void greyButton(int num) {
 		int j = 0;
 		for (Iterator<JButton> i = play.iterator(); i.hasNext();) {
 			JButton n = (JButton) i.next();
