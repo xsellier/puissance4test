@@ -4,6 +4,55 @@
 
 \subsection{DataStructure}
 \subsubsection{Matrice}
+\begin{verbatim}
+   private int[][] matrix;
+   private int height;
+   private int width;
+\end{verbatim}
+Nous avons choisi d'utiliser une matrice pour modéliser une grille de
+Puissance 4. Ce sera un tableau d'entiers. Afin de faire moins de
+calculs nous avons choisi de stocker la hauteur ainsi que la largeur
+de la matrice dans deux variables distinctes \texttt{height} respectivement \texttt{width}.
+
+\begin{verbatim}
+   public DataStructure(int height, int width);
+\end{verbatim}
+Le constructeur va prendre deux entiers en paramètres. Ce constructeur
+va vérifier si ces entiers sont valides, autrement dit si ils ne sont
+pas négatifs ou nuls.
+
+\begin{verbatim}
+   public int getHeight();
+   public int getWidth();
+   public int getValue(int i, int j);
+   public boolean setValue(int i, int j, int color)
+\end{verbatim}
+Nous avons préféré mettre nos variables (\texttt{matrix}, \texttt{height} et \texttt{width}) en
+private pour éviter toutes modifications inattendues de notre
+matrice. d'où l'existence de ces accesseurs. Nous n'avons pas fait
+d'accesseur direct à la matrice, autrement dit qui retournerait notre
+matrice, toujours dans le soucis de modifications inattendues.
+
+La méthode \texttt{setValue} va modifier notre matrice en respectant la
+contrainte disant que \texttt{i} et \texttt{j} doivent etre compris entre 0 et respectivement
+\texttt{height} et \texttt{width}.
+
+Nous n'avons pas mis de restriction sur color, etant donné que la
+structure de données ne gère pas les règles du jeu, elle ne sait pas
+de quoi il s'agit exactement.
+
+Cette méthode retourne un booléen qui renvoie \texttt{true}
+respectivement \texttt{false} si la modification a pu être apporté ou pas.
+
+\begin{verbatim}
+   public void reset_matrix()
+   public void print()
+\end{verbatim}
+La méthode \texttt{reset\_matrix} va, comme son nom l'indique, faire un
+simple reset de la matrice.
+
+La méthode \texttt{print} va elle afficher la matrice.
+
 
 \subsubsection{Tests de la matrice}
 
