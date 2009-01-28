@@ -18,6 +18,7 @@ public class IaFourInARowTest {
 	public Cpu Ia3;
 	public Cpu Ia4;
 	public Rules rule;
+	public int tmp;
 	
 	
 	
@@ -25,7 +26,7 @@ public class IaFourInARowTest {
 	public void setUp() throws Exception {
 		DataStructure grid = new DataStructure(6,7);
 		Rules rule = new FourInARow();
-		Cpu Ia = new IaFourInARow();
+		Cpu Ia1 = new IaFourInARow();
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
 		Ia1.initialize(grid, mode1);
@@ -42,9 +43,11 @@ public class IaFourInARowTest {
 
 	@Test
 	public void testGetHeight() {
-		assertEquals(grid.getHeight() , Ia1.getHeight() );
+		tmp = Ia1.getHeight();
+		assertEquals(grid.getHeight() , tmp );
 	}
 
+	
 	@Test
 	public void testGetWidth() {
 		fail("Not yet implemented");

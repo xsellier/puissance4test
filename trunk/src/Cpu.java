@@ -14,5 +14,9 @@ public interface Cpu {
 	public int play(Rules new_rule);
 
 	public void initialize(DataStructure grid, int difficulty);
+	
+	public int getHeight();
+	
+	
 }
 
