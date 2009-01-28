@@ -469,3 +469,65 @@ instancier les joueurs avec l'appel à la méthode
 Pour ce qui concerne le menu, on aurait pu l'intégrer dans l'interface
 graphique, mais nous n'avions pas assez de temps pour faire cette
 petite modification, et nous avons préféré passer aux tests directement.
+
+\subsection{GUI}
+
+\texttt{GUI} est une interface, cela nous permettra, au besoin, de branher une autre interface graphique à notre application.
+
+\subsubsection{GuiOwn}
+Cette classe, implémente \texttt{GUI}. 
+\begin{verbatim}
+    public int choice;
+    public boolean played;
+    public boolean reset;
+    public boolean game_ended;
+\end{verbatim}
+La première variable \texttt{choice} contient la colonne sélectionné par le joueur humain. La seconde variable \texttt{played} est a \texttt{true} lorsqu'un joueur a choisi une colonne et est a \texttt{false} sinon. Il en est de même pour \texttt{reset} et pour \texttt{game\_ended}. A savoir que \texttt{reset} concerne le reset de la grille et \texttt{game\_ended} dit si le jeu est terminé ou non.
+
+\begin{verbatim}
+    public abstract void initGui(DataStructure grid);
+\end{verbatim}
+Cette méthode initialise l'interface grapique en créant autant de colonne et de ligne que la matrice en a.
+
+\begin{verbatim}
+    public abstract void updateScreen(DataStructure my_grid);
+\end{verbatim}
+\texttt{updateScreen} met a jour l'affichage de la grille.
+
+\begin{verbatim}
+    public abstract void gameEnded(boolean winner);
+    public abstract void gameEnded();
+\end{verbatim}
+La première méthode affichage le nom du joueur dans l'interface graphique, et la seconde affiche Match nul.
+
+\begin{verbatim}
+    public abstract void greyAllButton();
+\end{verbatim}
+Cette méthode grise tous les bouttons qui permettent de choisir les colonnes mais aussi de faire un reset de la grille. Elle est utilisé lorsque le jeu est terminé.
+
+\begin{verbatim}
+    public abstract void enableAllButton();
+\end{verbatim}
+Cette méthode rend tous les bouttons correspondant aux colonnes non-grisés. Elle est utilisé lors d'un reset.
+
+\begin{verbatim}
+    public abstract void greyButton(int num);
+\end{verbatim}
+\texttt{greyButton()} grise le boutton de la colonne correspondante à num.
+
+\begin{verbatim}
+    public void setSize(int i, int j);
+    public void setLocation(int i, int j);
+    public void show();
+    public abstract void dispose();
+\end{verbatim}
+La première méthode permet de définir la taille de la fenêtre de jeu. La seconde sert à définir la position de la fenêtre par défaut. La troisième est une méthode définit dans les librairies de \texttt{Swing} qui permet d'afficher l'interface graphique. Quand à la dernière méthode, elle permet de d'afficher/fermer une fenêtre. La méthode \texttt{dispose()} est aussi définit dans els librairies de \texttt{Swing}.
+
+\begin{verbatim}
+    public boolean getPlayed();
+    public int getChoice();
+    public void setPlayed(boolean played);
+    public boolean getReset();
+    public void setReset(boolean reset);
+\end{verbatim}
+Ces trois méthodes sont de simples accesseurs aux variables correspondantes.
