@@ -30,15 +30,19 @@ public class GameEngine {
 		app.show();
 	}
 
-	public void initMode(int my_mode) {
+	public boolean initMode(int my_mode) {
 		this.mode = my_mode;
 		counter = 0; // initialize counter
 		player1 = new HumanPlayer(); // create a human player
 		if (mode == 0) { // human vs human
 			player2 = new HumanPlayer();
-		} else { // human vs cpu
+			return true;
+		} 
+		if(mode == 1 || mode == 2) { // human vs cpu
 			player2 = new CpuPlayer(my_mode, rule); // create a Cpu with rule, there 4 in a row
+			return true;
 		}
+		return false;
 	}
 
 	public void close(){
