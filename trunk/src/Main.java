@@ -14,8 +14,9 @@ public class Main {
 		while (true) { // infinite loop can stopped by my_menu by Exiting, System.exit(1);
 			GameEngine g = new GameEngine(); // initialize game
 			my_menu.setVisible(false); // make disappear Menu
-			g.initMode(my_menu.choice); // launch game
-			g.start();
+			if(!g.initMode(my_menu.choice)) //  initialize game mode
+					System.exit(0);
+			g.start(); // launch game
 			my_menu.pushed=false; // re-initialize menu
 			my_menu.setVisible(true); // show menu
 			while (!my_menu.pushed) // wait for human choose
