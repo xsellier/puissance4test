@@ -25,7 +25,7 @@ pas négatifs ou nuls.
    public int getHeight();
    public int getWidth();
    public int getValue(int i, int j);
-   public boolean setValue(int i, int j, int color)
+   public boolean setValue(int i, int j, int color);
 \end{verbatim}
 Nous avons préféré mettre nos variables (\texttt{matrix}, \texttt{height} et \texttt{width}) en
 private pour éviter toutes modifications inattendues de notre
@@ -45,8 +45,8 @@ Cette méthode retourne un booléen qui renvoie \texttt{true}
 respectivement \texttt{false} si la modification a pu être apporté ou pas.
 
 \begin{verbatim}
-   public void reset_matrix()
-   public void print()
+   public void reset_matrix();
+   public void print();
 \end{verbatim}
 La méthode \texttt{reset\_matrix} va, comme son nom l'indique, faire un
 simple reset de la matrice.
@@ -72,19 +72,201 @@ mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux b
 à \texttt{width}.
 
 \subsection{Player}
-\subsubsection{Implémentation}
+\texttt{Player} est une interface permettant de basculer facilement entre un
+\texttt{HumanPlayer} et un \texttt{CpuPlayer}. Nous reverrons cette partie dans le \texttt{GameEngine}.
+
+\subsubsection{HumanPlayer}
+\begin{verbatim}
+    private int currently_played;
+\end{verbatim}
+Sert a mémoriser la position que le joueur a choisi.
+
+\begin{verbatim}
+    public int play(DataStructure grid, GUI gui);
+\end{verbatim}
+Cette méthode va attendre que le joueur face son choix à travers
+l'interface graphique. Elle récupère aussi bien une position jouée
+qu'un reset de la grille. Cette méthode retourne la position choisit
+par le joueur mais ne vérifie pas si elle est correcte. Cela s'effectue
+plus loin au moment du \texttt{GameEngine}.
+
+\subsubsection{CpuPlayer}
+\begin{verbatim}
+    private int mode;
+    private int currently_played;
+    private Rules rule;
+\end{verbatim}
+La première variable va stocker le mode, 0 pour deux humains, 1 pour
+un ordinateur facile et 2 pour un ordinateur difficile.
+
+La seconde variable, \texttt{currently\_played}, stocke la position
+jouée par le joueur (humain ou ordinateur).
+
+La troisième variable, \texttt{rule}, va stocker les règles du
+jeu. Cela est utile pour l'ordinateur, afin de bien respecter les
+règles du jeu lorsqu'il effectue un choix. Nous reverrons plus en
+détail cette partie dans la classe \texttt{IaFourInARow} qui
+implémente l'intelligence artificielle.
+
+\begin{verbatim}
+    public CpuPlayer(int mode, Rules rule);
+    public int play(DataStructure grid, GUI gui);
+\end{verbatim}
+
+Notre première méthode est un constructeur. Elle attribut donc un \texttt{mode}
+au CpuPlayer mais aussi les règles a utiliser (\texttt{Rules}).
+
+Notre seconde méthode, \texttt{play}, similaire à celle de
+HumanPlayer. Elle va quand a elle vraiment instancier l'intelligence
+artificielle en fonction du mode choisit. Cela se fait à l'aide des lignes 21-22 :
+\begin{verbatim}
+     Cpu cpu1 = new IaFourInARow();
+     cpu1.initialize(grid, mode);
+\end{verbatim}
+Si on veut utiliser une autre intelligence artificielle, il suffirait
+de créer une nouvelle classe qui implémente \texttt{Cpu} et qui fonctionne
+globalement comme l'IA actuelle. Notre Intelligence artificielle est
+donc totallement indépendante du reste du programme et peut être
+changé facilement.
 
 \subsubsection{Jeux de test}
+TODO
 
-\subsection{HumanPlayer}
-\subsubsection{Implémentation}
+\subsection{Cpu}
+\texttt{Cpu} est une interface. le fait d'avoir créé une interface va nous
+permettre de pouvoir implémenter de nouvelles IA sans modifier plus
+d'une ligne du code actuel.
 
-\subsubsection{Jeux de test}
+\subsubsection{IaFourInARow}
+Pour ce qui concerne l'intelligence artificielle, nous avons choisi
+d'en implémenter une séquentielle. Il n'y aucune part
+d'aléatoire. Cette IA n'implémente pas la stratégie gagnante. Nous nous sommes
+renseigné et il faudrait implémenté un arbre faisant intervenir des
+statistiques de meilleurs coups a jouer. cela ne semble pas évident au
+premier abord à implémenter, c'est pourquoi nous avons implémenté une
+IA maison qui donne des résultats assez satisfaisant car non triviale.
 
-\subsection{CpuPlayer}
-\subsubsection{Implémentation}
+cependant si on veut implémentr la stratégie gagnante cela est
+possible en créant une classe qui implémente l'interface \texttt{Cpu}
+et qui respecte le fonctionnement de l'IA actuelle qui est décrit ci-après.
 
-\subsubsection{Jeux de test}
+\begin{verbatim}
+    private int mode;
+    private DataStructure cpugrid;
+    private int[] playable;
+    private Rules rule;
+    private int height;
+    private int width;
+\end{verbatim}
+Comme toujours le \texttt{mode} stocke la difficulté de l'IA, 1 pour
+facile, 2 pour difficile.
+
+\texttt{cpugrid} n'est pas une copie de la grille, mais un pointeur sur
+la grille, donc si on modifie cpugrid on modifie aussi la grille de
+puissance 4. Nous avons fait ce choix pour éviter de recopier la
+grille à chaque fois, mais cela ajoute de la contrainte de ne pas
+modifier la grille lors du calcul de notre stratégie.
+
+La variable \texttt{playable} va etre de la taille de
+\texttt{width}. Elle va servir pour déterminer quelle colonne jouer ou
+quelle colonne ne pas jouer. tout cela se fait à l'aide d'un codage
+simple.\newpage
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable0}
+  \caption{\texttt{playable[i] = 0}}
+\end{center}
+\end{figure}
+Dans ce cas, tous les playable[i] sont égaux à 0. autrement dit on
+peut jouer sur n'importe quelle case. Seulement notre intelligence
+artificielle choisiera de jouer au centre du jeu, car la probabilité
+de gagner lors qu'on joue au centre est supérieure aux autres (par
+exemple si on joue sur les cotés).
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable10}
+  \caption{\texttt{playable[i] = 1}}
+\end{center}
+\end{figure}
+Si l'ordinateur joue sur la colonne 4, alors au prochain coups le
+joueur humain pourra gagner avec une diagonale. Par conséquent
+\texttt{playable[4]=1}. Ce code signifie que si l'ordinateur joue sur
+cette colonne alors cela peut faire gagner le joueur humain.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable2}
+  \caption{\texttt{playable[i] = 2}}
+\end{center}
+\end{figure}
+Dans ce cas \texttt{playable[2] = 2}. Autrement dit, si l'ordinateur
+joue sur la colonne deux, le joueur humain pourra le bloquer.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable3}
+  \caption{\texttt{playable[i] = 3}}
+\end{center}
+\end{figure}
+Dans ce cas \texttt{playable[2] = 3}. Par conséquent l'ordinateur peut
+gagner ua prochain coups, et jouera la position 2.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable4}
+  \caption{\texttt{playable[i] = 4}}
+\end{center}
+\end{figure}
+La colonne 1 est pleine donc \texttt{playable[1] = 4}. L'ordinateur
+prend conscience qu'il ne pourra pas placer de jetons dans cette
+colonne.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable5}
+  \caption{\texttt{playable[i] = 5}}
+\end{center}
+\end{figure}
+A ce moment du jeu, l'ordinateur remarque qu'il peut gagner en
+ajoutant 2 pions. Par conséquent il va marquer \texttt{playable[4] =
+  5} et \texttt{playable[5] = 5}.
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable1}
+  \caption{\texttt{playable[i] = 6}}
+\end{center}
+\end{figure}
+Dans ce cas la \texttt{playable[1] = 6} et \texttt{playable[4] = 6}. Et tous
+les autres cas \texttt{playable[i]=0}. L'ordinateur va bloquer la
+possibilité de mouvement de l'humain.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable6}
+  \caption{\texttt{playable[i] = 6}}
+\end{center}
+\end{figure}
+Si le joueur humain place un pion dans la colonne 4 il remportera la
+victoire. Pour eviter de perdre aussi facilement on met
+\texttt{playable[4]=6}, et l'ordinateur va bloquer la victoire du
+joeur humain.
+
+\begin{verbatim}
+    private void strategy();
+    private void breakStrategy();
+    private void noPlayable();
+    private void winningPlayable();
+    private void fillPlayable();
+
+    public int perfectCpu();
+    public int easyCpu();
+    public int play(Rules new_rule);
+    public void initialize(DataStructure grid, int difficulty);
+\end{verbatim}
 
 \subsection{Rules}
 \subsubsection{Implémentation}
