@@ -28,27 +28,35 @@ public class DataStructureTest extends TestCase{
 
 	}
 
-	
+	@Before
+	public void tearDown(){
+		matrix = null;
+		zero_matrix = null;
+		negative_matrix = null; 
+		big_matrix = null; 
+		high_matrix = null;
+
+	}
 
 	@Test
 	public void testGetHeight() {
 		int result = matrix.getHeight();
-		assertEquals("Le test de la hauteur a réussi", result , 6);
+		assertEquals("Le test de la hauteur n'a pas réussi", result , 6);
 	}
 
 	@Test
 	public void testGetWidth() {
 		int result = matrix.getWidth();
-		assertEquals("Le test de la largeur a réussi",result , 7);
+		assertEquals("Le test de la largeur n'as pas réussi",result , 7);
 	}
 
 	@Test
 	public void testZeroMatrix() {
 		int resultZH = zero_matrix.getHeight();
-		assertEquals("la hauteur d'une matrice_zero est 6", resultZH , 6);
+		assertEquals("la hauteur d'une matrice_zero n'est pas 6", resultZH , 6);
 		
 		int resultZW = zero_matrix.getWidth();
-		assertEquals("la largeur d'une matrice_zero est 7", resultZW , 7);
+		assertEquals("la largeur d'une matrice_zero n'est pas  7", resultZW , 7);
 		
 		
 
@@ -58,32 +66,32 @@ public class DataStructureTest extends TestCase{
 	@Test
 	public void testHighMatrix() {
 		int resultHH = high_matrix.getHeight();
-		assertEquals("la hauteur d'une high_matrix est 8",8 , resultHH);
+		assertEquals("la hauteur d'une high_matrix n'est pas  8",8 , resultHH);
 		
 		int resultHW = high_matrix.getWidth();
-		assertEquals("la largeur d'une high_matrix est 9",9 , resultHW);
+		assertEquals("la largeur d'une high_matrix n'est pas  9",9 , resultHW);
 		
-		assertTrue("Stockage d'une valeur à la position (0,8) de la high_matrix possible", high_matrix.setValue(0, 8, 0));
-		assertFalse("Stockage d'une valeur à la position (0,9) de la high_matrix impossible", high_matrix.setValue(0, 9, 0));
+		assertTrue("Stockage d'une valeur à la position (0,8) de la high_matrix impossible", high_matrix.setValue(0, 8, 0));
+		assertFalse("Stockage d'une valeur à la position (0,9) de la high_matrix possible", high_matrix.setValue(0, 9, 0));
 	}
 
 	
 	@Test
 	public void testBigMatrix() {
 		int resultZH = big_matrix.getHeight();
-		assertEquals("la hauteur d'une matrice 100*100 est 100", 100, resultZH);
+		assertEquals("la hauteur d'une matrice 100*100 n'est pas  100", 100, resultZH);
 		
 		int resultZW = big_matrix.getWidth();
-		assertEquals("la largeur d'une matrice 100*100 est 100", 100 , resultZW);
+		assertEquals("la largeur d'une matrice 100*100 n'est pas  100", 100 , resultZW);
 	}
 
 	@Test
 	public void testNegativeMatrix() {
 		int resultNH = negative_matrix.getHeight();
-		assertEquals("la hauteur d'une negative_matrix est 6",resultNH , 6);
+		assertEquals("la hauteur d'une negative_matrix n'est pas  6",resultNH , 6);
 		
 		int resultNW = negative_matrix.getWidth();
-		assertEquals("la largeur d'une negative_matrix est 6",resultNW , 7);
+		assertEquals("la largeur d'une negative_matrix n'est pas  6",resultNW , 7);
 	}
 	
 	@Test
