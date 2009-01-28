@@ -30,10 +30,6 @@ public class DataStructure {
 		return width;
 	}
 
-	public int[][] getMatrix() {
-		return matrix;
-	}
-
 	public void print() {
 		for (int i = 0; i < height; i++) {
 			System.out.print("Ligne : " + i + " | ");
@@ -51,14 +47,12 @@ public class DataStructure {
 	}
 	
 	public boolean setValue(int i, int j, int color) {
-		if(i>=height || j>=width)
+		if(i>=height || j>=width || i<0 || j<0)
 			return false;
 		else{
 		matrix[i][j] = color;
 		return true;
 		}
-		
-
 	}
 
 	public int getValue(int i, int j) {
