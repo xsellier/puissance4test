@@ -15,7 +15,7 @@ public class GameEngine {
 	private Rules rule;
 	private Player player1;
 	private Player player2;
-	int counter;
+	private int counter;
 	/* start at 0 and top to grid.getHeight() * grid.getWidth(); */
 
 	public GameEngine() { // initialize game
