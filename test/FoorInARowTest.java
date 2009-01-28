@@ -8,7 +8,7 @@ import org.junit.Test;
 import src.DataStructure;
 
 
-public class Foor_in_a_rowTest {
+public class FoorInARowTest {
 	
 	
 	private DataStructure matrix;
@@ -34,7 +34,7 @@ public class Foor_in_a_rowTest {
 		
 	}
 
-	public boolean check_line(int i, int j, int color, DataStructure grid) {
+	public boolean checkLine(int i, int j, int color, DataStructure grid) {
 		int count_left = 0;
 		int count_right = 0;
 
@@ -65,7 +65,7 @@ public class Foor_in_a_rowTest {
 
 	
 	@Test
-	public void testCheck_line() {
+	public void testCheckLine() {
 		
 		
 		assertTrue(matrix.setValue(0, 0, 1));
@@ -73,19 +73,19 @@ public class Foor_in_a_rowTest {
 		assertTrue(matrix.setValue(0, 2, 1));
 		assertTrue(matrix.setValue(0, 3, 1));
 		 
-		assertTrue(check_line(0, -1, 1, matrix));
-		assertTrue(check_line(0, 0, 1, matrix));
-		assertTrue(check_line(0, 1, 1, matrix));
-		assertTrue(check_line(0, 2, 1, matrix));
-		assertTrue(check_line(0, 3, 1, matrix));
-		assertTrue(check_line(0, 4, 1, matrix));
+		assertTrue(checkLine(0, -1, 1, matrix));
+		assertTrue(checkLine(0, 0, 1, matrix));
+		assertTrue(checkLine(0, 1, 1, matrix));
+		assertTrue(checkLine(0, 2, 1, matrix));
+		assertTrue(checkLine(0, 3, 1, matrix));
+		assertTrue(checkLine(0, 4, 1, matrix));
 		
-		assertFalse(check_line(0, 5, 1, matrix));
-		assertFalse(check_line(0, 6, 1, matrix));
-		assertFalse(check_line(0, 7, 1, matrix));
+		assertFalse(checkLine(0, 5, 1, matrix));
+		assertFalse(checkLine(0, 6, 1, matrix));
+		assertFalse(checkLine(0, 7, 1, matrix));
 	}
 
-	public boolean check_col(int i, int j, int color, DataStructure grid) {
+	public boolean checkCol(int i, int j, int color, DataStructure grid) {
 		int count_up = 0;
 		int count_down = 0;
 
@@ -117,7 +117,7 @@ public class Foor_in_a_rowTest {
 
 	
 	@Test
-	public void testCheck_col() {
+	public void testCheckCol() {
 		assertTrue(matrix.setValue(0, 1, 2));
 		assertTrue(matrix.setValue(1, 1, 2));
 		assertTrue(matrix.setValue(2, 1, 2));
@@ -125,16 +125,16 @@ public class Foor_in_a_rowTest {
 		
 		
 		
-		assertTrue(check_col(-1, 1, 2, matrix));   // attention à partir de i = -1 ca marche
-		assertTrue(check_col(0, 1, 2, matrix));
-		assertTrue(check_col(1, 1, 2, matrix));
-		assertTrue(check_col(2, 1, 2, matrix));
-		assertTrue(check_col(4, 1, 2, matrix));    // et jusqu'à i = 4;
+		assertTrue(checkCol(-1, 1, 2, matrix));   // attention à partir de i = -1 ca marche
+		assertTrue(checkCol(0, 1, 2, matrix));
+		assertTrue(checkCol(1, 1, 2, matrix));
+		assertTrue(checkCol(2, 1, 2, matrix));
+		assertTrue(checkCol(4, 1, 2, matrix));    // et jusqu'à i = 4;
 		
-		assertFalse(check_col(5, 1, 2, matrix));   // Le test ne passe plus
+		assertFalse(checkCol(5, 1, 2, matrix));   // Le test ne passe plus
 	}
 
-	public boolean check_diag(int i, int j, int color, DataStructure grid) {
+	public boolean checkDiag(int i, int j, int color, DataStructure grid) {
 
 		int count1 = 0;
 		int count2 = 0;
@@ -199,18 +199,18 @@ public class Foor_in_a_rowTest {
 	}
 
 	@Test
-	public void testCheck_diag() { // à revoir
+	public void testCheckDiag() { // à revoir
 		assertTrue(matrix.setValue(0, 0, 0));
 		assertTrue(matrix.setValue(1, 1, 0));
 		assertTrue(matrix.setValue(2, 2, 0));
 		assertTrue(matrix.setValue(3, 3, 0));
 		 
-		assertTrue(check_diag(0, 0, 0, matrix));
-		assertTrue(check_diag(1, 1, 0, matrix));
-		assertTrue(check_diag(2, 2, 0, matrix));
-		assertTrue(check_diag(3, 3, 0, matrix));
-		assertTrue(check_diag(4, 4, 0, matrix));
-		assertTrue(check_diag(-1, 7, 0, matrix));
+		assertTrue(checkDiag(0, 0, 0, matrix));
+		assertTrue(checkDiag(1, 1, 0, matrix));
+		assertTrue(checkDiag(2, 2, 0, matrix));
+		assertTrue(checkDiag(3, 3, 0, matrix));
+		assertTrue(checkDiag(4, 4, 0, matrix));
+		assertTrue(checkDiag(-1, 7, 0, matrix));
 	}
 
 	public boolean isComplete(DataStructure grid) {
@@ -220,11 +220,11 @@ public class Foor_in_a_rowTest {
 			for (j = 0; j < grid.getWidth(); j++) {
 				color = grid.getValue(i, j);
 				if (color != 0) {
-					if (check_line(i, j, color, grid))
+					if (checkLine(i, j, color, grid))
 						return true;
-					if (check_col(i, j, color, grid))
+					if (checkCol(i, j, color, grid))
 						return true;
-					if (check_diag(i, j, color, grid))
+					if (checkDiag(i, j, color, grid))
 						return true;
 				}
 			}
@@ -256,7 +256,7 @@ public class Foor_in_a_rowTest {
 		assertFalse("la grille n'est pas complète", result);
 	}
 	
-	public boolean check_play(int play, DataStructure grid){
+	public boolean checkPlay(int play, DataStructure grid){
 		if (grid.getValue(0, play) == 0)
 			return true;
 		if(play>=0 && play < grid.getWidth())
@@ -265,7 +265,7 @@ public class Foor_in_a_rowTest {
 	}
 	
 	@Test
-	public void testCheck_play() { // un doute , voir avec dorian
+	public void testCheckPlay() { // un doute , voir avec dorian
 		
 		assertTrue(matrix.setValue(0, 0, 1));
 		assertTrue(matrix.setValue(0, 1, 1));
@@ -280,7 +280,7 @@ public class Foor_in_a_rowTest {
 		assertTrue(matrix.setValue(4, 6, 1));
 		assertTrue(matrix.setValue(5, 6, 0));
 		
-		assertTrue(check_play(6, matrix)); /// ici !!!!
+		assertTrue(checkPlay(6, matrix)); /// ici !!!!
 		
 		/*assertTrue(matrix.setValue(1, 0, 1));
 		assertTrue(matrix.setValue(1, 1, 1));
