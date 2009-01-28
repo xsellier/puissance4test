@@ -1,5 +1,6 @@
 package src;
 
+
 public class IaFourInARow implements Cpu{
 
 	private int mode;
