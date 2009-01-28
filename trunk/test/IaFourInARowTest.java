@@ -4,8 +4,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class IaFourInARow {
+import src.*;
 
+public class IaFourInARowTest {
+
+	int mode;
+	
+	public int main(int argc, String argv){
+		DataStructure grid = new DataStructure(6,7);
+		Rules rule = new FourInARow();
+		mode = 1; // easy mode
+		mode = 2; // hard mode
+		return 1;
+	}
+	
 	@Test
 	public void testInitialize() {
 		fail("Not yet implemented");
