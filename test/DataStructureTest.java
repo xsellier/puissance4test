@@ -65,6 +65,13 @@ public class DataStructureTest extends TestCase{
 		assertEquals("la largeur d'une negative_matrix est 6",resultNW , 7);
 	}
 	
+	@Test
+	public void testInvalidSetValues(){
+		assertFalse(matrix.setValue(10,1, 0));
+		assertFalse(matrix.setValue(1,10, 1));
+		assertFalse(matrix.setValue(10,10, 2));
+	}
+	
 	public String print() {
 		String result = "";
 		for (int i = 0; i < matrix.getHeight(); i++) {
