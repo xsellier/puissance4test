@@ -45,12 +45,12 @@ public class DataStructureTest extends TestCase{
 	@Test
 	public void testZeroMatrix() {
 		int resultZH = zero_matrix.getHeight();
-		assertEquals("la hauteur d'une matrice_zero est 0", resultZH , 0);
+		assertEquals("la hauteur d'une matrice_zero est 6", resultZH , 6);
 		
 		int resultZW = zero_matrix.getWidth();
-		assertEquals("la largeur d'une matrice_zero est 0", resultZW , 0);
+		assertEquals("la largeur d'une matrice_zero est 7", resultZW , 7);
 		
-		assertFalse("on ne peut pas stocker de valeurs dans une matrice (0,0)", zero_matrix.setValue(0, 0, 0));
+		
 
 	}
 	
