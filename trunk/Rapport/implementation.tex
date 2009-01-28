@@ -381,10 +381,91 @@ TODO
 
 \subsection{GameEngine}
 \subsubsection{Implémentation}
+\begin{verbatim}
+    private DataStructure grid;
+    private boolean current_player;
+    private int currently_played;
+    private GUI app;
+    private int mode;
+    private Rules rule;
+    private Player player1;
+    private Player player2;
+    private int counter;
+\end{verbatim}
+La variable \texttt{grid} contient la grille du
+jeu. \texttt{current\_player} peut obtenir deux valeurs, 0 qui
+correspond au joueur 1, et 1 qui correspond au joueur
+2. \texttt{currently\_played} contient le coup joué (une position ou un
+reset). \texttt{app} contient l'interface graphique. \texttt{mode}
+contient le mode de jeu. \texttt{rule} contient les règles du
+jeu. \texttt{playerX} contient le joueur, qui peut etre humain ou
+artificiel. \texttt{counter} contient le nombre de coups joué, cela
+nous permet de déterminer si il y a un match nul.
 
-\subsubsection{Jeux de test}
+\begin{verbatim}
+    public GameEngine();
+    public void initMode(int my_mode);
+    public void close();
+    public void start();
+    public void resetGrid();
+    public void updatePlay();
+
+    private void updateGrid();
+\end{verbatim}
+Le constructeur initialise l'interface graphique, la grille (avec une
+taille que l'on peut modifier) et les règles du jeu. La méthode
+\texttt{initMode()} initialise les joueurs, la variable
+\texttt{my\_mode} et reset le \texttt{counter}. La méthode
+\texttt{close()} quand à elle ferme l'interface graphique. Cette
+méthode n'est appelée que par le \texttt{Main()}.
+
+La méthode \texttt{start()} s'occupe de lancer le jeu. il aura été
+initialisé par les autres méthodes qui la précède.\newline
+La boucle \texttt{while((!rule.isComplete(grid)) \&\& (counter <} 
+\texttt{grid.getWidth() * grid.getHeight()))} va faire en sorte que le jeu
+ne se termine pas tant qu'il n'y a pas de gagnant ou que la grille
+n'est pas pleine. Il faut savoir que l'utilisateur peut arrêter le
+programme a tout moment a l'aide de l'interface graphique.
+
+Cette méthode fiat jouer a tour de rôle le joueur 1 et le joueur
+2. C'est la méthode \texttt{start()} qui va interpréter le choix du
+joueur, autrement dit, si \texttt{currently\_played = -2} ca implique
+qu'il faut reset la grille.
+
+A chaque tour de boucle on incrémente la variable \texttt{counter} de
+un si la position jouée est valide. Par la suite on met à jour la
+grille à l'aide de la méthode \texttt{updatePlay()} et on grise les
+bouttons dont les colonnes sont pleines à l'aide de la méthode
+\texttt{rule.greyOut()}.
+
+Une fois la boucle terminée, autrement dit, lorsque le jeu est terminé
+on vérifie qui a gagné et on l'affiche à l'aide de la méthode \texttt{gameEnded()}.
+
+La méthode \texttt{resetGrid()} s'occupe d'initialiser la
+\texttt{grid} avec des 0, elle fait en sorte de ne aps re-faire
+appelle à elle avec la méthode \texttt{app.setReset(false)} et
+réinitialise tous les boutons avec la méthode
+\texttt{app.enableAllButton()}. Il faut aussi réinitialiser le
+\texttt{counter} et mettre à jour l'affichage graphique.
+
+La méthode \texttt{updatePlay()}, va quand à elle, re-vérifier si la
+position jouée est valide puis va mettre à jour la grille, et enfin
+met à jour l'affichage.
+
+La méthode \texttt{updateGrid()} va mettre à jour la grille, autrement
+cést elle qu iva générer la gravité, si on peut dire.
+
+\subsubsection{Tests du GameEngine}
+TODO
 
 \subsection{Main et Menu}
-\subsubsection{Implémentation}
-
-\subsubsection{Jeux de test}
+Le \texttt{Main()} va instancier le \texttt{GameEngine} mais aussi le
+menu de départ. cést le \texttt{Main()} qui va dire au
+\texttt{Gameengine} de démarrer le jeu avec l'appel à la méthode
+\texttt{g.start()}. Le \texttt{Main()} fait au \texttt{GameEngine}
+instancier les joueurs avec l'appel à la méthode
+\texttt{g.initMode(my\_menu.choice)}.\newline
+\newline
+Pour ce qui concerne le menu, on aurait pu l'intégrer dans l'interface
+graphique, mais nous n'avions pas assez de temps pour faire cette
+petite modification, et nous avons préféré passer aux tests directement.
