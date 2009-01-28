@@ -154,9 +154,6 @@ et qui respecte le fonctionnement de l'IA actuelle qui est décrit ci-après.
     private int mode;
     private DataStructure cpugrid;
     private int[] playable;
-    private Rules rule;
-    private int height;
-    private int width;
 \end{verbatim}
 Comme toujours le \texttt{mode} stocke la difficulté de l'IA, 1 pour
 facile, 2 pour difficile.
@@ -256,17 +253,90 @@ victoire. Pour eviter de perdre aussi facilement on met
 joeur humain.
 
 \begin{verbatim}
+    private Rules rule;
+    private int height;
+    private int width;
+\end{verbatim}
+La première vriable va contenir les règles du jeux qui sont utilisées,
+dans notre cas ce sera pour le Puissance 4. Les deux variables
+suivantes contiennent la hauteur, respectivement la largeur de notre \texttt{cpugrid}.
+
+\begin{verbatim}
     private void strategy();
     private void breakStrategy();
     private void noPlayable();
     private void winningPlayable();
     private void fillPlayable();
+\end{verbatim}
+La méthode \texttt{strategie()} va parcourir la grille et calculer les
+positions que l'ordinateur peut jouer pour pouvoir gagner en deux
+coups. une fois qu'elle a repérer les colonnes et remplie en
+conséquence \texttt{playable[i]}. La méthode suivante,
+\texttt{breakStrategy()} va parcourir la grille et va regarder si
+lorsque l'ordinateur joue un coup, alors cela permettra a l'humain de
+la bloquer alors qu'avant il ne le pouvait pas. (pour plus de détails
+voir les captures d'écran précédemment). Dans ce cas
+\texttt{playable[i] = 5}.
 
+La méthode \texttt{noPlayable} a un double usage. tout d'abord elle
+regarde si le joueur humain peut gagner au prochain coups. Dans ce cas
+elle marque \texttt{playable[i] = 6} (i correspondant à la
+colonne). Mais elle va aussi vérifier si en jouant une colonne cela
+permet à l'humain, au coups d'après, de gagner la partie. Dans ce cas
+\texttt{playable[i] = 1}.
+
+Pour \texttt{winningPlayable()}, on regarde si l'ordinateur peut
+gagner au prochain coups, et on marque la colonne correspondante par 3
+autrement dit \texttt{playable[i] = 3}.
+
+La méthode \texttt{fillPlayable()} quand a elle initialise
+\texttt{playable[i] = 0} pour les colonnes ou on peut encore
+jouer. Pour ce qui concerne les colonnes pleines, alors
+\texttt{fillPlayable()} va mettre \texttt{playable[i]=4}.
+
+\begin{verbatim}
+    public void initialize(DataStructure grid, int difficulty);
+    public int play(Rules new_rule);
+\end{verbatim}
+La méthode \texttt{initialize()} nést pas un constructeur, mais comme
+son nom l'indique, elle va initialiser le \texttt{Cpu}. Quand à la
+méthode \texttt{play()} elle va vérifier selon le \texttt{mode},
+autrement dit la \texttt{difficulty}, quelle IA appeler.
+
+\begin{verbatim}
     public int perfectCpu();
     public int easyCpu();
-    public int play(Rules new_rule);
-    public void initialize(DataStructure grid, int difficulty);
 \end{verbatim}
+Ces deux méthodes sont très similaires, à la différence que le
+\texttt{perfectCpu()} appelle les méthodes \texttt{breakStrategy()} et
+\texttt{strategy()}, ce que ne fais pas la méthode
+\texttt{easyCpu()}. Le mode \texttt{easyCpu} est moins agressif que le
+mode \texttt{perfectCpu()}, qui en passant n'est pas parfait ;-)\newline
+Dans notre méthode \texttt{perfectCpu()} on commence par remplir la
+grille avec \texttt{fillGrid()} et continue par vérifier si
+on peut gagner au prochain coup à l'aide de la méthode
+\texttt{winningPlayable()}. Si il y a une position gagnante alors on
+retourne le numéro de la colonne. Sinon on regarde si le joueur humain
+peut gagner au prochain coups, ou si jouer une certaine colonne peut
+le faire gagner. Tout cela à l'aide de la méthode
+\texttt{noPlayable()}.
+
+
+Si on est dans le \texttt{perfectCpu()} alors on établie une
+stratégie. Pour cela on évite de jouer une colonne ou l'humain
+pourrait nous bloquer par la suite, avec la méthode
+\texttt{breakStrategy()}. Ensuite on essaie d'établir une stratégie,
+si on a 2 jetons alignés, alors on va essayer dén aligner 2 de plus
+pour faire un 4 à la suite, à l'aide de la méthode
+\texttt{strategy()}. Cela ne se fait que dans la méthode \texttt{perfectCpu()}
+
+
+On continue, peu importe la méthode \texttt{perfectCpu()} ou
+\texttt{easyCpu()}, on regarde si on a autre chose que des 0, 1 et 2
+dans \texttt{playable[i]}, et dans ce cas on remplit les colonnes du
+milieu de la grille. Sinon dans l'ordre des priorités pour
+\texttt{playable[i]} l'ordinateur joue de cette manière : \texttt{3 -
+  6 -  5 -  0 -  2 -  1}.
 
 \subsection{Rules}
 \subsubsection{Implémentation}
