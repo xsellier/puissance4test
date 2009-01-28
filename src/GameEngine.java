@@ -34,12 +34,10 @@ public class GameEngine {
 		this.mode = my_mode;
 		counter = 0; // initialize counter
 		player1 = new HumanPlayer(); // create a human player
-		if (mode == 0) {
+		if (mode == 0) { // human vs human
 			player2 = new HumanPlayer();
-			start(); // human vs human
-		} else {
+		} else { // human vs cpu
 			player2 = new CpuPlayer(my_mode, rule); // create a Cpu with rule, there 4 in a row
-			start(); // human vs cpu
 		}
 	}
 
@@ -57,8 +55,13 @@ public class GameEngine {
 					resetGrid(); // reset grid xD
 					continue;
 				}
-				while (!rule.checkPlay(currently_played, grid)) // verify currently_played is an available position on the grid
+				while (!rule.checkPlay(currently_played, grid)){ // verify currently_played is an available position on the grid
 					currently_played = player1.play(grid, app);
+					if(currently_played==-2){
+						resetGrid(); // reset grid xD
+						continue;
+					}
+				}
 			} else { // Player 2 plays (can be a Cpu or an human
 				currently_played = player2.play(grid, app);
 				if(currently_played==-2){
@@ -66,8 +69,14 @@ public class GameEngine {
 					current_player=!current_player; // change player to Player 1 start
 					continue;
 				}
-				while (!rule.checkPlay(currently_played, grid))
-					currently_played = player1.play(grid, app);
+				while (!rule.checkPlay(currently_played, grid)){
+					currently_played = player2.play(grid, app);
+					if(currently_played==-2){
+						resetGrid();
+						current_player=!current_player; // change player to Player 1 start
+						continue;
+					}
+				}
 			}
 			updatePlay(); // validate grid
 			rule.greyOut(app, grid); // if column is complete, grey out it button
@@ -89,7 +98,7 @@ public class GameEngine {
 	
 	public void updatePlay() {
 		if (rule.checkPlay(currently_played, grid)) { // validate player choice
-			update_grid();
+			updateGrid();
 			current_player = !current_player; // change player
 			app.updateScreen(grid);
 		} else {
@@ -97,7 +106,7 @@ public class GameEngine {
 		}
 	}
 	
-	private void update_grid() {
+	private void updateGrid() {
 		int value = currently_played;
 		int i = 0;
 		boolean empty = true;
