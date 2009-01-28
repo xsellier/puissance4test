@@ -20,7 +20,7 @@ public class CpuPlayer implements Player {
 	public int play(DataStructure grid, GUI gui) {
 		Cpu cpu1 = new IaFourInARow();
 		cpu1.initialize(grid, mode);
-		currently_played = cpu1.play(gui.get_Choice(), rule);
+		currently_played = cpu1.play(gui.getChoice(), rule);
 		return currently_played;
 	}
 }

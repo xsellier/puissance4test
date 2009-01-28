@@ -9,19 +9,19 @@ public interface GUI {
 	public abstract void updateScreen(DataStructure my_grid);
 
 	// Game end with a winner
-	public abstract void game_ended(boolean winner);
+	public abstract void gameEnded(boolean winner);
 
 	// Game end with a draw
-	public abstract void game_ended();
+	public abstract void gameEnded();
 
 	// disable all button
-	public abstract void grey_all_button();
+	public abstract void greyAllButton();
 
 	// enable all button
-	public abstract void enable_all_button();
+	public abstract void enableAllButton();
 
 	// disable a button
-	public abstract void grey_button(int num);
+	public abstract void greyButton(int num);
 
 	// define window size
 	public void setSize(int i, int j);
@@ -33,19 +33,19 @@ public interface GUI {
 	public void show();
 	
 	// return played variable
-	public boolean get_Played();
+	public boolean getPlayed();
 
 	// return choice variable
-	public int get_Choice();
+	public int getChoice();
 	
 	// set played variable 
-	public void set_Played(boolean played);
+	public void setPlayed(boolean played);
 	
 	// return reset variable
-	public boolean get_Reset();
+	public boolean getReset();
 	
 	// set reset variable
-	public void set_Reset(boolean reset);
+	public void setReset(boolean reset);
 
 	// we don't have to implement it.
 	public abstract void dispose();

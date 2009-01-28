@@ -3,7 +3,7 @@ package src;
 public class FourInARow implements Rules{
 
 	// look for a 4 in a line
-	public boolean check_line(int i, int j, int color, DataStructure grid) {
+	public boolean checkLine(int i, int j, int color, DataStructure grid) {
 		int count_left = 0;
 		int count_right = 0;
 
@@ -33,7 +33,7 @@ public class FourInARow implements Rules{
 	}
 
 	// look for 4 in a column
-	public boolean check_col(int i, int j, int color, DataStructure grid) {
+	public boolean checkCol(int i, int j, int color, DataStructure grid) {
 		int count_up = 0;
 		int count_down = 0;
 
@@ -64,7 +64,7 @@ public class FourInARow implements Rules{
 	}
 
 	// look for 4 in a diagonal
-	public boolean check_diag(int i, int j, int color, DataStructure grid) {
+	public boolean checkDiag(int i, int j, int color, DataStructure grid) {
 
 		int count1 = 0;
 		int count2 = 0;
@@ -136,11 +136,11 @@ public class FourInARow implements Rules{
 			for (j = 0; j < grid.getWidth(); j++) {
 				color = grid.getValue(i, j);
 				if (color != 0) {
-					if (check_line(i, j, color, grid))
+					if (checkLine(i, j, color, grid))
 						return true;
-					if (check_col(i, j, color, grid))
+					if (checkCol(i, j, color, grid))
 						return true;
-					if (check_diag(i, j, color, grid))
+					if (checkDiag(i, j, color, grid))
 						return true;
 				}
 			}
@@ -149,7 +149,7 @@ public class FourInARow implements Rules{
 	}
 
 	// validate play into grid
-	public boolean check_play(int play, DataStructure grid){
+	public boolean checkPlay(int play, DataStructure grid){
 		if (grid.getValue(0, play) == 0)
 			return true;
 		if(play>=0 && play < grid.getWidth())
@@ -158,11 +158,11 @@ public class FourInARow implements Rules{
 	}
 
 	// grey out a button if it column is full
-	public void grey_out(GUI app, DataStructure grid) {
+	public void greyOut(GUI app, DataStructure grid) {
 		int i;
 		for (i = 0; i < grid.getWidth(); i++)
 			if (grid.getValue(0, i) != 0)
-				app.grey_button(i);
+				app.greyButton(i);
 	}
 
 }

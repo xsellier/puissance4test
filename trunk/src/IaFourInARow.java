@@ -30,11 +30,11 @@ public class IaFourInARow implements Cpu{
 		last_played = played; // last_position played (by a human player)
 		rule = new_rule;
 		if (mode == 1) // easy mode
-			return easy_cpu();
-		return perfect_cpu(); // hard mode
+			return easyCpu();
+		return perfectCpu(); // hard mode
 	}
 
-	public int easy_cpu() {
+	public int easyCpu() {
 		/* for variable result */
 		/* -1 no choice */
 		int result = -1;
@@ -114,7 +114,7 @@ public class IaFourInARow implements Cpu{
 
 	// for IA Hard
 	
-	private void fill_playable() {
+	private void fillPlayable() {
 		for (int i = 0; i < width; ++i) {
 			if (cpugrid.getValue(0, i) == 0)
 				playable[i] = 0;
@@ -125,7 +125,7 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// if Cpu can win at next token playable[i] = 3
-	private void winning_playable() {
+	private void winningPlayable() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
@@ -133,8 +133,8 @@ public class IaFourInARow implements Cpu{
 						|| (cpugrid.getValue(j, i) == 0 && j == height - 1)) {
 
 					cpugrid.setValue(j, i, 2);
-					if (rule.check_diag(j, i, 2, cpugrid) || rule.check_col(j, i, 2, cpugrid)
-							|| rule.check_line(j, i, 2, cpugrid)) {
+					if (rule.checkDiag(j, i, 2, cpugrid) || rule.checkCol(j, i, 2, cpugrid)
+							|| rule.checkLine(j, i, 2, cpugrid)) {
 						playable[i] = 3;
 					}
 					cpugrid.setValue(j, i, 0);
@@ -145,7 +145,7 @@ public class IaFourInARow implements Cpu{
 
 	// if human can win at next token by cpu playing i (column) playable[i] = 1
 	// if human can win at next token or with tow tokens playable[i] = 6
-	private void no_playable() {
+	private void noPlayable() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
@@ -158,7 +158,7 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((rule.check_diag(l, k, 1, cpugrid) || rule.check_col(l, k, 1, cpugrid) || rule.check_line(
+								if ((rule.checkDiag(l, k, 1, cpugrid) || rule.checkCol(l, k, 1, cpugrid) || rule.checkLine(
 										l, k, 1, cpugrid))
 										&& playable[i] != 3) {
 									playable[k] = 1;
@@ -174,7 +174,7 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((rule.check_diag(l, k, 1, cpugrid) || rule.check_col(l, k, 1, cpugrid) || rule.check_line(
+								if ((rule.checkDiag(l, k, 1, cpugrid) || rule.checkCol(l, k, 1, cpugrid) || rule.checkLine(
 										l, k, 1, cpugrid))
 										&& playable[i] == 0) {
 									playable[k] = 6;
@@ -186,8 +186,8 @@ public class IaFourInARow implements Cpu{
 							}
 						}
 					}
-					if (rule.check_diag(j, i, 1, cpugrid) || rule.check_col(j, i, 1, cpugrid)
-							|| rule.check_line(j, i, 1, cpugrid))
+					if (rule.checkDiag(j, i, 1, cpugrid) || rule.checkCol(j, i, 1, cpugrid)
+							|| rule.checkLine(j, i, 1, cpugrid))
 						playable[i] = 6;
 					cpugrid.setValue(j, i, 0);
 				}
@@ -197,7 +197,7 @@ public class IaFourInARow implements Cpu{
 
 	// if by playing column i human player can block a 3 in a row playable[i] = 2
 	// because human will be able to break cpu strategy
-	private void break_strategy() {
+	private void breakStrategy() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
@@ -210,7 +210,7 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((rule.check_diag(l, k, 2, cpugrid) || rule.check_line(l, k, 2, cpugrid))
+								if ((rule.checkDiag(l, k, 2, cpugrid) || rule.checkLine(l, k, 2, cpugrid))
 										&& playable[i] == 0) {
 									playable[k] = 2;
 								}
@@ -238,7 +238,7 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((rule.check_diag(l, k, 2, cpugrid) || rule.check_line(l, k, 2, cpugrid))
+								if ((rule.checkDiag(l, k, 2, cpugrid) || rule.checkLine(l, k, 2, cpugrid))
 										&& playable[i] == 0) {
 									playable[i] = 5;
 								}
@@ -253,22 +253,22 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// to optimize calculation
-	public int perfect_cpu() {
+	public int perfectCpu() {
 		playable = new int[width];
 		int result = -1;
-		fill_playable();
-		winning_playable();
+		fillPlayable();
+		winningPlayable();
 		for (int i = 0; i < width; ++i)
 			if (playable[i] == 3) // Cpu can win with next token
 				result = i;
 		if (result == -1) { // No choice
-			no_playable();
+			noPlayable();
 			for (int i = 0; i < width; ++i)
 				if (playable[i] == 6) // Human can win if Cpu doesn't play i
 					result = i;
 		}
 		if (result == -1) { // No choice
-			break_strategy();
+			breakStrategy();
 			strategy();
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 5) // Cpu has a strategy

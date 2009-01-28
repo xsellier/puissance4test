@@ -54,41 +54,41 @@ public class GameEngine {
 			if (!current_player) { // Player 1 plays
 				currently_played = player1.play(grid, app);
 				if(currently_played==-2){
-					reset_grid(); // reset grid xD
+					resetGrid(); // reset grid xD
 					continue;
 				}
-				while (!rule.check_play(currently_played, grid)) // verify currently_played is an available position on the grid
+				while (!rule.checkPlay(currently_played, grid)) // verify currently_played is an available position on the grid
 					currently_played = player1.play(grid, app);
 			} else { // Player 2 plays (can be a Cpu or an human
 				currently_played = player2.play(grid, app);
 				if(currently_played==-2){
-					reset_grid();
+					resetGrid();
 					current_player=!current_player; // change player to Player 1 start
 					continue;
 				}
-				while (!rule.check_play(currently_played, grid))
+				while (!rule.checkPlay(currently_played, grid))
 					currently_played = player1.play(grid, app);
 			}
-			check_grid(); // validate grid
-			rule.grey_out(app, grid); // if column is complete, grey out it button
+			updatePlay(); // validate grid
+			rule.greyOut(app, grid); // if column is complete, grey out it button
 			counter++; // increment counter
 		}
 		if (rule.isComplete(grid))
-			app.game_ended(!current_player); // A player wins
+			app.gameEnded(!current_player); // A player wins
 		else
-			app.game_ended(); // it's a draw
+			app.gameEnded(); // it's a draw
 	}
 
-	public void reset_grid(){
+	public void resetGrid(){
 		grid.reset_matrix(); // initialize grid to 0
-		app.set_Reset(false);
-		app.enable_all_button(); // columns are empty so enable buttons 
+		app.setReset(false);
+		app.enableAllButton(); // columns are empty so enable buttons 
 		app.updateScreen(grid); // update screen ...
 		counter=0; // initialize counter
 	}
 	
-	public void check_grid() {
-		if (rule.check_play(currently_played, grid)) { // validate player choice
+	public void updatePlay() {
+		if (rule.checkPlay(currently_played, grid)) { // validate player choice
 			update_grid();
 			current_player = !current_player; // change player
 			app.updateScreen(grid);
