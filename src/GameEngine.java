@@ -30,7 +30,7 @@ public class GameEngine {
 		app.show();
 	}
 
-	public void start(int my_mode) {
+	public void initMode(int my_mode) {
 		this.mode = my_mode;
 		counter = 0; // initialize counter
 		player1 = new HumanPlayer(); // create a human player
