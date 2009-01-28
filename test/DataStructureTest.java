@@ -15,6 +15,8 @@ public class DataStructureTest extends TestCase{
 	private DataStructure zero_matrix;
 	private DataStructure negative_matrix;
 	private DataStructure big_matrix;
+	private DataStructure high_matrix;
+
 	
 	@Before
 	public void setUp(){
@@ -22,6 +24,8 @@ public class DataStructureTest extends TestCase{
 		zero_matrix = new DataStructure(0,0);
 		negative_matrix = new DataStructure(-1,-3);
 		big_matrix = new DataStructure(100,100);
+		high_matrix = new DataStructure(8,9);
+
 	}
 
 	
@@ -45,7 +49,24 @@ public class DataStructureTest extends TestCase{
 		
 		int resultZW = zero_matrix.getWidth();
 		assertEquals("la largeur d'une matrice_zero est 0", resultZW , 0);
+		
+		assertFalse("on ne peut pas stocker de valeurs dans une matrice (0,0)", zero_matrix.setValue(0, 0, 0));
+
 	}
+	
+
+	@Test
+	public void testHighMatrix() {
+		int resultHH = high_matrix.getHeight();
+		assertEquals("la hauteur d'une high_matrix est 8",8 , resultHH);
+		
+		int resultHW = high_matrix.getWidth();
+		assertEquals("la largeur d'une high_matrix est 9",9 , resultHW);
+		
+		assertTrue("Stockage d'une valeur à la position (0,8) de la high_matrix possible", high_matrix.setValue(0, 8, 0));
+		assertFalse("Stockage d'une valeur à la position (0,9) de la high_matrix impossible", high_matrix.setValue(0, 9, 0));
+	}
+
 	
 	@Test
 	public void testBigMatrix() {
