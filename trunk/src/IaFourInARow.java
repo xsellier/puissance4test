@@ -18,6 +18,27 @@ public class IaFourInARow implements Cpu{
 	private int height;
 	private int width;
 
+	public int[] getPlayable(){
+		return playable;
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+	
+	public int getWidth(){
+		return width;
+	}
+	
+	public int getMode(){
+		return mode;
+	}
+	
+	public void setPlayable(int i, int value){
+		if(value >= 0 && value < 7)
+			playable[i]= value;
+	}
+	
 	public void initialize(DataStructure grid, int difficulty) {
 		cpugrid = grid;
 		mode = difficulty;
@@ -262,4 +283,3 @@ public class IaFourInARow implements Cpu{
 		return result;
 	}
 }
-
