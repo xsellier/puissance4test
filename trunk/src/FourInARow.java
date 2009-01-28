@@ -1,6 +1,6 @@
 package src;
 
-public class Foor_in_a_row implements rules{
+public class FourInARow implements Rules{
 
 	// look for a 4 in a line
 	public boolean check_line(int i, int j, int color, DataStructure grid) {

@@ -1,6 +1,6 @@
 package src;
 
-public interface rules {
+public interface Rules {
 
 	/*
 	 * this interface define rules of 4 in a row

@@ -1,6 +1,6 @@
 package src;
 
-public class Ia_foor_in_a_row implements Cpu{
+public class IaFourInARow implements Cpu{
 
 	private int mode;
 	private DataStructure cpugrid;
@@ -15,7 +15,7 @@ public class Ia_foor_in_a_row implements Cpu{
 	/* 5 Strategy */
 	/* 6 Block human */
 
-	private rules rule;
+	private Rules rule;
 	private int height;
 	private int width;
 
@@ -26,7 +26,7 @@ public class Ia_foor_in_a_row implements Cpu{
 		width = cpugrid.getWidth();
 	};
 
-	public int play(int played, rules new_rule) {
+	public int play(int played, Rules new_rule) {
 		last_played = played; // last_position played (by a human player)
 		rule = new_rule;
 		if (mode == 1) // easy mode

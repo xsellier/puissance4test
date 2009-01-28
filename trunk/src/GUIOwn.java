@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
-public class GUI_own extends JFrame implements GUI {
+public class GUIOwn extends JFrame implements GUI {
 
 	private javax.swing.JButton NewButton;
 	private javax.swing.JButton close;
@@ -26,7 +26,7 @@ public class GUI_own extends JFrame implements GUI {
 	public boolean reset;
 	public boolean game_ended;
 	
-	public GUI_own() {
+	public GUIOwn() {
 		reset = false; // initialize reset
 		played = false; // initialize played
 		game_ended=false; // initialise game_ended

@@ -10,15 +10,15 @@ public class CpuPlayer implements Player {
 	 */
 	
 	public int currently_played; // actual player
-	private rules rule; // rule of 4 in a row
+	private Rules rule; // rule of 4 in a row
 
-	public CpuPlayer(int mode, rules rule) {
+	public CpuPlayer(int mode, Rules rule) {
 		this.mode = mode;
 		this.rule = rule;
 	}
 
 	public int play(DataStructure grid, GUI gui) {
-		Cpu cpu1 = new Ia_foor_in_a_row();
+		Cpu cpu1 = new IaFourInARow();
 		cpu1.initialize(grid, mode);
 		currently_played = cpu1.play(gui.get_Choice(), rule);
 		return currently_played;
