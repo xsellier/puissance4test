@@ -17,7 +17,7 @@ public class GameEngine {
 	private Player player2;
 	private int counter;
 	/* start at 0 and top to grid.getHeight() * grid.getWidth(); */
-
+	
 	public GameEngine() { // initialize game
 		this.grid = new DataStructure(6, 7); // create a grid size 6*7
 		this.current_player = false; // human player start
