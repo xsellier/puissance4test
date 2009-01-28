@@ -15,6 +15,7 @@ public class Main {
 			GameEngine g = new GameEngine(); // initialize game
 			my_menu.setVisible(false); // make disappear Menu
 			g.initMode(my_menu.choice); // launch game
+			g.start();
 			my_menu.pushed=false; // re-initialize menu
 			my_menu.setVisible(true); // show menu
 			while (!my_menu.pushed) // wait for human choose
