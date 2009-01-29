@@ -55,8 +55,15 @@ La méthode \texttt{print} va elle afficher la matrice.
 
 
 \subsubsection{Tests de la matrice}
-Ces tests consistent a s'assurer que la structure de données, qui
-représente notre grille de Puissance 4, est robuste.
+
+Nos différentes classes de test dérivent de \textbf{junit.framework.TestCase}. Elles ont une méthode setUp(), exécutée avant chaque méthode de test, pour initialiser les tests et une méthode tearDown(), exécutée après chaque méthode de test , pour relâcher les données.\newline
+Les méthodes de test n'attendent pas de paramètres et retournent \textbf{void}. Leur nom commence par \textbf{testXXX}.\newline
+A l'intérieur des méthodes de test, on effectue les actions de test souhaitées, et on
+vérifie qu'elles se passent correctement en utilisant des méthodes \textbf{assertXXX}.\newline
+
+
+Ces tests consistent à s'assurer que la structure de données, qui
+représente notre grille de Puissance 4, est robuste.\newline
 
 Le premier test envisagé est d'instancier une \texttt{DataStructure} 6$\times$7
 correspondant à la grille classique. Tout en vérifiant par les
@@ -70,6 +77,31 @@ Nous allons tester des ajouts de valeurs prises de manière aléatoire
 mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux bornes. Donc en valeur
 \texttt{i} et \texttt{j} négatives ou supérieures à \texttt{height} et
 à \texttt{width}.
+
+Exemple :\newline
+
+\textbf{testAddingMoreThan42Values()} : \newline
+Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \textbf{true}, ce qui est testé par l'instruction :\newline
+\begin{center}
+\textbf{assertTrue(matrix.setValue(i, j, c));}
+\begin{center}
+
+Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrit : \newline
+\begin{center}
+\textbf{assertFalse(matrix.setValue(i, j, c));}
+\end{center} 
+
+Un \textbf{test aux limitex} a été mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
+Exemple :\newline
+\textbf{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
+\textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}\newline
+
+
+ 
+
+
+
+
 
 \subsection{Player}
 \texttt{Player} est une interface permettant de basculer facilement entre un
