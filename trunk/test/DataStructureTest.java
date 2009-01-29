@@ -3,6 +3,7 @@ package test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class DataStructureTest extends TestCase {
 
 	}
 
-	@Before
+	@After
 	public void tearDown() {
 		matrix = null;
 		zero_matrix = null;
