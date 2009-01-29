@@ -46,6 +46,7 @@ public class HumanPlayerTest {
 		played = human.play(matrix,app);
 		assertNotNull(played);
 		assertTrue( 0 <= played && played < matrix.getWidth());
+		
 	}
 
 }
