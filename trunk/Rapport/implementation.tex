@@ -493,7 +493,13 @@ La méthode \texttt{updateGrid()} va mettre à jour la grille, autrement
 cést elle qu iva générer la gravité, si on peut dire.
 
 \subsubsection{Tests du GameEngine}
-TODO
+Pour valider le fonctionnement du GameEngine qui s'avére délicat à tester correctement
+avec JUnit nous avons choisis une autre approche. Nous avons crée une
+classe IARandom qui va nous servir uniquement à tester de manière
+aléatoire le fonctionnement de notre moteur de jeu. Cette IA tire au
+sort une colonne et joue un pion dans cette colonne si le coup est
+valide sinon elle tire de nouveau une colonne au sort.
+
 
 \subsection{Main et Menu}
 Le \texttt{Main()} va instancier le \texttt{GameEngine} mais aussi le
