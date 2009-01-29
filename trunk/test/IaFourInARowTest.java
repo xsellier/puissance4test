@@ -18,18 +18,32 @@ public class IaFourInARowTest {
 	public Cpu Ia3;
 	public Cpu Ia4;
 	public Rules rule;
-	public int tmp;
+	public int HIa1;
 	
 	
 	
 	@Before
 	public void setUp() throws Exception {
 		DataStructure grid = new DataStructure(6,7);
+		DataStructure gridNull = new DataStructure(0,0);
+		
 		Rules rule = new FourInARow();
+		
 		Cpu Ia1 = new IaFourInARow();
+		Cpu Ia2 = new IaFourInARow();
+		Cpu Ia3 = new IaFourInARow();
+		Cpu Ia4 = new IaFourInARow();
+		
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
+		
 		Ia1.initialize(grid, mode1);
+		Ia2.initialize(grid, mode2);
+		Ia3.initialize(grid , mode2);
+		HIa1 = Ia1.getHeight();
+		
+		
+		
 	}
 	
 
@@ -43,8 +57,8 @@ public class IaFourInARowTest {
 
 	@Test
 	public void testGetHeight() {
-		tmp = Ia1.getHeight();
-		assertEquals(grid.getHeight() , tmp );
+		
+		assertEquals(6 , HIa1 );
 	}
 
 	

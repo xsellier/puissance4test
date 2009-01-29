@@ -6,6 +6,7 @@ public class IaFourInARow implements Cpu{
 	private int mode;
 	private DataStructure cpugrid;
 	private int[] playable;
+	
 	/* for variable playable */
 	/* 0 Playable */
 	/* 1 Human wins */
