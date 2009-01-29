@@ -137,9 +137,10 @@ public class IaFourInARow implements Cpu{
 				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
 						.getValue(j + 1, i) != 0)
 						|| (cpugrid.getValue(j, i) == 0 && j == height - 1)) {
-					cpugrid.setValue(j, i, 2);
+
 					for (int k = width - 1; k >= 0; --k) { /* reach columns */
 						for (int l = 0; l < height; ++l) { /* reach lines */
+							cpugrid.setValue(j, i, 2);
 							if ((cpugrid.getValue(l, k) == 0 && l < height - 1 && cpugrid
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
@@ -151,11 +152,7 @@ public class IaFourInARow implements Cpu{
 								}
 								cpugrid.setValue(l, k, 0);
 							}
-						}
-					}
-					cpugrid.setValue(j, i, 1);
-					for (int k = width - 1; k >= 0; --k) { /* reach columns */
-						for (int l = 0; l < height; ++l) { /* reach lines */
+							cpugrid.setValue(j, i, 1);
 							if ((cpugrid.getValue(l, k) == 0 && l < height - 1 && cpugrid
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
@@ -166,7 +163,6 @@ public class IaFourInARow implements Cpu{
 									playable[k] = 6;
 									cpugrid.setValue(l, k, 0);
 									cpugrid.setValue(j, i, 0);
-									return;
 								}
 								cpugrid.setValue(l, k, 0);
 							}

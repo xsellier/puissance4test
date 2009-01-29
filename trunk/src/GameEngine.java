@@ -7,23 +7,24 @@ public class GameEngine {
 	private int currently_played;
 	private GUI app;
 	private int mode;
-	/* mode contains 3 type 
-	 * 0 - Human vs Human
-	 * 1 - Human vs Cpu Easy
-	 * 2 - Human vs Cpu Hard
+	/*
+	 * mode contains 3 type 0 - Human vs Human 1 - Human vs Cpu Easy 2 - Human
+	 * vs Cpu Hard
 	 */
 	private Rules rule;
 	private Player player1;
 	private Player player2;
 	private int counter;
-	/* start at 0 and top to grid.getHeight() * grid.getWidth(); */
-	
+
+	/* start at 0 and top to grid.getHeight() grid.getWidth(); */
+
 	public GameEngine() { // initialize game
 		this.grid = new DataStructure(6, 7); // create a grid size 6*7
 		this.current_player = false; // human player start
 		rule = new FourInARow(); // define rule of the game, there 4 in a row
-		app = new GUIOwn(); // create GUI, you can change this line to use another GUI
-							 // app = new GUI_another_one();
+		app = new GUIOwn(); // create GUI, you can change this line to use
+							// another GUI
+		// app = new GUI_another_one();
 		app.initGui(grid); // initialize GUI with grid
 		app.setSize(500, 550);
 		app.setLocation(100, 100);
@@ -37,74 +38,81 @@ public class GameEngine {
 		if (mode == 0) { // human vs human
 			player2 = new HumanPlayer();
 			return true;
-		} 
-		if(mode == 1 || mode == 2) { // human vs cpu
-			player2 = new CpuPlayer(my_mode, rule); // create a Cpu with rule, there 4 in a row
+		}
+		if (mode == 1 || mode == 2) { // human vs cpu
+			player2 = new CpuPlayer(my_mode, rule); // create a Cpu with rule,
+													// there 4 in a row
 			return true;
 		}
 		return false;
 	}
 
-	public void close(){
+	public void close() {
 		app.dispose(); // make disappear GUI and close it
 	}
-	
+
 	public void start() {
 
 		while ((!rule.isComplete(grid))
 				&& (counter < grid.getWidth() * grid.getHeight())) {
 			if (!current_player) { // Player 1 plays
 				currently_played = player1.play(grid, app);
-				if(currently_played==-2){
+				if (currently_played == -2) {
 					resetGrid(); // reset grid xD
 					continue;
 				}
-				while (!rule.checkPlay(currently_played, grid)){ // verify currently_played is an available position on the grid
+				while (!rule.checkPlay(currently_played, grid)) { // verify
+																	// currently_played
+																	// is an
+																	// available
+																	// position
+																	// on the
+																	// grid
 					currently_played = player1.play(grid, app);
-					if(currently_played==-2){
+					if (currently_played == -2) {
 						resetGrid(); // reset grid xD
 						continue;
 					}
 				}
-			
+
 			} else { // Player 2 plays (can be a Cpu or an human
 				currently_played = player2.play(grid, app);
-				if(currently_played==-2){
+				if (currently_played == -2) {
 					resetGrid();
-					current_player=!current_player; // change player to Player 1 start
+					current_player = !current_player; // change player to Player
+														// 1 start
 					continue;
 				}
-				while (!rule.checkPlay(currently_played, grid)){
+				while (!rule.checkPlay(currently_played, grid)) {
 					currently_played = player2.play(grid, app);
-					if(currently_played==-2){
+					if (currently_played == -2) {
 						resetGrid();
-						current_player=!current_player; // change player to Player 1 start
+						current_player = !current_player; // change player to
+															// Player 1 start
 						continue;
 					}
 				}
 			}
 			updatePlay(); // validate grid
-			rule.greyOut(app, grid); // if column is complete, grey out it button
+			rule.greyOut(app, grid); // if column is complete, grey out it
+										// button
 			counter++; // increment counter
 		}
-		if (rule.isComplete(grid)){
+		if (rule.isComplete(grid))
 			app.gameEnded(!current_player); // A player wins
-	
-		}
-		
-	
+		else 
 			app.gameEnded(); // it's a draw
-	
+
 	}
 
-	public void resetGrid(){
+	public void resetGrid() {
 		grid.reset_matrix(); // initialize grid to 0
 		app.setReset(false);
-		app.enableAllButton(); // columns are empty so enable buttons 
+		app.enableAllButton(); // columns are empty so enable buttons
 		app.updateScreen(grid); // update screen ...
-		counter=0; // initialize counter
+		counter = 0; // initialize counter
 	}
-	
+
 	public void updatePlay() {
 		if (rule.checkPlay(currently_played, grid)) { // validate player choice
 			updateGrid();
@@ -114,7 +122,7 @@ public class GameEngine {
 			System.out.print("");
 		}
 	}
-	
+
 	private void updateGrid() {
 		int value = currently_played;
 		int i = 0;
@@ -131,25 +139,26 @@ public class GameEngine {
 		if (empty) { // if column is empty
 			if (current_player == false) // player 1
 				grid.setValue(grid.getHeight() - 1, value, 1);
-			else // player 2
+			else
+				// player 2
 				grid.setValue(grid.getHeight() - 1, value, 2);
 		} else {
 			if (i != 0) {
 				if (current_player == false) // player 1
 					grid.setValue(i - 1, value, 1);
-				else // player 2
+				else
+					// player 2
 					grid.setValue(i - 1, value, 2);
 			}
 		}
 
 	}
-	
-	public int getMode(){
+
+	public int getMode() {
 		return mode;
 	}
 
-
-	public boolean getWinPlayer(){
+	public boolean getWinPlayer() {
 		return current_player;
 	}
 	/*
@@ -158,4 +167,3 @@ public class GameEngine {
 	 * i++) { if (check_play(i)) cols.add(i); } return cols; }
 	 */
 }
-
