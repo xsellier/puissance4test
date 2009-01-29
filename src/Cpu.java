@@ -22,6 +22,8 @@ public interface Cpu {
 	
 	public int getMode();
 	
+	public DataStructure getCpuGrid();
+	
 	public void setPlayable(int i, int value);
 }
 
