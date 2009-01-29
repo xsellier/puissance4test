@@ -90,7 +90,7 @@ Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus pa
 \textbf{assertFalse(matrix.setValue(i, j, c));}
 \end{center} 
 
-Un \textbf{test aux limitex} a été mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
+Un \textbf{test aux limites} a été mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
 Exemple :\newline
 \textbf{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
 \textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}
