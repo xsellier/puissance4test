@@ -19,11 +19,11 @@ public class GameEngine {
 	/* start at 0 and top to grid.getHeight() grid.getWidth(); */
 
 	public GameEngine() { // initialize game
-		this.grid = new DataStructure(6, 7); // create a grid size 6*7
+		this.grid = new DataStructure(0, 0); // create a grid size 6*7
 		this.current_player = false; // human player start
 		rule = new FourInARow(); // define rule of the game, there 4 in a row
 		app = new GUIOwn(); // create GUI, you can change this line to use
-							// another GUI
+		// another GUI
 		// app = new GUI_another_one();
 		app.initGui(grid); // initialize GUI with grid
 		app.setSize(500, 550);
@@ -41,7 +41,7 @@ public class GameEngine {
 		}
 		if (mode == 1 || mode == 2) { // human vs cpu
 			player2 = new CpuPlayer(my_mode, rule); // create a Cpu with rule,
-													// there 4 in a row
+			// there 4 in a row
 			return true;
 		}
 		return false;
@@ -57,17 +57,19 @@ public class GameEngine {
 				&& (counter < grid.getWidth() * grid.getHeight())) {
 			if (!current_player) { // Player 1 plays
 				currently_played = player1.play(grid, app);
+				while(currently_played == -1)
+					currently_played = player1.play(grid, app);
 				if (currently_played == -2) {
 					resetGrid(); // reset grid xD
 					continue;
 				}
 				while (!rule.checkPlay(currently_played, grid)) { // verify
-																	// currently_played
-																	// is an
-																	// available
-																	// position
-																	// on the
-																	// grid
+					// currently_played
+					// is an
+					// available
+					// position
+					// on the
+					// grid
 					currently_played = player1.play(grid, app);
 					if (currently_played == -2) {
 						resetGrid(); // reset grid xD
@@ -75,12 +77,14 @@ public class GameEngine {
 					}
 				}
 
-			} else { // Player 2 plays (can be a Cpu or an human
+			} else { // Player 2 plays, can be a Cpu or an human
 				currently_played = player2.play(grid, app);
+				while(currently_played == -1)
+					currently_played = player2.play(grid, app);
 				if (currently_played == -2) {
 					resetGrid();
 					current_player = !current_player; // change player to Player
-														// 1 start
+					// 1 start
 					continue;
 				}
 				while (!rule.checkPlay(currently_played, grid)) {
@@ -88,19 +92,19 @@ public class GameEngine {
 					if (currently_played == -2) {
 						resetGrid();
 						current_player = !current_player; // change player to
-															// Player 1 start
+						// Player 1 start
 						continue;
 					}
 				}
 			}
 			updatePlay(); // validate grid
 			rule.greyOut(app, grid); // if column is complete, grey out it
-										// button
+			// button
 			counter++; // increment counter
 		}
 		if (rule.isComplete(grid))
 			app.gameEnded(!current_player); // A player wins
-		else 
+		else
 			app.gameEnded(); // it's a draw
 
 	}
