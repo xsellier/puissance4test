@@ -1,8 +1,5 @@
 package test;
 
-//import static org.junit.Assert.*;
-import java.io.FileNotFoundException;
-
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
