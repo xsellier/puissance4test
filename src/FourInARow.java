@@ -19,7 +19,7 @@ public class FourInARow implements Rules {
 			}
 		}
 
-		if (j < 6) {
+		if (j < grid.getHeight()) {
 			j = real_j + 1;
 			while ((j < grid.getWidth()) && (j < (real_j + 4))
 					&& (grid.getValue(i, j) == color)) {
@@ -131,16 +131,14 @@ public class FourInARow implements Rules {
 
 		if ((count1 + count2) >= 3)
 			return true;
-
 		return false;
 	}
 
 	// verify grid complete by a victory
 	public boolean isComplete(DataStructure grid) {
 		int color;
-		int i, j;
-		for (i = 0; i < grid.getHeight(); i++) {
-			for (j = 0; j < grid.getWidth(); j++) {
+		for (int i = 0; i < grid.getHeight(); i++) {
+			for (int j = 0; j < grid.getWidth(); j++) {
 				color = grid.getValue(i, j);
 				if (color != 0) {
 					if (checkLine(i, j, color, grid))
