@@ -23,6 +23,7 @@ public class IaFourInARowTest extends TestCase {
 	private IaFourInARow ia4;
 	private IaFourInARow ia5;
 	private IaFourInARow ia6;
+	private IaFourInARow ia7;
 
 	private Rules rule;
 
@@ -41,6 +42,7 @@ public class IaFourInARowTest extends TestCase {
 		ia4 = new IaFourInARow();
 		ia5 = new IaFourInARow();
 		ia6 = new IaFourInARow();
+		ia7 = new IaFourInARow();
 
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
@@ -51,16 +53,14 @@ public class IaFourInARowTest extends TestCase {
 		ia4.initialize(grid_null, mode2);
 		ia5.initialize(big_grid, mode1);
 		ia6.initialize(big_grid, mode2);
+		ia7.initialize(grid, mode1);
 
 		IaRandom iatest = new IaRandom();
 		iatest.initialize(grid, mode2); // initialize a randomIa
 		iatest.initialize(grid, mode1); // initialize a switchIa
 	}
 
-	@Test
-	public void testGetPlayable() {
-		// System.out.println("");
-	}
+
 
 	@Test
 	public void testGetCpuGrid() {
@@ -94,11 +94,15 @@ public class IaFourInARowTest extends TestCase {
 
 	@Test
 	public void testSetPlayable() {
-		/*
-		 * to change
-		 */
-		assertEquals(6, grid_null.getHeight());
-		assertEquals(7, grid_null.getWidth());
+		ia7.play(rule);
+		int[] tmp = ia7.getPlayable();
+		for ( int i=0 ; i<ia7.getCpuGrid().getWidth();i++)
+			assertEquals( 0 , tmp[i]);
+		
+		ia7.setPlayable(6,6 );
+		int[] tmp2 = ia7.getPlayable();
+		assertNotNull( tmp2[6]);
+	
 	}
 
 	@Test
@@ -116,6 +120,8 @@ public class IaFourInARowTest extends TestCase {
 
 	@Test
 	public void testPlay() {
+		
+		//Empty grid
 		int Ia1Played = ia1.play(rule);
 		assertNotNull(Ia1Played);
 		assertTrue(0 <= Ia1Played && Ia1Played < grid.getWidth());
@@ -129,38 +135,40 @@ public class IaFourInARowTest extends TestCase {
 		int Ia6Played =  ia6.play(rule);
 		assertNotNull(Ia6Played);
 		assertTrue( 0 <= Ia6Played && Ia6Played < big_grid.getWidth());
-		System.out.println(Ia6Played);
+	
 		
 		//Winning test
 		grid.reset_matrix();
-		grid.setValue(0,4,1);
-		grid.setValue(0,5,1);
-		grid.setValue(1,4,1);
-		grid.setValue(1,5,1);
+		grid.setValue(5,0,1);
+		grid.setValue(5,1,1);
+		grid.setValue(4,0,1);
+		grid.setValue(4,1,1);
 		
-		grid.setValue(0,0,2);
-		grid.setValue(0,2,2);
-		grid.setValue(0,3,2);
+		grid.setValue(5,6,2);
+		grid.setValue(4,6,2);
+		grid.setValue(3,6,2);
 		
 		int Ia1PlayedForWin = ia1.play(rule);
 		assertNotNull(Ia1PlayedForWin);
 		assertTrue(0 <= Ia1PlayedForWin && Ia1PlayedForWin < grid.getWidth());
-		assertEquals(1, Ia1PlayedForWin);
+		System.out.println(Ia1PlayedForWin );
+		assertEquals(6, Ia1PlayedForWin);
 		
 		grid_null.reset_matrix();
-		grid_null.setValue(0,4,1);
-		grid_null.setValue(0,5,1);
-		grid_null.setValue(1,4,1);
-		grid_null.setValue(1,5,1);
+		grid_null.setValue(5,0,1);
+		grid_null.setValue(5,1,1);
+		grid_null.setValue(4,0,1);
+		grid_null.setValue(4,1,1);
 		
-		grid_null.setValue(0,0,2);
-		grid_null.setValue(0,2,2);
-		grid_null.setValue(0,3,2);
+		grid_null.setValue(5,6,2);
+		grid_null.setValue(4,6,2);
+		grid_null.setValue(3,6,2);
+		
 		
 		int Ia4PlayedForWin = ia4.play(rule);
 		assertNotNull(Ia4PlayedForWin);
 		assertTrue(0 <= Ia4PlayedForWin && Ia4PlayedForWin < grid_null.getWidth());
-		assertEquals(1, Ia4PlayedForWin);
+		assertEquals(6, Ia4PlayedForWin);
 		
 		//full grid
 		
@@ -188,6 +196,7 @@ public class IaFourInARowTest extends TestCase {
 		assertFalse(0 <= Ia2PlayedFullGrid && Ia2PlayedFullGrid < grid.getWidth());
 		assertEquals(-1, Ia2PlayedFullGrid);
 		
+		grid.reset_matrix();
 		
 		
 		
