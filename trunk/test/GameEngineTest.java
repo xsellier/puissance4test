@@ -65,7 +65,7 @@ public class GameEngineTest extends TestCase{
 		game.initMode(0);
 		
 		assertFalse("2 possibilités : C'est le joueur humain numéro 1 qui a gagné !!!" +
-				"ou personne n'a gagné !!", game.start());
+				"ou personne n'a gagné !!", game.getWinPlayer());
 		
 	}
 	
@@ -73,7 +73,7 @@ public class GameEngineTest extends TestCase{
 	public void testCpu1WinHuman() {
 		game.initMode(1);
 		
-		assertFalse("C'est l'humain qui a gagné !", game.start());
+		assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());
 		
 	}
 
@@ -81,17 +81,17 @@ public class GameEngineTest extends TestCase{
 	public void testCpu2WinHuman() {
 		game.initMode(2);
 		
-		assertFalse("C'est l'humain qui a gagné !", game.start());
+		assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());
 		
 	}
 	
 	@Test
 	public void testUpdatePlay() {	
-		/*game.initMode(0);
+		game.initMode(0);
 		game.start();
 		
 		game.updatePlay();
-		assertTrue("Test de mise à jour du jeu", game.start());*/
+		assertTrue("Test de mise à jour du jeu", game.getWinPlayer());
 	}
 
 	@Test
