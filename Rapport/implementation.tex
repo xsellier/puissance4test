@@ -162,7 +162,7 @@ donc totallement indépendante du reste du programme et peut être
 changé facilement.
 
 \subsubsection{Jeux de test}
-TODO
+
 
 \subsection{Cpu}
 \texttt{Cpu} est une interface. le fait d'avoir créé une interface va nous
@@ -409,7 +409,22 @@ La dernière méthode, \texttt{greyOut()}, va quand a elle griser les bouttons des
 pleines correspondantes.
 
 \subsubsection{Tests de FourInARow}
-TODO
+Cette classe teste :\newline 
+\item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
+On choisit des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
+Exemple (Existence de 4 jetons sur la même ligne) :\newline
+On crée 4 jetons sur la même ligne 0:\newline
+\begin{center}
+		\textbf{assertTrue(matrix.setValue(0, 0, 1));}
+		\textbf{assertTrue(matrix.setValue(0, 1, 1));}
+		\textbf{assertTrue(matrix.setValue(0, 2, 1));}
+		\textbf{assertTrue(matrix.setValue(0, 3, 1));}
+\end{center}
+
+Puis en bouclant sur toutes les positions de la grille, on arrive à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
+   
+
+\item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
 
 \subsection{GameEngine}
 \subsubsection{Implémentation}
