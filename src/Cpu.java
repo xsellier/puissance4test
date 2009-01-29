@@ -10,7 +10,6 @@ public interface Cpu {
 	 * void initialize(...)
 	 * choose IA difficulty
 	 */
-	
 	public int play(Rules new_rule);
 
 	public void initialize(DataStructure grid, int difficulty);
