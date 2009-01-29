@@ -1,8 +1,6 @@
 package test;
 
 //import static org.junit.Assert.*;
-import java.io.FileNotFoundException;
-
 import junit.framework.TestCase;
 
 import org.junit.Before;
@@ -57,7 +55,9 @@ public class IaFourInARowTest extends TestCase {
 		Ia6.initialize(bigGrid, mode2 );
 		
 
-		
+		IaRandom iatest = new IaRandom();
+		iatest.initialize(grid, mode2); // initialize a randomIa
+		iatest.initialize(grid, mode1); // initialize a switchIa
 	}
 	
 
