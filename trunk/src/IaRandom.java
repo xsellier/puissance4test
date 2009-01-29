@@ -2,8 +2,7 @@ package src;
 
 public class IaRandom implements Cpu {
 
-	private Rules rule;
-	private int counter = -1;
+	private int counter = 0;
 	private int mode;
 	/*
 	 * values for mode :
@@ -20,7 +19,6 @@ public class IaRandom implements Cpu {
 
 	
 	public int play(Rules new_rule) {
-		rule = new_rule;
 		if(mode == 1)
 			switchCpu();
 		else
@@ -29,7 +27,7 @@ public class IaRandom implements Cpu {
 	}
 	
 	public void switchCpu(){
-		result = counter;
+		result = (counter % grid.getWidth()+2) -1;
 		counter++;
 	}
 	
