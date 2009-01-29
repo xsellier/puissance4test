@@ -15,13 +15,14 @@ public class IaFourInARowTest extends TestCase {
 	private DataStructure grid;
 	private DataStructure grid_null;
 	private DataStructure big_grid;
+	private DataStructure full_grid;
 
 	private IaFourInARow ia1;
 	private IaFourInARow ia2;
 	private IaFourInARow ia3;
 	private IaFourInARow ia4;
 	private IaFourInARow ia5;
-	private IaFourInARow ta6;
+	private IaFourInARow ia6;
 
 	private Rules rule;
 
@@ -30,6 +31,7 @@ public class IaFourInARowTest extends TestCase {
 		grid = new DataStructure(6, 7);
 		grid_null = new DataStructure(0, 0);
 		big_grid = new DataStructure(100, 100);
+		full_grid = new DataStructure( 6, 7);
 
 		rule = new FourInARow();
 
@@ -38,7 +40,7 @@ public class IaFourInARowTest extends TestCase {
 		ia3 = new IaFourInARow();
 		ia4 = new IaFourInARow();
 		ia5 = new IaFourInARow();
-		ta6 = new IaFourInARow();
+		ia6 = new IaFourInARow();
 
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
@@ -48,7 +50,7 @@ public class IaFourInARowTest extends TestCase {
 		ia3.initialize(grid_null, mode1);
 		ia4.initialize(grid_null, mode2);
 		ia5.initialize(big_grid, mode1);
-		ta6.initialize(big_grid, mode2);
+		ia6.initialize(big_grid, mode2);
 
 		IaRandom iatest = new IaRandom();
 		iatest.initialize(grid, mode2); // initialize a randomIa
@@ -63,25 +65,25 @@ public class IaFourInARowTest extends TestCase {
 	@Test
 	public void testGetCpuGrid() {
 		assertNotNull(ia1.getCpuGrid());
-		assertEquals(grid.getHeight(), ia1.getHeight());
-		assertEquals(grid.getWidth(), ia1.getWidth());
+		assertEquals(6, ia1.getHeight());
+		assertEquals(7, ia1.getWidth());
 		assertSame(grid, ia1.getCpuGrid());
 
 	}
 
 	@Test
 	public void testGetHeight() {
-		assertEquals(grid.getHeight(), ia1.getHeight());
-		assertEquals(grid.getHeight(), ia2.getHeight());
-		assertEquals(grid_null.getHeight(), ia3.getHeight());
-		assertEquals(big_grid.getHeight(), ia5.getHeight());
+		assertEquals(6, ia1.getHeight());
+		assertEquals(6, ia2.getHeight());
+		assertEquals(6, ia3.getHeight());
+		assertEquals(100, ia5.getHeight());
 	}
 
 	@Test
 	public void testGetWidth() {
-		assertEquals(grid.getWidth(), ia1.getWidth());
-		assertEquals(grid_null.getWidth(), ia3.getWidth());
-		assertEquals(big_grid.getWidth(), ta6.getWidth());
+		assertEquals(7, ia1.getWidth());
+		assertEquals(7, ia3.getWidth());
+		assertEquals(100, ia6.getWidth());
 	}
 
 	@Test
@@ -105,10 +107,10 @@ public class IaFourInARowTest extends TestCase {
 		assertNotNull(ia1.getWidth());
 		assertNotNull(ia1.getHeight());
 		assertNotNull(ia1.getMode());
-		assertSame(ia1.getCpuGrid(), grid);
-		assertEquals(ia1.getWidth(), grid.getWidth());
-		assertEquals(ia1.getHeight(), grid.getHeight());
-		assertEquals(ia1.getMode(), mode1);
+		assertSame(ia1.getCpuGrid(),grid);
+		assertEquals(7,ia1.getWidth());
+		assertEquals(6,ia1.getHeight());
+		assertEquals(1,ia1.getMode());
 
 	}
 
@@ -116,11 +118,18 @@ public class IaFourInARowTest extends TestCase {
 	public void testPlay() {
 		int Ia1Played = ia1.play(rule);
 		assertNotNull(Ia1Played);
-		assertTrue(0 <= Ia1Played || Ia1Played <= grid.getWidth());
+		assertTrue(0 <= Ia1Played || Ia1Played < grid.getWidth());
 		assertEquals(3, Ia1Played);
+		
 		int Ia3Played = ia3.play(rule);
-		assertTrue(0 <= Ia3Played || Ia3Played <= grid.getWidth());
+		assertNotNull(Ia3Played);
+		assertTrue(0 <= Ia3Played || Ia3Played < grid_null.getWidth());
 		assertEquals(3, Ia3Played);
+		
+		int Ia6Played =  ia6.play(rule);
+		assertNotNull(Ia6Played);
+		assertTrue( 0 <= Ia6Played || Ia6Played < big_grid.getWidth());
+		System.out.println(Ia6Played);
 
 	}
 
