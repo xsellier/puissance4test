@@ -41,7 +41,27 @@ Lorsqu'un joueur communique son choix pour le coup en cours, le tableau d'entier
 \end{itemize}
 
 L'ensemble de ces outils permettront au moteur de jeu décrit ci-dessous d'assurer le bon déroulement du jeu et donc du programme.
+\paragraph{Tests d'intégration pour les règles}
 
+\begin{itemize}
+\bigskip
+\item Situation incorrecte\newline
+En intégrant nos règles dans le moteur de jeu, il est possible que le choix du joueur ne
+soit pas dans l'intervalle de positions de la grille. Autrement dit,
+le joueur va essayer de jouer à l'extérieur de la grille. C'est
+pourquoi nous pensons entrer des tests aux limites de notre grille,
+mais qui appellent sur toutes les possibilités nos règles. Nous
+choisirons des données de tests négatives, nulles, de la taille de la
+grille, et supérieur à la taille de la grille.
+\bigskip
+\item Situation plausible\newline
+Il est certain qu'on va vérifier si notre moteur de jeu récupère bien
+la valeur attendue et l'interprète correctement. Pour ce qui concerne
+les données de tests de ce cas précis, nous pensons prendre une grille
+6$\times$7 et effectuer les tests sur toutes les combinaisons
+possibles pour vérifier si nos règles nous retournent le fait qu'un
+joueur a remporté et la victoire.
+\end{itemize}
 
 \subsection{Moteur de jeu}
 
