@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import src.DataStructure;
@@ -33,6 +34,13 @@ public class HumanPlayerTest {
 	}
 	
 
+	@After
+	public void tearDown(){
+		human = null;
+		matrix = null;
+		app = null;
+	}
+	
 	@Test
 	public void testPlay() {
 		played = human.play(matrix,app);
