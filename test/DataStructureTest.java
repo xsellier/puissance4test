@@ -42,13 +42,13 @@ public class DataStructureTest extends TestCase {
 	@Test
 	public void testGetHeight() {
 		int result = matrix.getHeight();
-		assertEquals("Le test de la hauteur n'a pas réussi", result, 6);
+		assertEquals("Le test de la hauteur n'a pas rï¿½ussi", result, 6);
 	}
 
 	@Test
 	public void testGetWidth() {
 		int result = matrix.getWidth();
-		assertEquals("Le test de la largeur n'as pas réussi", result, 7);
+		assertEquals("Le test de la largeur n'as pas rï¿½ussi", result, 7);
 	}
 
 	@Test
@@ -70,10 +70,10 @@ public class DataStructureTest extends TestCase {
 		assertEquals("la largeur d'une high_matrix n'est pas  9", 9, resultHW);
 
 		assertTrue(
-				"Stockage d'une valeur à la position (0,8) de la high_matrix impossible",
+				"Stockage d'une valeur ï¿½ la position (0,8) de la high_matrix impossible",
 				high_matrix.setValue(0, 8, 0));
 		assertFalse(
-				"Stockage d'une valeur à la position (0,9) de la high_matrix possible",
+				"Stockage d'une valeur ï¿½ la position (0,9) de la high_matrix possible",
 				high_matrix.setValue(0, 9, 0));
 	}
 
@@ -107,7 +107,7 @@ public class DataStructureTest extends TestCase {
 	}
 
 	@Test
-	public void testToString() throws FileNotFoundException {
+	public void testToString() {
 		
 		String result = "Ligne : 0 | 0 0 0 0 0 0 0 \nLigne : 1 | 0 0 0 0 0 0 0 \nLigne : 2 | 0 0 0 0 0 0 0 \nLigne : 3 | 0 0 0 0 0 0 0 \nLigne : 4 | 0 0 0 0 0 0 0 \nLigne : 5 | 0 0 0 0 0 0 0 \n";
 		assertEquals(result, zero_matrix.toString());
@@ -117,7 +117,7 @@ public class DataStructureTest extends TestCase {
 	public void testAddingValue() {
 		assertTrue(matrix.setValue(1, 2, 3));
 		int result = matrix.getValue(1, 2);
-		assertEquals("Test de rajout d'une valeur à la matrice", result, 3);
+		assertEquals("Test de rajout d'une valeur ï¿½ la matrice", result, 3);
 
 	}
 
@@ -166,20 +166,20 @@ public class DataStructureTest extends TestCase {
 		assertTrue(matrix.setValue(5, 5, 0));
 		assertTrue(matrix.setValue(5, 6, 1));
 
-		assertFalse("Test de rajout d'une 43 ème valeur à la matrice", matrix
+		assertFalse("Test de rajout d'une 43 ï¿½me valeur ï¿½ la matrice", matrix
 				.setValue(6, 0, 0));
 
 		assertTrue(
-				"Test de la hauteur : Toujours égale à 6 malgré le rajout d'une 43 ème valeur",
+				"Test de la hauteur : Toujours ï¿½gale ï¿½ 6 malgrï¿½ le rajout d'une 43 ï¿½me valeur",
 				matrix.getHeight() == 6);
 
 		assertTrue(
-				"Test de la largeur : Toujours égale à 7 malgré le rajout d'une 43 ème valeur",
+				"Test de la largeur : Toujours ï¿½gale ï¿½ 7 malgrï¿½ le rajout d'une 43 ï¿½me valeur",
 				matrix.getWidth() == 7);
 
 		int result = matrix.getValue(5, 5);
 		assertEquals(
-				"Test de valeurs après rajout : les valeurs stockées dans la matrice n'ont pas été éronnées suite au rajout d'une 43 ème valeur",
+				"Test de valeurs aprï¿½s rajout : les valeurs stockï¿½es dans la matrice n'ont pas ï¿½tï¿½ ï¿½ronnï¿½es suite au rajout d'une 43 ï¿½me valeur",
 				result, 0);
 
 	}

@@ -12,7 +12,7 @@ public class FourInARowTest {
 	private Rules rule;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		matrix = new DataStructure(6, 7);
 		rule = new FourInARow();
 	}
@@ -105,7 +105,7 @@ public class FourInARowTest {
 		assertTrue(matrix.setValue(2, 1, 2));
 		assertTrue(matrix.setValue(3, 1, 2));
 
-		assertTrue("la grille est complète", rule.isComplete(matrix));
+		assertTrue("la grille est complï¿½te", rule.isComplete(matrix));
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class FourInARowTest {
 		assertTrue(matrix.setValue(2, 5, 0));
 		assertTrue(matrix.setValue(0, 4, 0));
 
-		assertFalse("la grille n'est pas complète", rule.isComplete(matrix));
+		assertFalse("la grille n'est pas complï¿½te", rule.isComplete(matrix));
 	}
 
 	@Test
