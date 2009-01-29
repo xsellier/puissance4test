@@ -1,7 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
-
+import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,30 +9,30 @@ import src.*;
 
 public class IaFourInARowTest {
 
-	public int mode1;
-	public int mode2;
-	public DataStructure grid;
-	public DataStructure gridNull;
-	public Cpu Ia1;
-	public Cpu Ia2;
-	public Cpu Ia3;
-	public Cpu Ia4;
-	public Rules rule;
-	public int HGrid;
-	public int WGrid;
-	public int HGridNull;
-	public int WGridNull;
-	public int HIa1;
-	public int HIa2;
-	public int HIa3;
-	public int WIa1;
-	public int WIa3;
-	public int modeAi1;
-	public int modeAi2;
-	public DataStructure gridAi1;
-	public int HGridAi1;
-	public int WGridAi1;
-	public DataStructure gridAi3;
+	private int mode1;
+	private int mode2;
+	private DataStructure grid;
+	private DataStructure gridNull;
+	private IaFourInARow Ia1;
+	private IaFourInARow Ia2;
+	private IaFourInARow Ia3;
+	private IaFourInARow Ia4;
+	private Rules rule;
+	private int HGrid;
+	private int WGrid;
+	private int HGridNull;
+	private int WGridNull;
+	private int HIa1;
+	private int HIa2;
+	private int HIa3;
+	private int WIa1;
+	private int WIa3;
+	private int modeAi1;
+	private int modeAi2;
+	private DataStructure gridAi1;
+	private int HGridAi1;
+	private int WGridAi1;
+	private DataStructure gridAi3;
 
 	
 	
@@ -43,10 +43,10 @@ public class IaFourInARowTest {
 		
 		Rules rule = new FourInARow();
 		
-		Cpu Ia1 = new IaFourInARow();
-		Cpu Ia2 = new IaFourInARow();
-		Cpu Ia3 = new IaFourInARow();
-		Cpu Ia4 = new IaFourInARow();
+		IaFourInARow Ia1 = new IaFourInARow();
+		IaFourInARow Ia2 = new IaFourInARow();
+		IaFourInARow Ia3 = new IaFourInARow();
+		IaFourInARow Ia4 = new IaFourInARow();
 		
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
@@ -54,7 +54,7 @@ public class IaFourInARowTest {
 		Ia1.initialize(grid, mode1);
 		Ia2.initialize(grid, mode2);
 		Ia3.initialize(grid , mode2);
-		Ia4.initialize(grid, mode1);
+		
 		
 		HGrid = grid.getHeight();
 		WGrid = grid.getWidth();
@@ -97,12 +97,14 @@ public class IaFourInARowTest {
 
 	@Test
 	public void testGetHeight() {
-		assertNotNull( HIa1);
-		assertNotNull( HIa2);
-		assertNotNull( HIa3);
-		assertEquals(HGrid , HIa1);
-		assertEquals(HGrid , HIa2);
-		assertEquals(HGridNull , HIa3);
+		int plop = Ia1.getHeight();
+		//assertNotNull( plop);
+		//assertNotNull( HIa2);
+		//assertNotNull( HIa3);
+		//assertEquals(HGrid , HIa1);
+		//assertEquals(HGrid , HIa2);
+		//assertEquals(HGridNull , HIa3);
+		assertEquals(0,plop);
 		
 	}
 
@@ -130,7 +132,9 @@ public class IaFourInARowTest {
 
 	@Test
 	public void testInitialize() {
-		assertNotNull( Ia1);
+		Ia4.initialize(grid, mode1);
+		int result = Ia4.getHeight();
+		System.out.println("");
 		
 	}
 	
@@ -149,5 +153,8 @@ public class IaFourInARowTest {
 	public void testPerfectCpu() {
 		fail("Not yet implemented");
 	}
+	
+	
+	
 
 }
