@@ -28,7 +28,7 @@ public class FourInARowTest {
 		assertTrue(matrix.setValue(0, 2, 1));
 		assertTrue(matrix.setValue(0, 3, 1));
 
-		/* make a full test  to check line */
+		/* make a full test  to check lines */
 		for (int i = -1; i <= matrix.getWidth(); ++i) {
 			for (int j = -1; j <= matrix.getHeight(); ++j) {
 				if (i == 0 && j>=0 && j < matrix.getWidth()- 2) {
@@ -53,7 +53,7 @@ public class FourInARowTest {
 		assertTrue(matrix.setValue(2, 1, 2));
 		assertTrue(matrix.setValue(3, 1, 2));
 		
-		/* make a full test  to check column */
+		/* make a full test  to check columns */
 		for (int i = -1; i <= matrix.getWidth(); ++i) {
 			for (int j = -1; j <= matrix.getHeight(); ++j) {
 				if (i>=0 && i < matrix.getHeight()-1 && j == 1) {
@@ -78,7 +78,7 @@ public class FourInARowTest {
 		assertTrue(matrix.setValue(2, 2, 0));
 		assertTrue(matrix.setValue(3, 3, 0));
 
-		/* make a full test  to check diagonal */
+		/* make a full test  to check diagonals */
 		for (int i = -1; i <= matrix.getWidth(); ++i) {
 			for (int j = -1; j <= matrix.getHeight(); ++j) {
 				if (i < matrix.getHeight() && i>= 0 && j < matrix.getWidth() && j>= 0) {
