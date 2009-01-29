@@ -1,6 +1,8 @@
 package test;
 
 //import static org.junit.Assert.*;
+import java.io.FileNotFoundException;
+
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -9,7 +11,7 @@ import org.junit.Test;
 
 import src.DataStructure;
 
-public class DataStructureTest extends TestCase{
+public class DataStructureTest extends TestCase {
 
 	private DataStructure matrix;
 	private DataStructure zero_matrix;
@@ -17,23 +19,22 @@ public class DataStructureTest extends TestCase{
 	private DataStructure big_matrix;
 	private DataStructure high_matrix;
 
-	
 	@Before
-	public void setUp(){
-		matrix = new DataStructure(6,7);
-		zero_matrix = new DataStructure(0,0);
-		negative_matrix = new DataStructure(-1,-3);
-		big_matrix = new DataStructure(100,100);
-		high_matrix = new DataStructure(8,9);
+	public void setUp() {
+		matrix = new DataStructure(6, 7);
+		zero_matrix = new DataStructure(0, 0);
+		negative_matrix = new DataStructure(-1, -3);
+		big_matrix = new DataStructure(100, 100);
+		high_matrix = new DataStructure(8, 9);
 
 	}
 
 	@Before
-	public void tearDown(){
+	public void tearDown() {
 		matrix = null;
 		zero_matrix = null;
-		negative_matrix = null; 
-		big_matrix = null; 
+		negative_matrix = null;
+		big_matrix = null;
 		high_matrix = null;
 
 	}
@@ -41,92 +42,94 @@ public class DataStructureTest extends TestCase{
 	@Test
 	public void testGetHeight() {
 		int result = matrix.getHeight();
-		assertEquals("Le test de la hauteur n'a pas réussi", result , 6);
+		assertEquals("Le test de la hauteur n'a pas réussi", result, 6);
 	}
 
 	@Test
 	public void testGetWidth() {
 		int result = matrix.getWidth();
-		assertEquals("Le test de la largeur n'as pas réussi",result , 7);
+		assertEquals("Le test de la largeur n'as pas réussi", result, 7);
 	}
 
 	@Test
 	public void testZeroMatrix() {
 		int resultZH = zero_matrix.getHeight();
-		assertEquals("la hauteur d'une matrice_zero n'est pas 6", resultZH , 6);
-		
+		assertEquals("la hauteur d'une matrice_zero n'est pas 6", resultZH, 6);
+
 		int resultZW = zero_matrix.getWidth();
-		assertEquals("la largeur d'une matrice_zero n'est pas  7", resultZW , 7);
-		
-		
+		assertEquals("la largeur d'une matrice_zero n'est pas  7", resultZW, 7);
 
 	}
-	
 
 	@Test
 	public void testHighMatrix() {
 		int resultHH = high_matrix.getHeight();
-		assertEquals("la hauteur d'une high_matrix n'est pas  8",8 , resultHH);
-		
+		assertEquals("la hauteur d'une high_matrix n'est pas  8", 8, resultHH);
+
 		int resultHW = high_matrix.getWidth();
-		assertEquals("la largeur d'une high_matrix n'est pas  9",9 , resultHW);
-		
-		assertTrue("Stockage d'une valeur à la position (0,8) de la high_matrix impossible", high_matrix.setValue(0, 8, 0));
-		assertFalse("Stockage d'une valeur à la position (0,9) de la high_matrix possible", high_matrix.setValue(0, 9, 0));
+		assertEquals("la largeur d'une high_matrix n'est pas  9", 9, resultHW);
+
+		assertTrue(
+				"Stockage d'une valeur à la position (0,8) de la high_matrix impossible",
+				high_matrix.setValue(0, 8, 0));
+		assertFalse(
+				"Stockage d'une valeur à la position (0,9) de la high_matrix possible",
+				high_matrix.setValue(0, 9, 0));
 	}
 
-	
 	@Test
 	public void testBigMatrix() {
 		int resultZH = big_matrix.getHeight();
-		assertEquals("la hauteur d'une matrice 100*100 n'est pas  100", 100, resultZH);
-		
+		assertEquals("la hauteur d'une matrice 100*100 n'est pas  100", 100,
+				resultZH);
+
 		int resultZW = big_matrix.getWidth();
-		assertEquals("la largeur d'une matrice 100*100 n'est pas  100", 100 , resultZW);
+		assertEquals("la largeur d'une matrice 100*100 n'est pas  100", 100,
+				resultZW);
 	}
 
 	@Test
 	public void testNegativeMatrix() {
 		int resultNH = negative_matrix.getHeight();
-		assertEquals("la hauteur d'une negative_matrix n'est pas  6",resultNH , 6);
-		
+		assertEquals("la hauteur d'une negative_matrix n'est pas  6", resultNH,
+				6);
+
 		int resultNW = negative_matrix.getWidth();
-		assertEquals("la largeur d'une negative_matrix n'est pas  6",resultNW , 7);
+		assertEquals("la largeur d'une negative_matrix n'est pas  6", resultNW,
+				7);
 	}
-	
+
 	@Test
-	public void testInvalidSetValues(){
-		assertFalse(matrix.setValue(10,1, 0));
-		assertFalse(matrix.setValue(1,10, 1));
-		assertFalse(matrix.setValue(10,10, 2));
+	public void testInvalidSetValues() {
+		assertFalse(matrix.setValue(10, 1, 0));
+		assertFalse(matrix.setValue(1, 10, 1));
+		assertFalse(matrix.setValue(10, 10, 2));
 	}
-	
+
 	public String print() {
 		String result = "";
 		for (int i = 0; i < matrix.getHeight(); i++) {
-			result +="Ligne : " + i + " | ";
+			result += "Ligne : " + i + " | ";
 			for (int j = 0; j < matrix.getWidth(); j++) {
-				result +=matrix.getValue(i,j) + " ";
+				result += matrix.getValue(i, j) + " ";
 			}
 			result += "\n";
 		}
 		return result;
 	}
-	
-	@Test
-	public void testPrint() {
-		String result = "Ligne : 0 | 0 0 0 0 0 0 0\nLigne : 1 | 0 0 0 0 0 0 0\nLigne : 2 | 0 0 0 0 0 0 0\nLigne : 3 | 0 0 0 0 0 0 0\nLigne : 4 | 0 0 0 0 0 0 0\nLigne : 5 | 0 0 0 0 0 0 0\n";
-		String resulttmp = print();
-		assert(result.equals(resulttmp));
-	}
 
+	@Test
+	public void testToString() throws FileNotFoundException {
+		
+		String result = "Ligne : 0 | 0 0 0 0 0 0 0 \nLigne : 1 | 0 0 0 0 0 0 0 \nLigne : 2 | 0 0 0 0 0 0 0 \nLigne : 3 | 0 0 0 0 0 0 0 \nLigne : 4 | 0 0 0 0 0 0 0 \nLigne : 5 | 0 0 0 0 0 0 0 \n";
+		assertEquals(result, zero_matrix.toString());
+	}
 
 	@Test
 	public void testAddingValue() {
 		assertTrue(matrix.setValue(1, 2, 3));
 		int result = matrix.getValue(1, 2);
-		assertEquals("Test de rajout d'une valeur à la matrice" ,result, 3);
-		
+		assertEquals("Test de rajout d'une valeur à la matrice", result, 3);
 
 	}
 
@@ -175,25 +178,27 @@ public class DataStructureTest extends TestCase{
 		assertTrue(matrix.setValue(5, 5, 0));
 		assertTrue(matrix.setValue(5, 6, 1));
 
-		assertFalse("Test de rajout d'une 43 ème valeur à la matrice" ,matrix.setValue(6, 0, 0));
-	
-	
-		assertTrue("Test de la hauteur : Toujours égale à 6 malgré le rajout d'une 43 ème valeur", matrix.getHeight() == 6);	
-		
-	
-		assertTrue("Test de la largeur : Toujours égale à 7 malgré le rajout d'une 43 ème valeur",matrix.getWidth() == 7);	
-		
+		assertFalse("Test de rajout d'une 43 ème valeur à la matrice", matrix
+				.setValue(6, 0, 0));
+
+		assertTrue(
+				"Test de la hauteur : Toujours égale à 6 malgré le rajout d'une 43 ème valeur",
+				matrix.getHeight() == 6);
+
+		assertTrue(
+				"Test de la largeur : Toujours égale à 7 malgré le rajout d'une 43 ème valeur",
+				matrix.getWidth() == 7);
+
 		int result = matrix.getValue(5, 5);
-		assertEquals("Test de valeurs après rajout : les valeurs stockées dans la matrice n'ont pas été éronnées suite au rajout d'une 43 ème valeur", result, 0);
+		assertEquals(
+				"Test de valeurs après rajout : les valeurs stockées dans la matrice n'ont pas été éronnées suite au rajout d'une 43 ème valeur",
+				result, 0);
 
 	}
-	
-	public static junit.framework.Test suite(){
-		junit.framework.TestSuite suite =
-		new TestSuite(DataStructureTest.class);
+
+	public static junit.framework.Test suite() {
+		junit.framework.TestSuite suite = new TestSuite(DataStructureTest.class);
 		return suite;
 	}
-	
+
 }
-
-

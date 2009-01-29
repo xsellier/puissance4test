@@ -30,14 +30,16 @@ public class DataStructure {
 		return width;
 	}
 
-	public void print() {
+	public String toString() {
+		String result = new String();
 		for (int i = 0; i < height; i++) {
-			System.out.print("Ligne : " + i + " | ");
+			result += "Ligne : " + i + " | ";
 			for (int j = 0; j < width; j++) {
-				System.out.print(matrix[i][j] + " ");
+				result +=matrix[i][j] + " ";
 			}
-			System.out.println();
+			result += "\n";
 		}
+		return result;
 	}
 
 	public void reset_matrix(){
