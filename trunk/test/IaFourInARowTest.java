@@ -18,8 +18,18 @@ public class IaFourInARowTest {
 	public Cpu Ia3;
 	public Cpu Ia4;
 	public Rules rule;
+	public int HGrid;
+	public int WGrid;
+	public int HGridNull;
+	public int WGridNull;
 	public int HIa1;
-	
+	public int HIa2;
+	public int HIa3;
+	public int WIa1;
+	public int WIa3;
+	public int modeAi1;
+	public int modeAi2;
+
 	
 	
 	@Before
@@ -40,9 +50,23 @@ public class IaFourInARowTest {
 		Ia1.initialize(grid, mode1);
 		Ia2.initialize(grid, mode2);
 		Ia3.initialize(grid , mode2);
+		Ia4.initialize(grid, mode1);
+		
+		HGrid = grid.getHeight();
+		WGrid = grid.getWidth();
+		
+		HGridNull = gridNull.getHeight();
+		WGridNull = gridNull.getWidth();
+		
 		HIa1 = Ia1.getHeight();
+		HIa2 = Ia2.getHeight();
+		HIa3 = Ia3.getHeight();
 		
+		WIa1 = Ia1.getWidth();
+		WIa3 = Ia3.getWidth();
 		
+		modeAi1 = Ia1.getMode();
+		modeAi2 = Ia2.getMode();
 		
 	}
 	
@@ -57,29 +81,41 @@ public class IaFourInARowTest {
 
 	@Test
 	public void testGetHeight() {
+		assertNotNull( HIa1);
+		assertNotNull( HIa2);
+		assertNotNull( HIa3);
+		assertEquals(HGrid , HIa1);
+		assertEquals(HGrid , HIa2);
+		assertEquals(HGridNull , HIa3);
 		
-		assertEquals(6 , HIa1 );
 	}
 
 	
 	@Test
 	public void testGetWidth() {
-		fail("Not yet implemented");
+		assertNotNull( WIa1);
+		assertNotNull( WIa3);
+		assertEquals( WGrid ,WIa1);
+		assertEquals( WGridNull, WIa3);
 	}
 
 	@Test
 	public void testGetMode() {
-		fail("Not yet implemented");
+		assertNotNull( modeAi1);
+		assertNotNull( modeAi2);
+		assertEquals( 1 , modeAi1);
+		assertEquals( 2 , modeAi2);
 	}
 
 	@Test
 	public void testSetPlayable() {
-		fail("Not yet implemented");
+		System.out.println("");
 	}
 
 	@Test
 	public void testInitialize() {
-		fail("Not yet implemented");
+		assertNotNull( Ia1);
+		
 	}
 	
 

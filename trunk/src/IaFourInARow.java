@@ -36,6 +36,10 @@ public class IaFourInARow implements Cpu{
 		return mode;
 	}
 	
+	public DataStructure getCpuGrid(){
+		return cpugrid;
+	}
+	
 	public void setPlayable(int i, int value){
 		if(value >= 0 && value < 7)
 			playable[i]= value;
