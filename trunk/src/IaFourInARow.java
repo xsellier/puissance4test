@@ -1,12 +1,11 @@
 package src;
 
-
-public class IaFourInARow implements Cpu{
+public class IaFourInARow implements Cpu {
 
 	private int mode;
 	private DataStructure cpugrid;
 	private int[] playable;
-	
+
 	/* for variable playable */
 	/* 0 Playable */
 	/* 1 Human wins */
@@ -20,31 +19,31 @@ public class IaFourInARow implements Cpu{
 	private int height;
 	private int width;
 
-	public int[] getPlayable(){
+	public int[] getPlayable() {
 		return playable;
 	}
-	
-	public int getHeight(){
+
+	public int getHeight() {
 		return height;
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return width;
 	}
-	
-	public int getMode(){
+
+	public int getMode() {
 		return mode;
 	}
-	
-	public DataStructure getCpuGrid(){
+
+	public DataStructure getCpuGrid() {
 		return cpugrid;
 	}
-	
-	public void setPlayable(int i, int value){
-		if(value >= 0 && value < 7)
-			playable[i]= value;
+
+	public void setPlayable(int i, int value) {
+		if (value >= 0 && value < 7)
+			playable[i] = value;
 	}
-	
+
 	public void initialize(DataStructure grid, int difficulty) {
 		cpugrid = grid;
 		mode = difficulty;
@@ -75,11 +74,14 @@ public class IaFourInARow implements Cpu{
 		}
 		if (result == -1) { // No choice
 			for (int i = 0; i < width; ++i) {
-				// if game is blocked, playable doesn't contain any 3 , Cpu plays where he can without make human win
+				// if game is blocked, playable doesn't contain any 3 , Cpu
+				// plays where he can without make human win
 				// Cpu will play at grid center (best probability to win)
-				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0 && result == -1)
+				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0
+						&& result == -1)
 					result = width / 2 + i;
-				else if (i < Math.round(width / 2) && playable[width / 2 - i] == 0 && result == -1)
+				else if (i < Math.round(width / 2)
+						&& playable[width / 2 - i] == 0 && result == -1)
 					result = width / 2 - i;
 			}
 		}
@@ -99,7 +101,7 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// for IA Hard
-	
+
 	private void fillPlayable() {
 		for (int i = 0; i < width; ++i) {
 			if (cpugrid.getValue(0, i) == 0)
@@ -119,7 +121,8 @@ public class IaFourInARow implements Cpu{
 						|| (cpugrid.getValue(j, i) == 0 && j == height - 1)) {
 
 					cpugrid.setValue(j, i, 2);
-					if (rule.checkDiag(j, i, 2, cpugrid) || rule.checkCol(j, i, 2, cpugrid)
+					if (rule.checkDiag(j, i, 2, cpugrid)
+							|| rule.checkCol(j, i, 2, cpugrid)
 							|| rule.checkLine(j, i, 2, cpugrid)) {
 						playable[i] = 3;
 					}
@@ -145,8 +148,9 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((rule.checkDiag(l, k, 1, cpugrid) || rule.checkCol(l, k, 1, cpugrid) || rule.checkLine(
-										l, k, 1, cpugrid))
+								if ((rule.checkDiag(l, k, 1, cpugrid)
+										|| rule.checkCol(l, k, 1, cpugrid) || rule
+										.checkLine(l, k, 1, cpugrid))
 										&& playable[i] != 3) {
 									playable[k] = 1;
 								}
@@ -157,18 +161,18 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 1);
-								if ((rule.checkDiag(l, k, 1, cpugrid) || rule.checkCol(l, k, 1, cpugrid) || rule.checkLine(
-										l, k, 1, cpugrid))
+								if ((rule.checkDiag(l, k, 1, cpugrid)
+										|| rule.checkCol(l, k, 1, cpugrid) || rule
+										.checkLine(l, k, 1, cpugrid))
 										&& playable[i] == 0) {
 									playable[k] = 6;
-									cpugrid.setValue(l, k, 0);
-									cpugrid.setValue(j, i, 0);
 								}
 								cpugrid.setValue(l, k, 0);
 							}
 						}
 					}
-					if (rule.checkDiag(j, i, 1, cpugrid) || rule.checkCol(j, i, 1, cpugrid)
+					if (rule.checkDiag(j, i, 1, cpugrid)
+							|| rule.checkCol(j, i, 1, cpugrid)
 							|| rule.checkLine(j, i, 1, cpugrid))
 						playable[i] = 6;
 					cpugrid.setValue(j, i, 0);
@@ -177,7 +181,8 @@ public class IaFourInARow implements Cpu{
 		}
 	}
 
-	// if by playing column i human player can block a 3 in a row playable[i] = 2
+	// if by playing column i human player can block a 3 in a row playable[i] =
+	// 2
 	// because human will be able to break cpu strategy
 	private void breakStrategy() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
@@ -192,7 +197,8 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((rule.checkDiag(l, k, 2, cpugrid) || rule.checkLine(l, k, 2, cpugrid))
+								if ((rule.checkDiag(l, k, 2, cpugrid) || rule
+										.checkLine(l, k, 2, cpugrid))
 										&& playable[i] == 0) {
 									playable[k] = 2;
 								}
@@ -207,7 +213,7 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// look for token in line, in column or in diagonal and playable[i] = 5
-	private void strategy(){
+	private void strategy() {
 		for (int i = width - 1; i >= 0; --i) { /* reach columns */
 			for (int j = 0; j < height; ++j) { /* reach lines */
 				if ((cpugrid.getValue(j, i) == 0 && j < height - 1 && cpugrid
@@ -220,7 +226,10 @@ public class IaFourInARow implements Cpu{
 									.getValue(l + 1, k) != 0)
 									|| (cpugrid.getValue(l, k) == 0 && l == height - 1)) {
 								cpugrid.setValue(l, k, 2);
-								if ((rule.checkDiag(l, k, 2, cpugrid) || rule.checkLine(l, k, 2, cpugrid))
+								if (((rule.checkDiag(l, k, 2, cpugrid) || rule
+										.checkLine(l, k, 2, cpugrid)
+										&& l + 1 != j) || rule.checkCol(l, k,
+										2, cpugrid))
 										&& playable[i] == 0) {
 									playable[i] = 5;
 								}
@@ -235,8 +244,7 @@ public class IaFourInARow implements Cpu{
 	}
 
 	// to optimize calculation
-	public int perfectCpu()
-	 {
+	public int perfectCpu() {
 		playable = new int[width];
 		int result = -1;
 		fillPlayable();
@@ -256,11 +264,14 @@ public class IaFourInARow implements Cpu{
 			for (int i = 0; i < width; ++i) {
 				if (playable[i] == 5) // Cpu has a strategy
 					result = i;
-				// if game is blocked, playable doesn't contain any 3 or 5, Cpu plays where he can without make human win
+				// if game is blocked, playable doesn't contain any 3 or 5, Cpu
+				// plays where he can without make human win
 				// Cpu will play at grid center (best probability to win)
-				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0 && result == -1)
+				if (i < Math.round(width / 2) && playable[width / 2 + i] == 0
+						&& result == -1)
 					result = width / 2 + i;
-				else if (i < Math.round(width / 2) && playable[width / 2 - i] == 0 && result == -1)
+				else if (i < Math.round(width / 2)
+						&& playable[width / 2 - i] == 0 && result == -1)
 					result = width / 2 - i;
 			}
 		}
