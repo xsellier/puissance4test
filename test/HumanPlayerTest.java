@@ -14,19 +14,19 @@ import src.HumanPlayer;
 public class HumanPlayerTest {
 
 	
-	private HumanPlayer Human;
-	private DataStructure Matrix;
+	private HumanPlayer human;
+	private DataStructure matrix;
 	public GUI app;
 	public int played;
 	
 	@Before
 	public void setUp() throws Exception {
-		Human= new HumanPlayer();
+		human= new HumanPlayer();
 		
-		Matrix = new DataStructure(6,7);
+		matrix = new DataStructure(6,7);
 		app = new GUIOwn(); // create GUI, you can change this line to use another GUI
-		 // app = new GUI_another_one();
-		app.initGui(Matrix); // initialize GUI with grid
+		 // app = new GUIAnotherOne();
+		app.initGui(matrix); // initialize GUI with grid
 		app.setSize(500, 550);
 		app.setLocation(100, 100);
 		app.show();
@@ -35,8 +35,8 @@ public class HumanPlayerTest {
 
 	@Test
 	public void testPlay() {
-		played = Human.play(Matrix,app);
-		assertTrue( 0 <= played && played <= 6);
+		played = human.play(matrix,app);
+		assertTrue( 0 <= played && played < matrix.getWidth());
 	}
 
 }
