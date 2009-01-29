@@ -49,7 +49,7 @@ public class GameEngine {
 		app.dispose(); // make disappear GUI and close it
 	}
 	
-	public boolean start() {
+	public void start() {
 
 		while ((!rule.isComplete(grid))
 				&& (counter < grid.getWidth() * grid.getHeight())) {
@@ -89,12 +89,12 @@ public class GameEngine {
 		}
 		if (rule.isComplete(grid)){
 			app.gameEnded(!current_player); // A player wins
-			return current_player;
+	
 		}
 		
-		else
+	
 			app.gameEnded(); // it's a draw
-		return !current_player;
+	
 	}
 
 	public void resetGrid(){
@@ -148,7 +148,10 @@ public class GameEngine {
 		return mode;
 	}
 
-	
+
+	public boolean getWinPlayer(){
+		return current_player;
+	}
 	/*
 	 * Unused method private ArrayList<Integer> playable() { int i;
 	 * ArrayList<Integer> cols = new ArrayList<Integer>(); for (i = 0; i < 7;
