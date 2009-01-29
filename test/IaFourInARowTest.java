@@ -1,80 +1,62 @@
 package test;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 import java.io.FileNotFoundException;
+
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import src.*;
 
-public class IaFourInARowTest {
+public class IaFourInARowTest extends TestCase {
 
 	private int mode1;
 	private int mode2;
+	
 	private DataStructure grid;
 	private DataStructure gridNull;
+	private DataStructure bigGrid;
+	
 	private IaFourInARow Ia1;
 	private IaFourInARow Ia2;
 	private IaFourInARow Ia3;
 	private IaFourInARow Ia4;
+	private IaFourInARow Ia5;
+	private IaFourInARow Ia6;
+
 	private Rules rule;
-	private int HGrid;
-	private int WGrid;
-	private int HGridNull;
-	private int WGridNull;
-	private int HIa1;
-	private int HIa2;
-	private int HIa3;
-	private int WIa1;
-	private int WIa3;
-	private int modeAi1;
-	private int modeAi2;
-	private DataStructure gridAi1;
-	private int HGridAi1;
-	private int WGridAi1;
-	private DataStructure gridAi3;
+
 
 	
 	
 	@Before
 	public void setUp() throws Exception {
-		DataStructure grid = new DataStructure(6,7);
-		DataStructure gridNull = new DataStructure(0,0);
+		grid = new DataStructure(6,7);
+	    gridNull = new DataStructure(0,0);
+	    bigGrid = new DataStructure(100,100);
 		
-		Rules rule = new FourInARow();
+		rule = new FourInARow();
 		
-		IaFourInARow Ia1 = new IaFourInARow();
-		IaFourInARow Ia2 = new IaFourInARow();
-		IaFourInARow Ia3 = new IaFourInARow();
-		IaFourInARow Ia4 = new IaFourInARow();
+		Ia1 = new IaFourInARow();
+		Ia2 = new IaFourInARow();
+		Ia3 = new IaFourInARow();
+		Ia4 = new IaFourInARow();
+		Ia5 = new IaFourInARow();
+		Ia6 = new IaFourInARow();
 		
 		mode1 = 1; // easy mode
 		mode2 = 2; // hard mode
 		
 		Ia1.initialize(grid, mode1);
 		Ia2.initialize(grid, mode2);
-		Ia3.initialize(grid , mode2);
+		Ia3.initialize(gridNull , mode1);
+		Ia4.initialize(gridNull , mode2);
+		Ia5.initialize(bigGrid, mode1);
+		Ia6.initialize(bigGrid, mode2 );
 		
-		
-		HGrid = grid.getHeight();
-		WGrid = grid.getWidth();
-		
-		HGridNull = gridNull.getHeight();
-		WGridNull = gridNull.getWidth();
-		
-		HIa1 = Ia1.getHeight();
-		HIa2 = Ia2.getHeight();
-		HIa3 = Ia3.getHeight();
-		
-		WIa1 = Ia1.getWidth();
-		WIa3 = Ia3.getWidth();
-		
-		modeAi1 = Ia1.getMode();
-		modeAi2 = Ia2.getMode();
-		
-		gridAi1 = Ia1.getCpuGrid();
-		HGridAi1 = gridAi1.getHeight();
-		WGridAi1 = gridAi1.getWidth();
+
 		
 	}
 	
@@ -89,59 +71,73 @@ public class IaFourInARowTest {
 	
 	@Test
 	public void testGetCpuGrid(){
-		assertNotNull(gridAi1);
-		assertEquals( HGridAi1, HGrid);
-		assertEquals( WGridAi1, WGrid);
+		assertNotNull(Ia1.getCpuGrid());
+		assertEquals( grid.getHeight(), Ia1.getHeight());
+		assertEquals( grid.getWidth(), Ia1.getWidth());
+		assertSame( grid , Ia1.getCpuGrid());
 		
 	}
 
 	@Test
 	public void testGetHeight() {
-		int plop = Ia1.getHeight();
-		//assertNotNull( plop);
-		//assertNotNull( HIa2);
-		//assertNotNull( HIa3);
-		//assertEquals(HGrid , HIa1);
-		//assertEquals(HGrid , HIa2);
-		//assertEquals(HGridNull , HIa3);
-		assertEquals(0,plop);
-		
+		assertNotNull( Ia1.getHeight());
+		assertNotNull( Ia2.getHeight());
+		assertNotNull( Ia3.getHeight());
+		assertNotNull( Ia5.getHeight());
+		assertEquals(grid.getHeight() , Ia1.getHeight());
+		assertEquals(grid.getHeight() , Ia2.getHeight());
+		assertEquals(gridNull.getHeight() , Ia3.getHeight());
+		assertEquals(bigGrid.getHeight() , Ia5.getHeight());
 	}
 
 	
 	@Test
 	public void testGetWidth() {
-		assertNotNull( WIa1);
-		assertNotNull( WIa3);
-		assertEquals( WGrid ,WIa1);
-		assertEquals( WGridNull, WIa3);
+		assertNotNull( Ia1.getWidth());
+		assertNotNull( Ia3.getWidth());
+		assertNotNull( Ia6.getWidth());
+		assertEquals( grid.getWidth(),Ia1.getWidth());
+		assertEquals( gridNull.getWidth(), Ia3.getWidth());
+		assertEquals( bigGrid.getWidth(), Ia6.getWidth());
 	}
 
 	@Test
 	public void testGetMode() {
-		assertNotNull( modeAi1);
-		assertNotNull( modeAi2);
-		assertEquals( 1 , modeAi1);
-		assertEquals( 2 , modeAi2);
+		assertNotNull( Ia1.getMode());
+		assertNotNull( Ia2.getMode());
+		assertEquals( 1 , Ia1.getMode());
+		assertEquals( 2 , Ia2.getMode());
 	}
 
 	@Test
 	public void testSetPlayable() {
-		System.out.println("");
+		System.out.println("plop"+ gridNull.getHeight() +" plus "+ gridNull.getWidth());
 	}
 
 	@Test
 	public void testInitialize() {
-		Ia4.initialize(grid, mode1);
-		int result = Ia4.getHeight();
-		System.out.println("");
-		
+		assertNotNull( Ia1.getCpuGrid());
+		assertNotNull( Ia1.getWidth());
+		assertNotNull( Ia1.getHeight());
+		assertNotNull( Ia1.getMode());
+		assertSame( Ia1.getCpuGrid(), grid );
+		assertEquals( Ia1.getWidth(), grid.getWidth());
+		assertEquals( Ia1.getHeight(), grid.getHeight());
+		assertEquals( Ia1.getMode(), mode1);
+			
 	}
 	
 
 	@Test
 	public void testPlay() {
-		fail("Not yet implemented");
+		int Ia1Played = Ia1.play(rule);
+		assertNotNull( Ia1Played);
+		assertTrue( 0 <= Ia1Played || Ia1Played <= grid.getWidth());
+		assertEquals( 3, Ia1Played);
+		int Ia3Played = Ia3.play(rule);
+		assertTrue( 0 <= Ia3Played || Ia3Played <= grid.getWidth());
+		assertEquals( 3, Ia3Played);
+		
 	}
 
 	@Test
