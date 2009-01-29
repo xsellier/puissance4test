@@ -164,7 +164,10 @@ public class DataStructureTest extends TestCase {
 		assertTrue(matrix.setValue(5, 5, 0));
 		assertTrue(matrix.setValue(5, 6, 1));
 
-		assertFalse("Test de rajout d'une 43 �me valeur � la matrice", matrix
+		assertFalse("Test aux limites : borne inf", matrix
+				.setValue(-1, -1, 0));
+		
+		assertFalse("Test aux limites : borne sup", matrix
 				.setValue(6, 0, 0));
 
 		assertTrue(
