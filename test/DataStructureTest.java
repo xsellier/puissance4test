@@ -106,18 +106,6 @@ public class DataStructureTest extends TestCase {
 		assertFalse(matrix.setValue(10, 10, 2));
 	}
 
-	public String print() {
-		String result = "";
-		for (int i = 0; i < matrix.getHeight(); i++) {
-			result += "Ligne : " + i + " | ";
-			for (int j = 0; j < matrix.getWidth(); j++) {
-				result += matrix.getValue(i, j) + " ";
-			}
-			result += "\n";
-		}
-		return result;
-	}
-
 	@Test
 	public void testToString() throws FileNotFoundException {
 		
