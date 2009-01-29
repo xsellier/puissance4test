@@ -29,6 +29,10 @@ public class IaFourInARowTest {
 	public int WIa3;
 	public int modeAi1;
 	public int modeAi2;
+	public DataStructure gridAi1;
+	public int HGridAi1;
+	public int WGridAi1;
+	public DataStructure gridAi3;
 
 	
 	
@@ -68,6 +72,10 @@ public class IaFourInARowTest {
 		modeAi1 = Ia1.getMode();
 		modeAi2 = Ia2.getMode();
 		
+		gridAi1 = Ia1.getCpuGrid();
+		HGridAi1 = gridAi1.getHeight();
+		WGridAi1 = gridAi1.getWidth();
+		
 	}
 	
 
@@ -77,6 +85,14 @@ public class IaFourInARowTest {
 	@Test
 	public void testGetPlayable() {
 		System.out.println("");
+	}
+	
+	@Test
+	public void testGetCpuGrid(){
+		assertNotNull(gridAi1);
+		assertEquals( HGridAi1, HGrid);
+		assertEquals( WGridAi1, WGrid);
+		
 	}
 
 	@Test
