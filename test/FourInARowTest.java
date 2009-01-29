@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import src.*;
@@ -17,6 +18,12 @@ public class FourInARowTest {
 		rule = new FourInARow();
 	}
 
+	@After
+	public void tearDown(){
+		matrix = null;
+		rule = null;
+	}
+	
 	@Test
 	public void testCheckLine() {
 
