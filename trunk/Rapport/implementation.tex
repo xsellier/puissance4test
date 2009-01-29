@@ -79,14 +79,13 @@ mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux b
 à \texttt{width}.
 
 Exemple :\newline
-
 \textbf{testAddingMoreThan42Values()} : \newline
-Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \textbf{true}, ce qui est testé par l'instruction :\newline
+Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \textbf{true}, ce qui est testé par l'instruction :
 \begin{center}
 \textbf{assertTrue(matrix.setValue(i, j, c));}
-\begin{center}
+\end{center}
 
-Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrit : \newline
+Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrit :
 \begin{center}
 \textbf{assertFalse(matrix.setValue(i, j, c));}
 \end{center} 
@@ -94,14 +93,7 @@ Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus pa
 Un \textbf{test aux limitex} a été mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
 Exemple :\newline
 \textbf{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
-\textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}\newline
-
-
- 
-
-
-
-
+\textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}
 
 \subsection{Player}
 \texttt{Player} est une interface permettant de basculer facilement entre un
@@ -410,21 +402,19 @@ pleines correspondantes.
 
 \subsubsection{Tests de FourInARow}
 Cette classe teste :\newline 
-\item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
+L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
 On choisit des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
 Exemple (Existence de 4 jetons sur la même ligne) :\newline
-On crée 4 jetons sur la même ligne 0:\newline
+On crée 4 jetons sur la même ligne 0:
 \begin{center}
-		\textbf{assertTrue(matrix.setValue(0, 0, 1));}
-		\textbf{assertTrue(matrix.setValue(0, 1, 1));}
-		\textbf{assertTrue(matrix.setValue(0, 2, 1));}
-		\textbf{assertTrue(matrix.setValue(0, 3, 1));}
+\textbf{assertTrue(matrix.setValue(0, 0, 1));}\newline
+\textbf{assertTrue(matrix.setValue(0, 1, 1));}\newline
+\textbf{assertTrue(matrix.setValue(0, 2, 1));}\newline
+\textbf{assertTrue(matrix.setValue(0, 3, 1));}\newline
 \end{center}
 
 Puis en bouclant sur toutes les positions de la grille, on arrive à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
-   
-
-\item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
+Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
 
 \subsection{GameEngine}
 \subsubsection{Implémentation}
