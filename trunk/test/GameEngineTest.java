@@ -13,14 +13,13 @@ import src.*;
 public class GameEngineTest extends TestCase{
 
 	private GameEngine game;
-	private DataStructure grid;
-	private GUI app;
+	
 	
 	@Before
 	public void setUp(){
 		
 		game = new GameEngine();
-		grid = new DataStructure(6,7);
+		
 		
 	}
 	
@@ -28,7 +27,7 @@ public class GameEngineTest extends TestCase{
 	public void tearDown(){
 		
 		game = null;
-		grid = null;
+		
 	
 	}
 
@@ -57,25 +56,30 @@ public class GameEngineTest extends TestCase{
 
 	@Test
 	public void testHuman2WinHuman1() {
-		game.initMode(0);
 		
-		assertFalse("2 possibilités : C'est le joueur humain numéro 1 qui a gagné !!!" +
+		assertTrue(game.initMode(0));
+		game.start();
+		//run the JUnit test : JUnit test pass if human2 win, else message will be send 
+		assertFalse("2 possibilités : \n C'est le joueur humain numéro 1 qui a gagné !!!\n" +
 				"ou personne n'a gagné !!", game.getWinPlayer());
 		
 	}
 	
 	@Test
 	public void testCpu1WinHuman() {
-		game.initMode(1);
 		
+		assertTrue(game.initMode(1));
+		game.start();
+		//run the JUnit test : JUnit test pass if Cpu1 win, else message will be send
 		assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());
 		
 	}
 
 	@Test
 	public void testCpu2WinHuman() {
-		game.initMode(2);
-		
+		assertTrue(game.initMode(2));
+		game.start();
+		//run the JUnit test : JUnit test pass if Cpu2 win, else message will be send
 		assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());
 		
 	}
