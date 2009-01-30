@@ -21,9 +21,10 @@ public class CpuPlayerTest implements Player {
 		cpu1.initialize(grid, mode);
 		if(mode == 1)
 			currently_played = cpu1.play(rule);
-		else
+		else {
 			cpu1.initialize(grid, currently_played);
 			currently_played = cpu1.play(rule);
+		}
 		return currently_played;
 	}
 }

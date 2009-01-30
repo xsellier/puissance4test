@@ -27,20 +27,16 @@ public class IaRandom implements Cpu {
 		return result;
 	}
 
-	public int play(Rules new_rule, int last_played) {
-		counter = last_played;
-		switchCpu();
-		return result;
-	}
-
 	public void switchCpu() {
 		counter++;
 		if (counter > grid.getWidth()+1)
 			counter = -1;
 		result = counter;
+		System.out.println("switchCpu try to play " + result);
 	}
 	
 	public void randomCpu() {
 		result = (int) (Math.random() * grid.getWidth());
+		System.out.println("randomCpu try to play " + result);
 	}
 }
