@@ -375,7 +375,16 @@ milieu de la grille. Sinon dans l'ordre des priorités pour
 
 \subsubsection{Jeux de test}
 
-TODO
+ Nous devons choisir les données de tests de façon à tester l'ensemble des retours de la fonction \texttt{play(rule)}
+c'est à dire :
+\begin{itemize}
+ \item Un entier pour la colonne dans laquelle il a jouer ( compris dans la largeur de la grille).
+ \item Un code d'erreur si il ne peut pas jouer.
+\end{itemize}
+
+Mais aussi tester les différents états du tableau \texttt{playable[]} qui donne les stratégies comme vu ci-dessus, nous devons donc trouver des données pour obtenir les différentes valeurs possible de \texttt{playable[i]} et prouver que l'ordinateur en tiendra compte dans le choix de la position dans laquelle il jouera.
+
+Nous utiliserons donc les grilles ci-dessus avec les règles de jeux standard ( 4 pions alignés gagnent ).Nous devrons rajouter d'autres grilles comme la grille entièrement remplie pour nous assurer que l'ordinateur retourne bien un code d'erreur.Il ai envisagé d'utiliser principalement le mode difficile pour les données de test , car les deux mode ont un comportement similaire avec des stratégies supplémentaire pour le mode difficile.
 
 \subsection{Rules}
 
