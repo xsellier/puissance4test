@@ -8,8 +8,11 @@ public class FourInARow implements Rules {
 		int count_right = 0;
 
 		int real_j = j;
-		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth()) {
+			System.err
+					.println("src.FourInARow.checkLine()\nWarning : invalid indice");
 			return false;
+		}
 		if (j > 0) {
 			j = real_j - 1;
 			while ((j >= 0) && (j > (real_j - 4))
@@ -39,9 +42,11 @@ public class FourInARow implements Rules {
 
 		int real_i = i;
 
-		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth()) {
+			System.err
+					.println("src.FourInARow.checkCol()\nWarning : invalid indice");
 			return false;
-
+		}
 		if (i > 0) {
 			i = real_i - 1;
 			while ((i >= 0) && (i > (real_i - 4))
@@ -75,9 +80,11 @@ public class FourInARow implements Rules {
 		int real_i = i;
 		int real_j = j;
 
-		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth())
+		if (j < 0 || i < 0 || i >= grid.getHeight() || j >= grid.getWidth()) {
+			System.err
+					.println("src.FourInARow.checkDiag()\nWarning : invalid indice");
 			return false;
-
+		}
 		if ((i > 0) && (j > 0)) {
 			i = real_i - 1;
 			j = real_j - 1;
@@ -158,6 +165,7 @@ public class FourInARow implements Rules {
 		if (play >= 0 && play < grid.getWidth())
 			if (grid.getValue(0, play) == 0)
 				return true;
+		System.err.println("src.FourInARow.checkPlay()\nWarning: invalid choice");
 		return false;
 	}
 

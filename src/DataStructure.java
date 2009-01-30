@@ -7,6 +7,8 @@ public class DataStructure {
 
 	// create a matrix
 	public DataStructure(int height, int width) {
+		if (height < 6 || width < 7)
+			System.err.println("src.DataStructure.DataStructure()\nWarning : resizing grid to 6x7");
 		if (height < 6)
 			height = 6;
 		if (width < 7)
@@ -19,7 +21,6 @@ public class DataStructure {
 				matrix[i][j] = 0;
 			}
 		}
-
 	}
 
 	public int getHeight() {
@@ -49,8 +50,10 @@ public class DataStructure {
 	}
 	
 	public boolean setValue(int i, int j, int color) {
-		if(i>=height || j>=width || i<0 || j<0)
+		if(i>=height || j>=width || i<0 || j<0){
+			System.err.println("src.DataStructure.setValue\nWarning : attempt to write a value out of our grid");
 			return false;
+		}
 		else{
 		matrix[i][j] = color;
 		return true;
