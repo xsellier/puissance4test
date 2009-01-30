@@ -1,0 +1,59 @@
+% -*- mode: latex; coding: latin-1-unix -*- %
+
+\subsection{Tests Unitaires}
+
+\subsubsection{DataStructureTest}
+
+La plupart des bugs identifiés seront liés aux valeurs des positions de la grille.\newline
+Particulièrement, une affectation d'une couleur à une position \textbf{hors limite} est source 
+de bugs.\newline
+Le fait d'affecter une couleur quelconque à la position \textbf{(0,9)} d'une grille (8,9) est typiquement le type de bugs qu'on aura à traiter.
+
+\paragraph{Test 1} - Résultats
+
+\begin{verbatim}
+    public void testInvalidSetValues() {
+        assertFalse(matrix.setValue(10, 1, 0));
+        assertFalse(matrix.setValue(1, 10, 1));
+        assertFalse(matrix.setValue(10, 10, 2));
+    }
+\end{verbatim}
+   
+Ce test montre bien qu'il n'est pas possible d'affecter des couleurs \textbf{hors des limites} 
+à la grille \textbf{matrix} (6,7) considérée.
+
+\paragraph{Test 2} - Résultats
+
+\begin{verbatim}
+    public void testNegativeMatrix() {
+        int resultNH = negative_matrix.getHeight();
+        assertEquals("la hauteur d'une negative_matrix n'est pas  6", resultNH, 6);
+
+        int resultNW = negative_matrix.getWidth();
+        assertEquals("la largeur d'une negative_matrix n'est pas  6", resultNW, 7);
+   }    
+\end{verbatim}
+
+Ce test montre que les paramètres (height , width) d'une grille "négative" n'ont 
+de valeur que respectivement 6(hauteur) et 7(largeur).  \newline
+Ce même type de test sera experimenté sur une grille "zero" et donnera le même résultat.
+
+\paragraph{Test 3} - Résultats
+
+\bigskip
+Tester \textbf{aux limites} la possiblité d'affecter des couleurs à une grille (6,7).\newline
+Ce test peut être généralisé à des grilles (i,j) avec i>0 et j>0.\newline  
+
+En effet, l'affectation des couleurs dans le Domaine des positions [0...42] réussit avec succès.
+Mais, pour les valeurs -1 et 43 le test montre une impossibilité d'affectation.\newline
+
+\subsubsection{IAfourInARow}
+
+Ces tests nous ont permis de révéler de nombreux bugs liée aux comportements des IA. Tout d'abord sur les stratégies de \texttt{playable[]} qui n'était pas toujours juste par rapport à l'état actuel de la grille,et aussi le façon de jouer des IA ne correspondait pas toujours à ce qui était attendut dut au fait des priorités des \texttt{playable}.
+
+Pour chaque état de la grille ils nous étaient possible a l'aide de l'algorithme de connaitre l'état de \texttt{playable[]} et le coup que doit jouer l'IA ainsi nous avons corriger les moteurs d'IA pour qu'ils nous donnes exactement les résultats escomptés dans les cas typiques ci-dessus.
+
+%%%%%%%cfa%%%%%%
+
+L'ensemble des tests ci-dessus permmettent de couvrir intégralement les arrêtes de l'Automate de flow de contrôle de l'IA en mode difficile ( et donc de l'IA facil qui est une sous partie), nous sommes donc dans le cas d'une couverture TER2, la complexité du CFA ne nous permet pas d'obtenit des TER supérieur sans une démultiplication des tests.
+

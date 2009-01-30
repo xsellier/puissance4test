@@ -56,10 +56,10 @@ La méthode \texttt{print} va elle afficher la matrice.
 
 \subsubsection{Tests de la matrice}
 
-Nos différentes classes de test vont dériver de \textbf{junit.framework.TestCase}. Elles auront une méthode setUp(), exécutée avant chaque méthode de test, pour initialiser les tests et une méthode tearDown(), exécutée après chaque méthode de test , pour relâcher les données.\newline
-Les méthodes de test n'auront pas de paramètres et retournent \textbf{void}. Leur nom commencera par \textbf{testXXX}.\newline
+Nos différentes classes de test vont dériver de \texttt{junit.framework.TestCase}. Elles auront une méthode \texttt{setUp()}, exécutée avant chaque méthode de test, pour initialiser les tests et une méthode \texttt{tearDown()}, exécutée après chaque méthode de test , pour relâcher les données.\newline
+Les méthodes de test n'auront pas de paramètres et retournent \texttt{void}. Leur nom commencera par \texttt{testXXX}.\newline
 A l'intérieur des méthodes de test, on effectuera les actions de test souhaitées, et on
-vérifiera qu'elles se passent correctement en utilisant des méthodes \textbf{assertXXX}.\newline
+vérifiera qu'elles se passent correctement en utilisant des méthodes \texttt{assertXXX}.\newline
 
 
 Ces tests consisteront à s'assurer que la structure de données, qui
@@ -78,24 +78,22 @@ mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux b
 \texttt{i} et \texttt{j} négatives ou supérieures à \texttt{height} et
 à \texttt{width}.
 
+\bigskip
 Exemple :\newline
-\newline
-\textbf{testAddingMoreThan42Values()} : \newline
-\newline
-Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \textbf{true}, ce qui est testé par l'instruction :
+\texttt{testAddingMoreThan42Values()}\newline
+Mettre une valeur à une position de la grille s'écrit : \texttt{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \texttt{true}, ce qui est testé par l'instruction :
 \begin{center}
-\textbf{assertTrue(matrix.setValue(i, j, c));}
+\texttt{assertTrue(matrix.setValue(i, j, c));}
 \end{center}
-
 Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrira :
 \begin{center}
-\textbf{assertFalse(matrix.setValue(i, j, c));}
+\texttt{assertFalse(matrix.setValue(i, j, c));}
 \end{center} 
 
-Un \textbf{test aux limites} sera mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
+Un \texttt{test aux limites} sera mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
 Exemple :\newline
-\textbf{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
-\textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}
+\texttt{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
+\texttt{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}
 
 \subsection{Player}
 \texttt{Player} est une interface permettant de basculer facilement entre un
@@ -156,17 +154,19 @@ donc totallement indépendante du reste du programme et peut être
 changé facilement.
 
 \subsubsection{Jeux de test}
-Tester la classe \textbf{HumanPlayer} se limitera à tester la méthode \textbf{play(DataStructure , GUI gui)}.\newline
-Nous allons tester que la valeur de la position jouée n'est pas nulle et qu'elle est comprise entre 0 et la largeur de la grille(7), cela s'écrira :\newline
+Tester la classe \texttt{HumanPlayer} se limitera à tester la méthode \texttt{play(DataStructure , GUI gui)}.\newline
+Nous allons tester que la valeur de la position jouée n'est pas nulle
+et qu'elle est comprise entre 0 et la largeur de la grille(7), cela
+s'écrira :
 
-\begin{center}
-played = human.play(matrix,app);
-\textbf{assertNotNull(played);}
-\textbf{assertTrue( 0 <= played \&\& played < matrix.getWidth());}
-\end{center}
+\texttt{played = human.play(matrix,app);}
 
+\texttt{assertNotNull(played);}
 
+\texttt{assertTrue( 0 <= played \&\& played <
+  matrix.getWidth());}
 
+\bigskip
 \subsection{Cpu}
 \texttt{Cpu} est une interface. le fait d'avoir créé une interface va nous
 permettre de pouvoir implémenter de nouvelles IA sans modifier plus
@@ -243,7 +243,7 @@ joue sur la colonne deux, le joueur humain pourra le bloquer.
 \end{center}
 \end{figure}
 Dans ce cas \texttt{playable[2] = 3}. Par conséquent l'ordinateur peut
-gagner ua prochain coups, et jouera la position 2.
+gagner au prochain coups, et jouera la position 2.
 
 \begin{figure}[H]
 \begin{center}
@@ -375,16 +375,245 @@ milieu de la grille. Sinon dans l'ordre des priorités pour
 
 \subsubsection{Jeux de test}
 
- Nous devons choisir les données de tests de façon à tester l'ensemble des retours de la fonction \texttt{play(rule)}
-c'est à dire :
-\begin{itemize}
- \item Un entier pour la colonne dans laquelle il a jouer ( compris dans la largeur de la grille).
- \item Un code d'erreur si il ne peut pas jouer.
-\end{itemize}
+Nous allons reprendre les exemples de la partie implémentation IaForInRow en ajoutant comme prévu de nouveaux cas.
 
-Mais aussi tester les différents états du tableau \texttt{playable[]} qui donne les stratégies comme vu ci-dessus, nous devons donc trouver des données pour obtenir les différentes valeurs possible de \texttt{playable[i]} et prouver que l'ordinateur en tiendra compte dans le choix de la position dans laquelle il jouera.
+Les données de tests se composent d'un ordinateur avec un mode (facile
+ou difficile) et de l'état de la structure de données, c'est à dire de
+la grille de jeu. Dans le rapport l'ensemble des tests se fera à
+l'aide d'une IA en mode difficile. L'IA facile ayant le même
+comportement avec des stratégies en moins (méthodes en moins), il n'est pas nécessaire de la
+tester. Certains tests sont quand même présents dans \texttt{Junit}
+sur l'ordinateur en mode facile avec des grilles non
+conventionnelles. De même la validité des accesseurs a été testé. Nous avons choisis ici de présenter que les résultats significatifs.
 
-Nous utiliserons donc les grilles ci-dessus avec les règles de jeux standard ( 4 pions alignés gagnent ).Nous devrons rajouter d'autres grilles comme la grille entièrement remplie pour nous assurer que l'ordinateur retourne bien un code d'erreur.Il ai envisagé d'utiliser principalement le mode difficile pour les données de test , car les deux mode ont un comportement similaire avec des stratégies supplémentaire pour le mode difficile.
+L'ordinateur joue de manière séquentille, si bien qu'il est possible
+de calculer chacun de ses coups en connaissant l'état de sa grille
+\texttt{playable[i]}.
+
+Tout d'abord nous avons vérifié que \texttt{initialize(DataStructure grid, int difficulty)} initialise correctement l'objet \texttt{IaForInRow}. C'est à dire que \texttt{CpuGrid} soit le même Objet que la grille \texttt{grid} passée en référence, et que le mode de difficulté soit correct.
+
+\begin{verbatim}
+//Standard grid and easy difficulty
+ia1.initialize(grid, mode1);
+[...]
+assertNotNull(ia1.getCpuGrid());
+assertNotNull(ia1.getWidth());
+assertNotNull(ia1.getHeight());
+assertNotNull(ia1.getMode());
+assertSame(ia1.getCpuGrid(),grid);
+assertEquals(7,ia1.getWidth());
+assertEquals(6,ia1.getHeight());
+assertEquals(1,ia1.getMode());
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigempty}
+  \caption{\texttt{Grille vide}}
+\end{center}
+\end{figure}
+
+Avec unegrille vide nous devons vérifier que l'ordinateur ne met pas en place de stratégie, donc que 
+\texttt{playable[i]} est remplie de 0 et ainsi que, par défaut, l'ordinateur joue au centre de la grille.
+
+
+\begin{verbatim}
+int Ia2Played = ia2.play(rule);
+assertNotNull(Ia2Played);
+assertTrue(0 <= Ia2Played && Ia2Played < grid.getWidth());
+assertEquals(3, Ia2Played);
+int[] playable2 = ia2.getPlayable();
+for ( int i =0 ; i<ia2.getCpuGrid().getWidth();i++)
+assertEquals(0,playable2[i]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigfull}
+  \caption{\texttt{Grille pleine}}
+\end{center}
+\end{figure}
+
+La grille étant pleine l'ordinateur ne peut pas jouer. Elle retourne
+la valeur -1 qui dit qu'aucune position n'est jouable. Cette valeur n'est pas
+interprété par le GameEngine, car il ne se produiera jamais (voir
+analyse statique).
+
+\begin{verbatim}
+ int Ia2PlayedFullGrid = ia2.play(rule);
+ assertFalse(0 <= Ia2PlayedFullGrid && Ia2PlayedFullGrid < grid.getWidth());
+ assertEquals(-1, Ia2PlayedFullGrid);
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigwin}
+  \caption{\texttt{Grille avec coup gagnant}}
+\end{center}
+\end{figure}
+
+Si il a une possibilité de gagner, il repère la colonne qui permet de
+gagner en y mettant le code \texttt{playable} à 3 pour ensuite y jouer.
+
+\begin{verbatim}
+ int Ia4PlayedForWin = ia4.play(rule);
+assertNotNull(Ia4PlayedForWin);
+assertTrue(0 <= Ia4PlayedForWin && Ia4PlayedForWin < grid_null.getWidth());
+assertEquals(6, Ia4PlayedForWin);
+int[] playable4 = ia4.getPlayable();
+for ( int i =0 ; i<ia4.getCpuGrid().getWidth();i++)
+   if ( i == 6)
+assertEquals(3,playable4[i]);
+   else
+assertEquals(0,playable4[i]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable3}
+  \caption{\texttt{Autre cas de coup gagnant}}
+\end{center}
+\end{figure}
+
+L'ordinateur peut gagner en jouant en 2, et il doit le faire avec \texttt{playable[2]=3}.
+
+\begin{verbatim}
+int Ia2Playedfig4 = ia2.play(rule);
+int[] playable7 = ia2.getPlayable();
+assertEquals(2 , Ia2Playedfig4);
+assertEquals(3, playable7[2]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable10}
+  \caption{\texttt{Colonne injouable}}
+\end{center}
+\end{figure}
+
+Si l'ordinateur joue sur la colonne 4, alors au prochain coups l'autre joueur 
+pourra gagner avec une diagonale. L'ordinateur devra avoir
+\texttt{playable[4]=1} qui correspond a un placement de pions qui fait gagner l'adversaire.
+Dans ce cas nous savons que l'ordinateur va jouer en 2
+du au fait du caractère non aléatoire de l'ordinateur et surtout que \texttt{playable[4]=1}.
+
+\begin{verbatim}
+ int Ia2Playedfig2 = ia2.play(rule);
+int[] playable5 = ia2.getPlayable();
+assertEquals(2 , Ia2Playedfig2);
+assertEquals(1 , playable5[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable2}
+  \caption{\texttt{Stratégie sur plusieur coups}}
+\end{center}
+\end{figure}
+
+Si l'ordinateur joue en 2 cela permettra à l'autre joueur de bloquer 
+un éventuel coup gagnant futur. L'ordinateur doit avoir \texttt{playable[2] = 2} ce qui est
+ un code moins fort que 1 mais il ne doit pas y jouer tout de même dans la mesure du possible. Si
+il doit choisir entre un \texttt{playable} à 1 ou 2 il choisira tout de même le code 2.
+
+\begin{verbatim}
+ int Ia2Playedfig3 = ia2.play(rule);
+int[] playable6 = ia2.getPlayable();
+assertEquals(3 , Ia2Playedfig3);
+assertEquals(2, playable6[2]);
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable4}
+  \caption{\texttt{Colonne injouable}}
+\end{center}
+\end{figure}
+
+La colonne 1 est pleine donc l'ordinateur ne doit plus y jouer et  \texttt{playable[1] = 4}.
+C'est le code qui interdit de jouer le plus fort. Si toutes les colonnes sont a 4 il renverra un code d'erreur -1.
+C'est le seul code de \texttt{playable} ou il est totalement impossible de jouer dans la colonne marquée.
+
+
+\begin{verbatim}
+int[] playable8 = ia2.getPlayable();
+assertEquals(4, playable8[1]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfig6}
+  \caption{\texttt{Strategie sur plusieurs coup}}
+\end{center}
+\end{figure}
+
+L'ordinateur doit remarquer qu'il peut gagner en deux coup il met donc \texttt{playable}
+à 5 sur les cases offrant cette possibilité : \texttt{playable[2] =  5} et \texttt{playable[5] = 5}.
+(  colonne 2 et 6 sur la grille ).Il prépare donc comme voulu sa stratégie sur 2 coups qu'il modifiera en 
+fonction de du coup jouer par l'autre joueur.
+
+\begin{verbatim}
+int Ia2Playedfig6 = ia2.play(rule);
+int[] playable9 = ia2.getPlayable();
+assertEquals(5, Ia2Playedfig6);
+assertEquals(5, playable9[1]);
+assertEquals(5, playable9[5]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable1}
+  \caption{\texttt{Stratégie de blocage}}
+\end{center}
+\end{figure}
+L'ordinateur peut aussi prévoir à l'avance les positions dangereuses des pions de l'autre joueur,
+il mettra ainsi en place la tactique \texttt{playable} 6 dans les colonnes qui couperont les alignements 
+possibles des pions adverses. Dans ce cas la \texttt{playable[1] = 6} et \texttt{playable[4] = 6}.Il jouera donc dans
+l'une de ces deux colonnes , ici la colonne 4.
+
+\begin{verbatim}
+int Ia2Playedfig7 = ia2.play(rule);
+int[] playable10 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig7);
+assertEquals(6, playable10[0]);
+assertEquals(6, playable10[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable6}
+  \caption{\texttt{Coup Obligatoire}}
+\end{center}
+\end{figure}
+
+L'ordinateur est obligé de jouer en colonne 4 sous peine de voir l'autre joueur gagner au prochain coup.
+Nous devons donc avoir \texttt{playable[4]=6} qui est le code
+prioritaire pour les coups à jouer après 3. 
+
+\begin{verbatim}
+ int Ia2Playedfig8 = ia2.play(rule);
+int[] playablefig8 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig8);
+assertEquals(6, playablefig8[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfig9}
+  \caption{\texttt{Non blocage du jeu}}
+\end{center}
+\end{figure}
+Il peut arriver que l'ordinateur n'est pas le choix et doit jouer dans une colonne même si son
+\texttt{playble} est à 1  c'est a dire que jouer ce coup fera gagner l'autre joueur, nous devons vérifier que l'ordinateur le fera quand même sous peine de bloquer la partie.Donc ici \texttt{played[3]=1} , mais l'ordinateur joue en 3 (4ème colonne) et fait ainsi gagner l'autre joueur.
 
 \subsection{Rules}
 
@@ -428,17 +657,17 @@ Cette classe testera :\newline
 \item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
 On choisira des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
 Exemple (Existence de 4 jetons sur la même ligne) :\newline
-On créera 4 jetons sur la même ligne 0:
+On créera 4 jetons sur la même ligne 0:\newline
 \begin{center}
-\textbf{assertTrue(matrix.setValue(0, 0, 1));}\newline
-\textbf{assertTrue(matrix.setValue(0, 1, 1));}\newline
-\textbf{assertTrue(matrix.setValue(0, 2, 1));}\newline
-\textbf{assertTrue(matrix.setValue(0, 3, 1));}\newline
+\texttt{assertTrue(matrix.setValue(0, 0, 1));}\newline
+\texttt{assertTrue(matrix.setValue(0, 1, 1));}\newline
+\texttt{assertTrue(matrix.setValue(0, 2, 1));}\newline
+\texttt{assertTrue(matrix.setValue(0, 3, 1));}\newline
 \end{center}
 
 Puis en bouclant sur toutes les positions de la grille, on arrivera à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
 
-\item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
+\item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soit jouable/non jouable.  
 
 \end{itemize}
 
@@ -526,32 +755,36 @@ cést elle qu iva générer la gravité, si on peut dire.
 %%sort une colonne et joue un pion dans cette colonne si le coup est
 %%valide sinon elle tire de nouveau une colonne au sort.
 
-Nous devons élaborer des tests fonctionnels pour la classe \textbf{GameEngine} afin de vérifier la conformité du déroulement du jeu et les données retournées par la classe.\newline
-Les méthodes seront \textbf{testHuman2WinHuman1()}, \textbf{testCpu1WinHuman()} et \textbf{testCpu2WinHuman()} qui lancent respectivement des confrontations Humain/Humain, Cpu1/Humain et Cpu2/Humain.\newline
+Nous devons élaborer des tests fonctionnels pour la classe \texttt{GameEngine} afin de vérifier la conformité du déroulement du jeu et les données retournées par la classe.\newline
+Les méthodes seront \texttt{testHuman2WinHuman1()}, \texttt{testCpu1WinHuman()} et \texttt{testCpu2WinHuman()} qui lancent respectivement des confrontations Humain/Humain, Cpu1/Humain et Cpu2/Humain.\newline
 Elles auront pour rôle respectivement de :\newline
 \newline
 \begin{itemize}
 \item Tester que lors de la confrontation Humain1/Humain2 c'est le joueur humain2 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
 \begin{center}
-\textbf{assertFalse("2 possibilités : $\backslash$n C'est le joueur humain numéro 1 qui a gagné !!!$\backslash$n" +
+\texttt{assertFalse("2 possibilités : $\backslash$n C'est le joueur humain numéro 1 qui a gagné !!!$\backslash$n" +
 				"ou personne n'a gagné !!", game.getWinPlayer());}
 \end{center}
 \item Tester que lors de la confrontation Cpu1/Humain c'est le joueur Cpu1 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
 \begin{center}
-\textbf{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
+\texttt{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
 \end{center}
 \item Tester que lors de la confrontation Cpu2/Humain c'est le joueur humain2 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
 \begin{center}
-\textbf{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
+\texttt{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
 \end{center}
 \end{itemize}
 
-Une dernière méthode \textbf{testModes()} va tester la mise-à-jour des modes de jeu.\newline
-Exemple :\newline
-\textbf{assertTrue(game.initMode(0));}
-\textbf{assertTrue(game.getMode() == 0);}
-\textbf{assertFalse(game.getMode() == 1);}
-\textbf{assertFalse(game.getMode() == 2);}
+Une dernière méthode \texttt{testModes()} va tester la mise-à-jour des modes de jeu.\newline
+Exemple :
+
+\texttt{assertTrue(game.initMode(0));}
+
+\texttt{assertTrue(game.getMode() == 0);}
+
+\texttt{assertFalse(game.getMode() == 1);}
+
+\texttt{assertFalse(game.getMode() == 2);}
 
 
 

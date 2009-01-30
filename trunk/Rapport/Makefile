@@ -19,7 +19,7 @@ pdf :
 
 
 clean :
-	rm -f $(NAME).dvi $(NAME).log $(NAME).aux $(NAME).blg $(NAME).bbl $(NAME).toc *~ *#
+	rm -f $(NAME).dvi $(NAME).log $(NAME).aux $(NAME).blg $(NAME).bbl $(NAME).toc *~ *# *.aux
 
 
 reset : clean

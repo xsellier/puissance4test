@@ -1,0 +1,125 @@
+% -*- mode: latex; coding: latin-1-unix -*- %
+
+\subsection{Tests d'intégration}
+
+Nous n'avons pas codé l'interface graphique directement, elle n'est
+venue que dans un second temps. Autrement dit pour jouer au puissance
+4 on passait par la console.
+
+Mais avant dén arrivé la nous avons intégré notre \texttt{GameEngine}
+avec notre \texttt{DataStructure}.
+
+La simplicité, à ce moment, de ces deux méthodes étaient telles, que les
+tests d'intégrations ne nous ont pas vraiment permis, à ce moment là,
+d'améliorer le code.
+
+Dans un second temps, nous avons créé un module \texttt{Rule} que nous
+avons intégré à notre \texttt{GameEngine}. Nous avons rencontré de
+nombreux problèmes. Car notre \texttt{Rule} a besoin de la grille pour
+pouvoir vérifier si la grille est valide et surtout si il y a un
+gagnant. Pour cela nous avons du créer des accesseurs pour les
+variables \texttt{private} de \texttt{DataStructure}.
+
+L'étape d'après nous avons mis en place un joueur qui jouait à travers
+la console. Encore une fois dans un soucis de tests d'intégrations
+pour vérifier l'affichage (primaire) de la grille dans notre
+console. Cette étape nous a permis de voir plusieurs choses.
+\bigskip
+\begin{itemize}
+\item Dérouler le jeu en séquence\newline
+Il fallait savoir qui jouait et donc alterner les deux joueurs.
+\bigskip
+\item Déterminer la fin du jeu\newline
+Il fallait faire des appels ingénieux à \texttt{Rule} pour déterminer
+si il y a un vainqueur, mais aussi si la partie est terminée, match
+nul. Pour ce dernier cas, nous avons choisi la solution de
+facilité. Nous avons mis en place un compteur dans le GameEngine, qui
+compte le nombre de coup joué. Et si ce compteur atteint la dimension
+de la matrice, alors ca veut dire que chaque case de la grille a été
+modifiée au moins une fois.
+\bigskip
+\item Vérifier la validité du coup joué\newline
+Ca n'a pas vraiment été ca qui nous a posé problème, mais plutôt le
+fait que si nous jouions mal il fallait refaire jouer le même joueur
+et ne pas incrémenter le compteur. La seconde partie de la derniere
+phrase ne nous a pas parue évidente, c'est pourquoi nous avons du
+tester plusieurs cas. 
+
+\bigskip
+\begin{itemize}
+\item Les deux joueurs jouent toujours correctement et
+un des gagnent.
+\item Les deux joueurs jouent toujours correctement mais ca fini par
+  un match nul
+\item Les deux joueurs ne jouent pas correctement et il y avait match nul
+\end{itemize}
+\end{itemize}
+Ce dernier test nous a permis de voir que nous avions fait une bourde
+au niveau du compteur, qui fut corrigé sur l'instant.
+
+\bigskip
+A ce niveau d'intégration là, le programme fonctionnait
+correctement. On pouvait jouer au puissance 4 a deux joueurs sans
+problème. L'étape suivante a consisté à mettre ne place une interface
+graphique. D'après le sujet cette interface graphique doit etre
+interchangeable en ne modifiant qu'une seule ligne de code dans notre
+\texttt{GameEngine}.
+Pour respecter cette règle, nous avons mis une interface dont notre
+interface graphique hérite. Ca nous a fait remanipuler notre
+architecture, mais cela correspondait déjà en partie mieux au sujet.
+
+Notre interface graphique est assez rudimentaire, les tests qui ont
+été effectués ont été basique. Nous avons effectué les mêmes tests que
+lors de l'intégration de l'affichage console. Mais nous avons déduits
+de grosse améliorations sur le \texttt{GameEngine}. C'est lors de ces
+tests que nous avons ajouté les méthodes qui servent a griser les
+boutons qui correspondent a des colonnes pleines. Ainsi que les
+fonctionnalité qui consistait a ajouter le nom du vainqueur sur notre
+grille, mais également la possibilité de faire un reset (et cette fois
+on a pensé a remettre à zéro le compteur).
+Nous avons quand même détecté des bug, dont la source nous est encore
+inconnue mais que nous avons corrigé en ajoutant un
+\texttt{System.out.println();}. Car notre affichage ne fonctionnait
+pas sans ca. Il est possible d'améliorer cette partie en mettant un
+simple \texttt{System.out.flush()}, mais ca reste a tester.
+
+En intégrant notre intelligence artificelle nous avons du modifier le
+\texttt{GameEngine} qui avait une méthode \texttt{start()} pour chaque
+\texttt{mode} (0, 1 et 2). L'intelligence artificelle sést faite assez
+aisément, car elle se sert de \texttt{Rule} et du'une
+\texttt{DataStructure}. Lors de l'intégration de notre intelligence
+artificelle, le \texttt{GameEngine} était suffisament robuste pour
+répondre a des cas d'erreurs, précédemment testé lors de l'intégration
+du mode console.
+Cependant,pour ajouter une intelligence artificielle il fallait
+modifier les classes \texttt{GameEngine} et \texttt{IAFourInARow} ce
+qui ne crrespondait aucunement au sujet. Sur ce point nous avons du
+faire des efforts d'architecture.
+
+En créant une interface \texttt{Player} nous pouvions instancier un
+joueur humain ou un ordinateur. Si c'était un ordinateur on
+instanciait un \texttt{IAFourInARow} et ca ne répondait pas à nos
+besoin lors de l'intégration.
+
+Nous avons du remodifier le code et créer une nouvelle interface
+\texttt{Cpu} dont le but était de permettre l'intégration d'une
+nouvelle intelligence artificielle en ne modifiant qu'une seule ligne
+de code. Ca a apporté une modificaiton simple et évidente sur notre
+\texttt{CpuPlayer}.
+
+Avant on faisait :\newline
+\texttt{IAFourInARow() cpu1 = new IAFourInARow();}
+
+Maintenant on fait :\newline
+\texttt{Cpu() cpu1 = new IAFourInARow();}
+
+Le gros changement fut de faire implémenté \texttt{IAFourInARow} a
+notre interface \texttt{Cpu}.
+
+Une fois cette modification apporté, on avait un code modulaire pour
+l'interface graphique et pour l'ordinateur. On a donc fait un peu de
+zèle en faisant de même pour \texttt{Rule} qui est devenue
+\texttt{FourInARowRule} et qui implémente l'interface \texttt{Rule}.
+
+De cette manière on peut jouer a plusieurs jeux en changeant de règle
+(Puissance 5 par exemple).
