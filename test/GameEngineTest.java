@@ -2,7 +2,9 @@ package test;
 
 import static org.junit.Assert.*;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class GameEngineTest extends TestCase{
 		
 	}
 	
-	@Before
+	@After
 	public void tearDown(){
 		
 		game = null;
@@ -78,14 +80,5 @@ public class GameEngineTest extends TestCase{
 		
 	}
 	
-	@Test
-	public void testUpdatePlay() {	
-	
-	}
-
-	@Test
-	public void testCheck_grid() {
-
-	}
 
 }

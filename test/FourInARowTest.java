@@ -1,13 +1,14 @@
 package test;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import src.*;
 
-public class FourInARowTest {
+public class FourInARowTest extends TestCase {
 
 	private DataStructure matrix;
 	private Rules rule;

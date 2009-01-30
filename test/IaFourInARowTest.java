@@ -2,6 +2,7 @@ package test;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +25,8 @@ public class IaFourInARowTest extends TestCase {
 	private IaFourInARow ia5;
 	private IaFourInARow ia6;
 	private IaFourInARow ia7;
-
+	private IaRandom iatest;
+	
 	private Rules rule;
 
 	@Before
@@ -55,12 +57,29 @@ public class IaFourInARowTest extends TestCase {
 		ia6.initialize(big_grid, mode2);
 		ia7.initialize(grid, mode1);
 
-		IaRandom iatest = new IaRandom();
+		iatest = new IaRandom();
 		iatest.initialize(grid, mode2); // initialize a randomIa
 		iatest.initialize(grid, mode1); // initialize a switchIa
 	}
 
-
+	@After
+	public void tearDown(){
+		grid = null;
+		grid_null = null;
+		big_grid = null;
+		
+		rule = null;
+		
+		ia1 = null;
+		ia2 = null;
+		ia3 = null;
+		ia4 = null;
+		ia5 = null;
+		ia6 = null;
+		ia7 = null;
+		
+		iatest = null;
+	}
 
 	@Test
 	public void testGetCpuGrid() {

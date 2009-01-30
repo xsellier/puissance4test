@@ -185,9 +185,6 @@ public class DataStructureTest extends TestCase {
 
 	}
 
-	public static junit.framework.Test suite() {
-		junit.framework.TestSuite suite = new TestSuite(DataStructureTest.class);
-		return suite;
-	}
+	
 
 }
