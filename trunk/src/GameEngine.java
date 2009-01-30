@@ -57,7 +57,7 @@ public class GameEngine {
 				&& (counter < grid.getWidth() * grid.getHeight())) {
 			if (!current_player) { // Player 1 plays
 				currently_played = player1.play(grid, app);
-				while(currently_played < 0 && currently_played >= grid.getWidth())
+				while(currently_played < 0 && currently_played >= grid.getWidth() && currently_played!=-2)
 					currently_played = player1.play(grid, app);
 				if (currently_played == -2) {
 					resetGrid(); // reset grid xD
@@ -79,7 +79,7 @@ public class GameEngine {
 
 			} else { // Player 2 plays, can be a Cpu or an human
 				currently_played = player2.play(grid, app);
-				while(currently_played < 0 && currently_played >= grid.getWidth())
+				while(currently_played < 0 && currently_played >= grid.getWidth() && currently_played!=-2)
 					currently_played = player2.play(grid, app);
 				if (currently_played == -2) {
 					resetGrid();

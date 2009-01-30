@@ -40,7 +40,7 @@ public class IaFourInARow implements Cpu {
 	}
 
 	public void setPlayable(int i, int value) {
-		if (value >= 0 && value < 7)
+		if (value >= 0 && value < cpugrid.getWidth())
 			playable[i] = value;
 	}
 
