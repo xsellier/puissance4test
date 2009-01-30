@@ -41,27 +41,6 @@ Lorsqu'un joueur communique son choix pour le coup en cours, le tableau d'entier
 \end{itemize}
 
 L'ensemble de ces outils permettront au moteur de jeu décrit ci-dessous d'assurer le bon déroulement du jeu et donc du programme.
-\paragraph{Tests d'intégration pour les règles}
-
-\begin{itemize}
-\bigskip
-\item Situation incorrecte\newline
-En intégrant nos règles dans le moteur de jeu, il est possible que le choix du joueur ne
-soit pas dans l'intervalle de positions de la grille. Autrement dit,
-le joueur va essayer de jouer à l'extérieur de la grille. C'est
-pourquoi nous pensons entrer des tests aux limites de notre grille,
-mais qui appellent sur toutes les possibilités nos règles. Nous
-choisirons des données de tests négatives, nulles, de la taille de la
-grille, et supérieur à la taille de la grille.
-\bigskip
-\item Situation plausible\newline
-Il est certain qu'on va vérifier si notre moteur de jeu récupère bien
-la valeur attendue et l'interprète correctement. Pour ce qui concerne
-les données de tests de ce cas précis, nous pensons prendre une grille
-6$\times$7 et effectuer les tests sur toutes les combinaisons
-possibles pour vérifier si nos règles nous retournent le fait qu'un
-joueur a remporté et la victoire.
-\end{itemize}
 
 \subsection{Moteur de jeu}
 
@@ -95,3 +74,139 @@ On trouvera d'autres classes d'importance mineure :\newline \newline
 
 Une classe main sera présente et permettra d'instancier le moteur de jeu au démarrage du programme en lui communiquant le choix de configuration de l'utilisateur. D'autres interfaces pourront être ajoutées pour augmenter la modularité du programme.\newline
 Enfin, dans le cas d'une interface graphique, il sera nécessaire de représenter chaque position de la grille grâce à des éléments graphiques changeant de couleur. De la même manière, d'autres composants graphiques permetront à l'utilisateur de communiquer son choix quant au coup qu'il veut jouer. On trouvera également une zone graphique destinée à l'avertir de la terminaison de la partie.
+
+
+\subsection{Tests d'intégration}
+
+Une fois les tests JUnit terminés, il nous faudra prévoir des tests
+d'intégrations.
+Nous saurons alors que chaque partie fonctionnera correctement
+indépendamment.
+
+
+
+
+\bigskip
+\bigskip
+=================
+
+     SCHEMA A DEPLACER
+
+     =================
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{premiere_architecture}
+  \caption{\texttt{Notre première architecture}}
+\end{center}
+\end{figure}
+
+\paragraph{Moteur de jeu} - interaction avec les autres modules.
+
+\bigskip
+Nous sommes conscient que ce sera notre moteur de jeu qui va prendre
+le plus de temps pour nos tests d'intégrations. C'est lui qui va
+instancier notre structure de données, nos joueurs, nos règles ainsi
+que l'interface graphique.
+
+C'est pourquoi nous ne mettrons dans cette partie que les données de tests
+qui concernent les différents modules avec le moteur de jeu.
+
+\paragraph{Structure de données} - instanciation et modification(s)
+
+\bigskip
+\begin{itemize}
+
+\item Instanciation correcte\newline
+Lors du lancement du jeu, notre moteur va instancier notre structure
+de données. Nous avons déjà pensé que ce sera une matrice, qui devra
+être, d'après les spécifications, de taille minimale 6$\times$7. Nous devrons
+vérifier que lorsqu'une grille correcte est instanciée, l'objet
+retourné soit un objet de la taille souhaitée.
+\bigskip
+\item Instanciation incorrecte\newline
+Dans un soucis de robustesse, nous pensons traiter le cas ou une
+grille de taille incorrecte soit instanciée par notre moteur de
+jeu. Autrement dit une grille de taille inférieure à 6$\times$7.
+Pour mieux comprendre, si un utilisateur vient a modifier notre code
+pour instancier une grille trpo petite, notre structure de données
+doit en tenir compte est construire une grille de taille minimale 6$\times$7.
+\bigskip
+\item Lecture/Modification correcte\newline
+Lors d'une partie notre moteur de jeu doit pouvoir lire et modifier
+sans difficulté la grille. Nous devrons tester si les modifications
+apportées par notre moteur de jeu soient bien effectuées par notre
+structure de données et comparer les valeurs que notre moteur jeu lit
+dans notre structure de données avec celles renvoyée par notre
+structure de données.
+\bigskip
+\item Lecture/Modification incorrecte\newline
+Encore une fois, dans un soucis de robustesse, la structure de données
+devra pouvoir traiter des saisies incorrecte. Pourtant cela ne
+ne veut pas dire qu'elle devra les interpréter, mais plutôt qu'elle
+signifiera à l'utilisateur qu'il y a eu une mauvaise saisie à travers
+la console, et renvoiera un booléen \texttt{false}.
+\end{itemize}
+
+\paragraph{Joueurs} - instanciation et interaction
+
+\bigskip
+\begin{itemize}
+
+\item Instanciation\newline
+Lorsque nous créons un joueur, il ne peut être que créé
+correctement. Nous ne trouvons pas encore d'utilité a un constructeur
+prenant en compte des paramètres.
+La seule chose qui sera a vérifier, sera le type de l'instance du
+joueur. A savoir si c'est bien un ordinateur, ou alors un humain.
+\bigskip
+\item Interaction\newline
+Nous devrons vérifier que les coups joués par l'ordinateur sont bien
+ceux récupérés par le moteur du jeu. Il faudra aussi vérifier que si
+l'ordinateur renvoie une valeur impossible, par exemple une colonne
+pleine, cela ne perturbe pas le fonctionnement du programme, mais
+demande une nouvelle valeur à l'ordinateur.
+De la même manière on devra vérifier que la grille fournit à
+l'ordinateur par le moteur de jeu, corresponde a celle du moteur de
+jeu. Et une fois que l'ordinateur a joué, il faudra vérifier que la
+grille n'ait pas été modifié par notre intelligence artificielle, car
+ce sera le job de notre moteur de jeu.
+\end{itemize}
+
+\paragraph{Règles} - instanciation et utilisation
+
+\bigskip
+\begin{itemize}
+
+\item Instanciation\newline
+Nos règles ne prennent aucun argument, donc leur instanciation
+ne devraient pas poser de problème.
+\bigskip
+\item Utilisation correcte\newline
+Il faudra soumettre aux règles une grille correcte et vérifier
+qu'elles ne modifient pas cette grille. Dans le cas ou il y a un
+gagnant nos règles devront nous le spécifier.
+\bigskip
+\item Utilisation incorrecte\newline
+Nous espérons avoir un module robuste pour gérer les accès incorrects
+fait par le moteur de jeu, mais aussi des grilles incorrectes. Avec
+plusieurs gagnants, et encore une fois voir si nos règles valides ou
+non ces grilles.
+\end{itemize}
+
+Notons que notre moteur de jeu utilisera toutes les méthodes de notre
+structure de données, ainsi que de nos règles. Donc si l'interaction
+entre notre moteur de jeu, notre structure de données et nos règles
+sont correctes, alors si un autre module utilise de la même manière la
+structure de données et les règles, et bien ce dernier module
+fonctionnera sans modifications ni tests nécessaire.
+
+Ce cas devrait surement s'appliquer a notre intelligence artificielle
+qui devrait être capable de calculer des positions possibles. Pour se
+faire, l'intelligence artificielle devra interagir avec les règles et
+aussi la structure de données.
+
+\bigskip
+ Et enfin, pour vérifier de nouveau, que notre logiciel marche, en d'autres
+terme que nos modules interagissent correctement, nous pensons
+intégrer un mode débogue qui ne serait accessible qu'en mode de test.
