@@ -15,11 +15,14 @@ public class GameEngine {
 	private Player player1;
 	private Player player2;
 	private int counter;
-
-	/* start at 0 and top to grid.getHeight() grid.getWidth(); */
+	/*
+	 * change those variable to define a new grid size
+	 */
+	private int height=6;
+	private int width=7;
 
 	public GameEngine() { // initialize game
-		this.grid = new DataStructure(6, 7); // create a grid size 6*7
+		this.grid = new DataStructure(height, width); // create a grid size 6*7
 		this.current_player = false; // human player start
 		rule = new FourInARow(); // define rule of the game, there 4 in a row
 		app = new GUIOwn(); // create GUI, you can change this line to use
@@ -32,6 +35,7 @@ public class GameEngine {
 	}
 
 	public boolean initTestMode() { // to launch testing mode
+		this.grid = new DataStructure(height, width); 
 		System.out.println("\n\nStarting a new game ...");
 		switch (mode) {
 		case 3:
