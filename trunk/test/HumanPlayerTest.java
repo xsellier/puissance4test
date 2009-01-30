@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 
 import org.junit.After;
@@ -12,7 +13,7 @@ import src.GUIOwn;
 import src.HumanPlayer;
 
 
-public class HumanPlayerTest {
+public class HumanPlayerTest extends TestCase{
 
 	
 	private HumanPlayer human;
