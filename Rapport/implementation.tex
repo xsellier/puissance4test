@@ -56,24 +56,24 @@ La méthode \texttt{print} va elle afficher la matrice.
 
 \subsubsection{Tests de la matrice}
 
-Nos différentes classes de test dérivent de \textbf{junit.framework.TestCase}. Elles ont une méthode setUp(), exécutée avant chaque méthode de test, pour initialiser les tests et une méthode tearDown(), exécutée après chaque méthode de test , pour relâcher les données.\newline
-Les méthodes de test n'attendent pas de paramètres et retournent \textbf{void}. Leur nom commence par \textbf{testXXX}.\newline
-A l'intérieur des méthodes de test, on effectue les actions de test souhaitées, et on
-vérifie qu'elles se passent correctement en utilisant des méthodes \textbf{assertXXX}.\newline
+Nos différentes classes de test vont dériver de \textbf{junit.framework.TestCase}. Elles auront une méthode setUp(), exécutée avant chaque méthode de test, pour initialiser les tests et une méthode tearDown(), exécutée après chaque méthode de test , pour relâcher les données.\newline
+Les méthodes de test n'auront pas de paramètres et retournent \textbf{void}. Leur nom commencera par \textbf{testXXX}.\newline
+A l'intérieur des méthodes de test, on effectuera les actions de test souhaitées, et on
+vérifiera qu'elles se passent correctement en utilisant des méthodes \textbf{assertXXX}.\newline
 
 
-Ces tests consistent à s'assurer que la structure de données, qui
+Ces tests consisteront à s'assurer que la structure de données, qui
 représente notre grille de Puissance 4, est robuste.\newline
 
-Le premier test envisagé est d'instancier une \texttt{DataStructure} 6$\times$7
+Le premier test envisagé sera d'instancier une \texttt{DataStructure} 6$\times$7
 correspondant à la grille classique. Tout en vérifiant par les
 accesseurs que les dimensions de la matrice sont celles attendues.
 
-On réalise ensuite des tests aux limites sur notre structure de
+On réalisera ensuite des tests aux limites sur notre structure de
 données, par exemple 0$\times$0. Pour continuer sur quelques tests
 aléatoires 100$\times$100.
 
-Nous avons testé des ajouts de valeurs prises de manière aléatoire
+Nous allons tester des ajouts de valeurs prises de manière aléatoire
 mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux bornes. Donc en valeur
 \texttt{i} et \texttt{j} négatives ou supérieures à \texttt{height} et
 à \texttt{width}.
@@ -87,12 +87,12 @@ Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(
 \textbf{assertTrue(matrix.setValue(i, j, c));}
 \end{center}
 
-Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrit :
+Une fois toutes les cases de la grille remplies, le test d'ajout ne doit plus passer, ce qui s'écrira :
 \begin{center}
 \textbf{assertFalse(matrix.setValue(i, j, c));}
 \end{center} 
 
-Un \textbf{test aux limites} a été mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
+Un \textbf{test aux limites} sera mis en place dans cette méthode : En plus de tester la possibilité que toutes les cases de la grille soient remplies, nous avons testé le rajout de valeurs à des positions \textit{hors limite}.\newline
 Exemple :\newline
 \textbf{assertFalse("Test aux limites : limite inf", matrix.setValue(-1, -1, 1));}\newline
 \textbf{assertFalse("Test aux limites : limite sup", matrix.setValue(6, 0, 0));}
@@ -156,8 +156,8 @@ donc totallement indépendante du reste du programme et peut être
 changé facilement.
 
 \subsubsection{Jeux de test}
-Tester la classe \textbf{HumanPlayer} se limite à tester la méthode \textbf{play(DataStructure , GUI gui)}.\newline
-Nous avons testé que la valeur de la position jouée n'est pas nulle et qu'elle est comprise entre 0 et la largeur de la grille(7), celà s'écrit :\newline
+Tester la classe \textbf{HumanPlayer} se limitera à tester la méthode \textbf{play(DataStructure , GUI gui)}.\newline
+Nous allons tester que la valeur de la position jouée n'est pas nulle et qu'elle est comprise entre 0 et la largeur de la grille(7), cela s'écrira :\newline
 
 \begin{center}
 played = human.play(matrix,app);
@@ -412,14 +412,14 @@ La dernière méthode, \texttt{greyOut()}, va quand a elle griser les bouttons des
 pleines correspondantes.
 
 \subsubsection{Tests de FourInARow}
-Cette classe teste :\newline 
+Cette classe testera :\newline 
 \begin{itemize}
 
 
 \item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
-On choisit des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
+On choisira des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
 Exemple (Existence de 4 jetons sur la même ligne) :\newline
-On crée 4 jetons sur la même ligne 0:
+On créera 4 jetons sur la même ligne 0:
 \begin{center}
 \textbf{assertTrue(matrix.setValue(0, 0, 1));}\newline
 \textbf{assertTrue(matrix.setValue(0, 1, 1));}\newline
@@ -427,7 +427,7 @@ On crée 4 jetons sur la même ligne 0:
 \textbf{assertTrue(matrix.setValue(0, 3, 1));}\newline
 \end{center}
 
-Puis en bouclant sur toutes les positions de la grille, on arrive à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
+Puis en bouclant sur toutes les positions de la grille, on arrivera à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
 
 \item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
 
@@ -510,12 +510,39 @@ La méthode \texttt{updateGrid()} va mettre à jour la grille, autrement
 cést elle qu iva générer la gravité, si on peut dire.
 
 \subsubsection{Tests du GameEngine}
-Pour valider le fonctionnement du GameEngine qui s'avére délicat à tester correctement
-avec JUnit nous avons choisis une autre approche. Nous avons crée une
-classe IARandom qui va nous servir uniquement à tester de manière
-aléatoire le fonctionnement de notre moteur de jeu. Cette IA tire au
-sort une colonne et joue un pion dans cette colonne si le coup est
-valide sinon elle tire de nouveau une colonne au sort.
+%%Pour valider le fonctionnement du GameEngine qui s'avére délicat à tester correctement
+%%avec JUnit nous avons choisis une autre approche. Nous avons crée une
+%%classe IARandom qui va nous servir uniquement à tester de manière
+%%aléatoire le fonctionnement de notre moteur de jeu. Cette IA tire au
+%%sort une colonne et joue un pion dans cette colonne si le coup est
+%%valide sinon elle tire de nouveau une colonne au sort.
+
+Nous devons élaborer des tests fonctionnels pour la classe \textbf{GameEngine} afin de vérifier la conformité du déroulement du jeu et les données retournées par la classe.\newline
+Les méthodes seront \textbf{testHuman2WinHuman1()}, \textbf{testCpu1WinHuman()} et \textbf{testCpu2WinHuman()} qui lancent respectivement des confrontations Humain/Humain, Cpu1/Humain et Cpu2/Humain.\newline
+Elles auront pour rôle respectivement de :\newline
+\newline
+\begin{itemize}
+\item Tester que lors de la confrontation Humain1/Humain2 c'est le joueur humain2 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
+\begin{center}
+\textbf{assertFalse("2 possibilités : \n C'est le joueur humain numéro 1 qui a gagné !!!\n" +
+				"ou personne n'a gagné !!", game.getWinPlayer());}
+\end{center}
+\item Tester que lors de la confrontation Cpu1/Humain c'est le joueur Cpu1 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
+\begin{center}
+\textbf{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
+\end{center}
+\item Tester que lors de la confrontation Cpu2/Humain c'est le joueur humain2 qui a gagné et envoyer un message d'erreur dans le cas contraire.\newline
+\begin{center}
+\textbf{assertFalse("C'est l'humain qui a gagné !", game.getWinPlayer());}
+\end{center}
+\end{itemize}
+
+Une dernière méthode \textbf{testModes()} va tester la mise-à-jour des modes de jeu.\newline
+Exemple :\newline
+\textbf{assertTrue(game.initMode(0));}
+\textbf{assertTrue(game.getMode() == 0);}
+\textbf{assertFalse(game.getMode() == 1);}
+\textbf{assertFalse(game.getMode() == 2);}
 
 
 
