@@ -2,7 +2,6 @@ package test;
 
 import junit.framework.TestCase;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,8 +24,7 @@ public class IaFourInARowTest extends TestCase {
 	private IaFourInARow ia5;
 	private IaFourInARow ia6;
 	private IaFourInARow ia7;
-	private IaRandom iatest;
-	
+
 	private Rules rule;
 
 	@Before
@@ -57,29 +55,12 @@ public class IaFourInARowTest extends TestCase {
 		ia6.initialize(big_grid, mode2);
 		ia7.initialize(grid, mode1);
 
-		iatest = new IaRandom();
+		IaRandom iatest = new IaRandom();
 		iatest.initialize(grid, mode2); // initialize a randomIa
 		iatest.initialize(grid, mode1); // initialize a switchIa
 	}
 
-	@After
-	public void tearDown(){
-		grid = null;
-		grid_null = null;
-		big_grid = null;
-		
-		rule = null;
-		
-		ia1 = null;
-		ia2 = null;
-		ia3 = null;
-		ia4 = null;
-		ia5 = null;
-		ia6 = null;
-		ia7 = null;
-		
-		iatest = null;
-	}
+
 
 	@Test
 	public void testGetCpuGrid() {
@@ -188,7 +169,7 @@ public class IaFourInARowTest extends TestCase {
 		grid.setValue(4,6,2);
 		grid.setValue(3,6,2);
 		
-		//mode esay , standard grid
+		//mode easy , standard grid
 		//check cpu finish game an win
 		int Ia1PlayedForWin = ia1.play(rule);
 		assertNotNull(Ia1PlayedForWin);
@@ -242,13 +223,13 @@ public class IaFourInARowTest extends TestCase {
 				
 			}
 		}
-        //mode esay , standard grid
+        //mode easy , standard grid
 		//check retrun error code
 		int Ia1PlayedFullGrid = ia1.play(rule);
 		assertFalse(0 <= Ia1PlayedFullGrid && Ia1PlayedFullGrid < grid.getWidth());
 		assertEquals(-1, Ia1PlayedFullGrid);
 		
-        //mode esay , standard grid
+        //mode hard, standard grid
 		//check retrun error code
 		int Ia2PlayedFullGrid = ia2.play(rule);
 		assertFalse(0 <= Ia2PlayedFullGrid && Ia2PlayedFullGrid < grid.getWidth());
