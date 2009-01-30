@@ -1,4 +1,7 @@
-% -*- mode: latex; coding: latin-1-unix -*- %
+
+\section{Introduction}
+
+La démarche que nous nous sommes efforcés d'adopter dans ce projet est la suivante. Nous avons suivi le processus du cycle en "V" en concevant les différents niveaux de tests au fur et à mesure de la conception du programme. Nous avons essayé de parcourir ce schéma horizontalement autant que possible, à savoir qu'avant de descendre à un niveau de détail plus élevé, nous nous sommes assurés de concevoir les tests associés au niveau en cours. Le rapport suit donc également cette démarche. Ainsi, chaque partie de la conception sera suivie des tests correspondant à leur contenu.
 
 \section{Spécifications}
 Le programme ici spécifié donne la possibilité à un utilisateur de jouer au jeu 'Puissance 4' dans les conditions décrites ci-dessous:
@@ -35,10 +38,33 @@ En premier lieu, l'utilisateur doit pourvoir choisir, au travers de l'interface,
 Ensuite, lors du déroulement de la partie, il doit pouvoir connaître grâce à l'affichage quels sont les coups qui ont été joués jusqu'à l'instant où il lui est demandé de jouer. Enfin, il doit pouvoir interagir avec le panneau visuel de manière à faire connaître son choix pour le coup en cours au programme lorsque c'est à lui de jouer. Lorsqu'une partie est terminée, l'utilisateur doit être averti de l'issue de celle-ci (joueur 1 gagne, joueur 2 gagne ou match nul).
 Eventuellement, il doit alors pouvoir jouer une nouvelle partie.\newline
 
+
 \subsection{Tests de validation}
 
-Il est certain que nous allons, dans un premier temps effectuer des
-tests en jouant nous même, puis soumettre le jeu à quelques personnes
-de notre entourage afin de s'assurer qu'il respecte bien les règles du
-Puissance 4, donc à nos spécifications.
+Nous allons voir ici les tests imaginés pour s'assurer que le programme obtenu respectera les termes précisés dans la partie précedente, et ne génèrera pas de comportements interdits.
+
+\begin{itemize}
+\item Règles de puissance 4\newline\newline
+
+On pourra d'abord vérifier l'application des règles avec de tests semi-exhaustifs au moyen de l'utilisation de joueurs humains. En effet, on prendra une à une les règles du jeu spécifiées et on vérifiera que lors des parties jouées, chacune de ces règles est bien respectée.\newline
+On soumettra ensuite le programme à un échantillon d'utilisateurs connaissant les règles et on receuillera leur avis concernant leur application.\newline
+Enfin, on pourra utiliser le joueur ordinateur pour générer des parties aléatoires et en vérifiant à chaque fois que l'empilement des pions respecte les règles.\newline
+
+\item Configurations de jeu\newline\newline
+
+Il suffit d'un test fonctionnel basique dont l'objet est de vérifier que lorsque le programme est lancé, les différentes configurations de jeu sont disponibles. On s'assurera alors que chaque action lance bien la configuration attendue.\newline
+
+\item Types de joueurs\newline\newline
+
+On vérifiera que des moyens de modularités permettant d'interchanger la façon dont l'ordinateur joue on été mis en place. On vériefiera par de simples tests exhaustifs qu'au moins deux niveaux de jeu sont présents.\newline
+On implémentera alors si possible de nouveaux niveaux pour vérifier cette modularité.\newline\newline
+
+\item Visualisation
+
+On vérifiera que lorsque le programme est lancé, il est possible à tout moment de jouer l'ensemble des coups autorisés. Ceci peut être effectué à la fois manuellement et automatiquement grâce à un mode ordinateur aléatoire. Rappelons ici qu'un joueur ordinateur aléatoire ne devra alors être présent que dans une situation de test et non pas dans la version livrable du programme. Ce type de joueur devra être testé séparément pour s'assurer que les conclusions tirées de son utilisation ne sont pas faussées par nature.\newline
+Dans le cas d'une interface graphique, chaque bouton sera testé dans une démarche exhaustive.\newline\newline
+
+Il est nécessaire de rappeler qu'en raison de la simplicité du jeu ici modélisé, les tests systèmes ne représentent pas une difficulté élevée et il sera trivial de vérifier la plupart de ces spécifications dans la mesure ou les tests unitaires et les tests d'intégration (décrits plus tard) seront passés avec succès.
+
+\end{itemize}
 
