@@ -1,7 +1,5 @@
 package src;
 
-import java.io.IOException;
-
 public class GameEngine {
 
 	private DataStructure grid;
@@ -21,7 +19,7 @@ public class GameEngine {
 	/* start at 0 and top to grid.getHeight() grid.getWidth(); */
 
 	public GameEngine() { // initialize game
-		this.grid = new DataStructure(0, 0); // create a grid size 6*7
+		this.grid = new DataStructure(6, 7); // create a grid size 6*7
 		this.current_player = false; // human player start
 		rule = new FourInARow(); // define rule of the game, there 4 in a row
 		app = new GUIOwn(); // create GUI, you can change this line to use
@@ -57,6 +55,7 @@ public class GameEngine {
 			player2 = new CpuPlayerTest(2, rule);
 			return true;
 		}
+		System.err.println("src.GameEngine\nError : No mode found" + mode);
 		return false;
 	}
 
@@ -79,6 +78,7 @@ public class GameEngine {
 				return true;
 			}
 		}
+		System.err.println("src.GameEngine\nError : No mode found" + mode);
 		return false;
 	}
 
@@ -92,49 +92,18 @@ public class GameEngine {
 				&& (counter < grid.getWidth() * grid.getHeight())) {
 			if (!current_player) { // Player 1 plays
 				currently_played = player1.play(grid, app);
-				while (currently_played < 0
-						&& currently_played >= grid.getWidth()
-						&& currently_played != -2)
-					currently_played = player1.play(grid, app);
 				if (currently_played == -2) {
 					resetGrid(); // reset grid xD
 					continue;
 				}
-				while (!rule.checkPlay(currently_played, grid)) { // verify
-					// currently_played
-					// is an
-					// available
-					// position
-					// on the
-					// grid
-					currently_played = player1.play(grid, app);
-					if (currently_played == -2) {
-						resetGrid(); // reset grid xD
-						continue;
-					}
-				}
 
 			} else { // Player 2 plays, can be a Cpu or an human
 				currently_played = player2.play(grid, app);
-				while ((currently_played < 0 && currently_played >= grid
-						.getWidth())
-						&& currently_played != -2) {
-					currently_played = player2.play(grid, app);
-				}
 				if (currently_played == -2) {
 					resetGrid();
 					current_player = !current_player; // change player to Player
 					// 1 start
 					continue;
-				}
-				while (!rule.checkPlay(currently_played, grid)) {
-					currently_played = player2.play(grid, app);
-					if (currently_played == -2) {
-						resetGrid();
-						current_player = !current_player; // change player to
-						// Player 1 start
-						continue;
-					}
 				}
 			}
 			updatePlay(); // validate grid
