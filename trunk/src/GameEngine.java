@@ -1,5 +1,7 @@
 package src;
 
+import java.io.IOException;
+
 public class GameEngine {
 
 	private DataStructure grid;
@@ -32,39 +34,39 @@ public class GameEngine {
 	}
 
 	public boolean initTestMode() { // to launch testing mode
-		switch (mode){
+		System.out.println("\n\nStarting a new game ...");
+		switch (mode) {
 		case 3:
 			player1 = new HumanPlayer();
-			player2 = new CpuPlayerTest(1, rule); 
-			break;
+			player2 = new CpuPlayerTest(1, rule);
+			return true;
 		case 4:
 			player1 = new HumanPlayer();
-			player2 = new CpuPlayerTest(2, rule); 
-			break;
+			player2 = new CpuPlayerTest(2, rule);
+			return true;
 		case 5:
-			player1 = new CpuPlayerTest(1, rule); 
-			player2 = new CpuPlayerTest(1, rule); 
-			break;
+			player1 = new CpuPlayerTest(1, rule);
+			player2 = new CpuPlayerTest(1, rule);
+			return true;
 		case 6:
-			player1 = new CpuPlayerTest(1, rule); 
-			player2 = new CpuPlayerTest(2, rule); 
-			break;
+			player1 = new CpuPlayerTest(1, rule);
+			player2 = new CpuPlayerTest(2, rule);
+			return true;
 		case 7:
-			player1 = new CpuPlayerTest(2, rule); 
-			player2 = new CpuPlayerTest(2, rule); 
-			break;	
+			player1 = new CpuPlayerTest(2, rule);
+			player2 = new CpuPlayerTest(2, rule);
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean initMode(int my_mode) {
 		this.mode = my_mode;
 		counter = 0; // initialize counter
-		if (mode > 2){
+		if (mode > 2) {
 			initTestMode();
 			return true;
-		}
-		else {
+		} else {
 			player1 = new HumanPlayer(); // create a human player
 			if (mode == 0) { // human vs human
 				player2 = new HumanPlayer();
@@ -72,7 +74,7 @@ public class GameEngine {
 			}
 			if (mode == 1 || mode == 2) { // human vs cpu
 				player2 = new CpuPlayer(my_mode, rule); // create a Cpu with
-														// rule,
+				// rule,
 				// there 4 in a row
 				return true;
 			}
@@ -114,10 +116,11 @@ public class GameEngine {
 
 			} else { // Player 2 plays, can be a Cpu or an human
 				currently_played = player2.play(grid, app);
-				while (currently_played < 0
-						&& currently_played >= grid.getWidth()
-						&& currently_played != -2)
+				while ((currently_played < 0 && currently_played >= grid
+						.getWidth())
+						&& currently_played != -2) {
 					currently_played = player2.play(grid, app);
+				}
 				if (currently_played == -2) {
 					resetGrid();
 					current_player = !current_player; // change player to Player
