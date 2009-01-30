@@ -11,7 +11,7 @@
 \end{verbatim}
 Nous avons choisi d'utiliser une matrice pour modéliser une grille de
 Puissance 4. Ce sera un tableau d'entiers. Afin de faire moins de
-calculs nous avons choisi de stocker la hauteur ainsi que la largeur
+calculs, nous avons choisi de stocker la hauteur ainsi que la largeur
 de la matrice dans deux variables distinctes \texttt{height} respectivement \texttt{width}.
 
 \begin{verbatim}
@@ -73,13 +73,15 @@ On réalise ensuite des tests aux limites sur notre structure de
 données, par exemple 0$\times$0. Pour continuer sur quelques tests
 aléatoires 100$\times$100.
 
-Nous allons tester des ajouts de valeurs prises de manière aléatoire
+Nous avons testé des ajouts de valeurs prises de manière aléatoire
 mais qui restent valides. Et vérifier le comportement de \texttt{setValue} aux bornes. Donc en valeur
 \texttt{i} et \texttt{j} négatives ou supérieures à \texttt{height} et
 à \texttt{width}.
 
 Exemple :\newline
+\newline
 \textbf{testAddingMoreThan42Values()} : \newline
+\newline
 Mettre une valeur à une position de la grille s'écrit : \textbf{matrix.setValue(i, j, c)}. Cette action doit retourner un booléen \textbf{true}, ce qui est testé par l'instruction :
 \begin{center}
 \textbf{assertTrue(matrix.setValue(i, j, c));}
@@ -103,12 +105,12 @@ Exemple :\newline
 \begin{verbatim}
     private int currently_played;
 \end{verbatim}
-Sert a mémoriser la position que le joueur a choisi.
+Sert à mémoriser la position que le joueur a choisi.
 
 \begin{verbatim}
     public int play(DataStructure grid, GUI gui);
 \end{verbatim}
-Cette méthode va attendre que le joueur face son choix à travers
+Cette méthode va attendre que le joueur fasse son choix à travers
 l'interface graphique. Elle récupère aussi bien une position jouée
 qu'un reset de la grille. Cette méthode retourne la position choisit
 par le joueur mais ne vérifie pas si elle est correcte. Cela s'effectue
@@ -137,12 +139,12 @@ implémente l'intelligence artificielle.
     public int play(DataStructure grid, GUI gui);
 \end{verbatim}
 
-Notre première méthode est un constructeur. Elle attribut donc un \texttt{mode}
-au CpuPlayer mais aussi les règles a utiliser (\texttt{Rules}).
+Notre première méthode est un constructeur. Elle attribue donc un \texttt{mode}
+au CpuPlayer mais aussi les règles à utiliser (\texttt{Rules}).
 
 Notre seconde méthode, \texttt{play}, similaire à celle de
 HumanPlayer. Elle va quand a elle vraiment instancier l'intelligence
-artificielle en fonction du mode choisit. Cela se fait à l'aide des lignes 21-22 :
+artificielle en fonction du mode choisi. Cela se fait à l'aide des lignes 21-22 :
 \begin{verbatim}
      Cpu cpu1 = new IaFourInARow();
      cpu1.initialize(grid, mode);
@@ -154,6 +156,15 @@ donc totallement indépendante du reste du programme et peut être
 changé facilement.
 
 \subsubsection{Jeux de test}
+Tester la classe \textbf{HumanPlayer} se limite à tester la méthode \textbf{play(DataStructure , GUI gui)}.\newline
+Nous avons testé que la valeur de la position jouée n'est pas nulle et qu'elle est comprise entre 0 et la largeur de la grille(7), celà s'écrit :\newline
+
+\begin{center}
+played = human.play(matrix,app);
+\textbf{assertNotNull(played);}
+\textbf{assertTrue( 0 <= played && played < matrix.getWidth());}
+\end{center}
+
 
 
 \subsection{Cpu}
@@ -170,7 +181,7 @@ statistiques de meilleurs coups a jouer. cela ne semble pas évident au
 premier abord à implémenter, c'est pourquoi nous avons implémenté une
 IA maison qui donne des résultats assez satisfaisant car non triviale.
 
-cependant si on veut implémentr la stratégie gagnante cela est
+cependant si on veut implémenter la stratégie gagnante cela est
 possible en créant une classe qui implémente l'interface \texttt{Cpu}
 et qui respecte le fonctionnement de l'IA actuelle qui est décrit ci-après.
 
@@ -281,7 +292,7 @@ joeur humain.
     private int height;
     private int width;
 \end{verbatim}
-La première vriable va contenir les règles du jeux qui sont utilisées,
+La première variable va contenir les règles du jeu qui sont utilisées,
 dans notre cas ce sera pour le Puissance 4. Les deux variables
 suivantes contiennent la hauteur, respectivement la largeur de notre \texttt{cpugrid}.
 
@@ -402,7 +413,10 @@ pleines correspondantes.
 
 \subsubsection{Tests de FourInARow}
 Cette classe teste :\newline 
-L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
+\begin{itemize}
+
+
+\item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
 On choisit des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
 Exemple (Existence de 4 jetons sur la même ligne) :\newline
 On crée 4 jetons sur la même ligne 0:
@@ -414,7 +428,10 @@ On crée 4 jetons sur la même ligne 0:
 \end{center}
 
 Puis en bouclant sur toutes les positions de la grille, on arrive à effectuer un test complet sur l'existence ou non d'un alignement de 4 jetons sur une ligne donnée.\newline
-Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
+
+\item Qu'une position donnée est jouable en remplissant la grille aléatoirement mais de manière à ce qu'une position soie jouable/non jouable.  
+
+\end{itemize}
 
 \subsection{GameEngine}
 \subsubsection{Implémentation}
@@ -499,6 +516,7 @@ classe IARandom qui va nous servir uniquement à tester de manière
 aléatoire le fonctionnement de notre moteur de jeu. Cette IA tire au
 sort une colonne et joue un pion dans cette colonne si le coup est
 valide sinon elle tire de nouveau une colonne au sort.
+
 
 
 \subsection{Main et Menu}
