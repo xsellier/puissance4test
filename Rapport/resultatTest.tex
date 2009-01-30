@@ -1,0 +1,58 @@
+\section{Tests système}
+
+
+\section{Tests d'intégration}
+
+
+\section{Tests unitaires}
+
+\subsection{DataStructureTest}
+
+La plupart des bugs identifiés seront liés aux valeurs des positions de la grille.\newline
+Particulièrement, une affectation d'une couleur à une position \textbf{hors limite} est source 
+de bugs.\newline
+Le fait d'affecter une couleur quelconque à la position \textbf{(0,9)} d'une grille (8,9) est typiquement le type de bugs qu'on aura à traiter.\newline
+
+
+\subsubsection{Test 1}
+
+\begin{verbatim}
+		public void testInvalidSetValues() {
+				assertFalse(matrix.setValue(10, 1, 0));
+				assertFalse(matrix.setValue(1, 10, 1));
+				assertFalse(matrix.setValue(10, 10, 2));
+		}
+\end{verbatim}
+   
+\subsubsection{Résultat Test 1}
+
+Ce test montre bien qu'il n'est pas possible d'affecter des couleurs \textbf{hors des limites} 
+à la grille \textbf{matrix} (6,7) considérée.\newline
+
+\subsubsection{Test 2}
+
+\begin{verbatim}
+		public void testNegativeMatrix() {
+				int resultNH = negative_matrix.getHeight();
+				assertEquals("la hauteur d'une negative_matrix n'est pas  6", resultNH, 6);
+
+				int resultNW = negative_matrix.getWidth();
+				assertEquals("la largeur d'une negative_matrix n'est pas  6", resultNW, 7);
+		}    
+\end{verbatim}
+
+\subsubsection{Résultat Test 2}
+
+Ce test montre que les paramètres (height , width) d'une grille "négative" n'ont 
+de valeur que respectivement 6(hauteur) et 7(largeur).  \newline
+Ce même type de test sera experimenté sur une grille "zero" et donnera le même résultat.\newline
+
+\subsubsection{Test 3}
+
+Tester \textbf{aux limites} la possiblité d'affecter des couleurs à une grille (6,7).\newline
+Ce test peut être généralisé à des grilles (i,j) avec i>0 et j>0.\newline  
+
+\subsubsection{Résultat Test 3}
+
+En effet, l'affectation des couleurs dans le Domaine des positions [0...42] réussit avec succès.
+Mais, pour les valeurs -1 et 43 le test montre une impossibilité d'affectation.\newline
