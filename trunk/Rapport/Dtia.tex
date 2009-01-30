@@ -1,14 +1,21 @@
 
- Nous avons choisis les donnés de testes de façon à tester l'ensemble des retours de la fonction \texttt{play(rule)}
+
+%%%%%% partie implémentation >> IaForInRow >> données de tests %%%%%%%%
+
+ Nous devons choisir les données de tests de façon à tester l'ensemble des retours de la fonction \texttt{play(rule)}
 c'est à dire :
 \begin{itemize}
- \item Un entier pour le coup qui va être jouer.
-\item le code d'erreur -1
+ \item Un entier pour la colonne dans laquelle il a jouer.
+ \item Un code d'erreur si il ne peut pas jouer.
 \end{itemize}
 
-mais aussi les états du tableau \texttt{playable[]} qui donne les stratégies comme vu ci-dessus, nous avons donc choisis des données qui donnent les différentes valeurs possible de \texttt{playable[i]} et aussi que l'IA joue correctement en fonction de l'état de \texttt{playable[]}.
+Mais aussi tester les différents états du tableau \texttt{playable[]} qui donne les stratégies comme vu ci-dessus, nous devons donc trouver des données pour obtenir les différentes valeurs possible de \texttt{playable[i]} et prouver que l'ordinateur en tiendra compte dans le choix de la position dans laquel il jouera.
 
-Nous allons donc reprendre les exemples ci dessus ainsi que des exemples complémentaires:
+Nous utiliserons donc les grilles ci-dessus avec les règles de jeux standard ( 4 pions alignés gagnent ).Nous devrons rajouter d'autres grilles comme la grille entièrement remplie pour nous assurer que l'ordinateur retourne bien un code d'erreur.Il ai envisagé d'utiliser principalement le mode difficile pour les données de test , car les deux mode ont un comportement similaire avec des stratégies supplémentaire pour le mode difficile.
+
+%%%%%% partie tests réel ,junit...%%%%%
+
+Nous allons donc ici tester l'ordinateur reprendre les exemples de la partie implémentation IaForInRow en ajoutant comme prévus les cas 
 
 Les données de test se compose d'une ordinateur avec un mode (facil ou difficile) et de l'état de la structure de donnée , c'est à dire de la grille de jeux. Dans le rapport l'ensemble des tests se feront a l'aide d'une IA en mode difficile, l'IA facil ayant le même comportement avec des stratégies en moins.( certains testes sont quand même présent dans \texttt{Junit} sur l'ordinateur en mode facil et des grilles non conventionnelles )
 
@@ -161,22 +168,45 @@ assertEquals(5, playable9[5]);
 \begin{figure}[H]
 \begin{center}
   \includegraphics[scale=0.2]{playable1}
-  \caption{\texttt{playable[i] = 6}}
+  \caption{\texttt{Strategie de bloquage}}
 \end{center}
 \end{figure}
-Dans ce cas la \texttt{playable[1] = 6} et \texttt{playable[4] = 6}. Et tous
-les autres cas \texttt{playable[i]=0}. L'ordinateur va bloquer la
-possibilit� de mouvement de l'humain.
+L'ordinateur peut aussi prévoir à l'avance les positions dangereuses des pions de l'autre joueur,
+il mettra ainsi en place la tactique \texttt{playable} 6 dans les colones qui couperont les alignements 
+possibles des pions adverses.Dans ce cas la \texttt{playable[1] = 6} et \texttt{playable[4] = 6}.Il jouera donc dans
+l'un de ces deux colonnes .
+
+\begin{verbatim}
+int Ia2Playedfig7 = ia2.play(rule);
+int[] playable10 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig7);
+assertEquals(6, playable10[0]);
+assertEquals(6, playable10[4]);
+\end{verbatim}
+
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[scale=0.2]{playable6}
-  \caption{\texttt{playable[i] = 6}}
+  \caption{\texttt{Coup Obligatoire}}
 \end{center}
 \end{figure}
-Si le joueur humain place un pion dans la colonne 4 il remportera la
-victoire. Pour eviter de perdre aussi facilement on met
-\texttt{playable[4]=6}, et l'ordinateur va bloquer la victoire du
-joeur humain.
+L'ordinateur est obliger de jouer en colonne 4 sous peine de voir l'autre joueur gagner au prochain coup.
+Nous devons donc avoir \texttt{playable[4]=6}.
+
+\begin{verbatim}
+ int Ia2Playedfig8 = ia2.play(rule);
+int[] playablefig8 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig8);
+assertEquals(6, playablefig8[4]);
+\end{verbatim}
 
 
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfig9}
+  \caption{\texttt{Non bloquage du jeu}}
+\end{center}
+\end{figure}
+Il peut arriver que l'ordinateur n'est pas le choix et doix jouer dans une colonne même si son
+\texttt{playble} est à 1  c'est a dire que jouer ce coup fera gagner l'autre joueur, nous devons vérifier que l'ordinateur le fera quand même sous peine de bloquer la partie.Donc ici \texttt{played[3]=1} , mais l'ordinateur joue en 3 (4eme colonne).
