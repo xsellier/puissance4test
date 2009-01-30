@@ -24,7 +24,6 @@ public class DataStructureTest extends TestCase {
 		negative_matrix = new DataStructure(-1, -3);
 		big_matrix = new DataStructure(100, 100);
 		high_matrix = new DataStructure(8, 9);
-
 	}
 
 	@After
