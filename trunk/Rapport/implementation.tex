@@ -432,7 +432,7 @@ Cette classe testera :\newline
 
 
 \item L'existence ou non d'un alignement de 4 jetons d'une même couleur soit dans la même ligne, même colonne, même diagonale :\newline
-On choisira des valeurs aléatoires valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
+On choisira des valeurs exhaustives valides (constituant une : ligne, colonne, diagonale) afin de vérifier le comportement de nos méthodes d'alignement des jetons.\newline
 Exemple (Existence de 4 jetons sur la même ligne) :\newline
 On créera 4 jetons sur la même ligne 0:\newline
 \begin{center}
@@ -449,16 +449,16 @@ jetons sur une ligne donnée.\newline
 \begin{center}
 \begin{verbatim}
                 for (int i = -1; i <= matrix.getWidth(); ++i) {
-			for (int j = -1; j <= matrix.getHeight(); ++j) {
-				if (i == 0 && j>=0 && j < matrix.getWidth()- 2) {
-					assertTrue(rule.checkLine(i, j, 1, matrix));
-					assertFalse(rule.checkLine(i, j, 2, matrix));
-				} else {
-					assertFalse(rule.checkLine(i, j, 1, matrix));
-					assertFalse(rule.checkLine(i, j, 2, matrix));
+					for (int j = -1; j <= matrix.getHeight(); ++j) {
+						if (i == 0 && j>=0 && j < matrix.getWidth()- 2) {
+							assertTrue(rule.checkLine(i, j, 1, matrix));
+							assertFalse(rule.checkLine(i, j, 2, matrix));
+						} else {
+							assertFalse(rule.checkLine(i, j, 1, matrix));
+							assertFalse(rule.checkLine(i, j, 2, matrix));
+						}
+					}
 				}
-			}
-		}
 \end{verbatim}
 
 \end{center}
@@ -656,7 +656,7 @@ Cette méthode grise tous les bouttons qui permettent de choisir les colonnes mai
 \begin{verbatim}
     public abstract void enableAllButton();
 \end{verbatim}
-Cette méthode rend tous les bouttons correspondant aux colonnes non-grisés. Elle est utilisé lors d'un reset.
+Cette méthode rend tous les bouttons correspondant aux colonnes non-grisés. Elle est utilisée lors d'un reset.
 
 \begin{verbatim}
     public abstract void greyButton(int num);
