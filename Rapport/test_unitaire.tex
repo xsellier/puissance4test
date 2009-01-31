@@ -47,13 +47,38 @@ Ce test peut être généralisé à des grilles (i,j) avec i>0 et j>0.\newline
 En effet, l'affectation des couleurs dans le Domaine des positions [0...42] réussit avec succès.
 Mais, pour les valeurs -1 et 43 le test montre une impossibilité d'affectation.\newline
 
-\subsubsection{IAfourInARow}
+\subsubsection{IAfourInARowTest}
 
-Ces tests nous ont permis de révéler de nombreux bugs liée aux comportements des IA. Tout d'abord sur les stratégies de \texttt{playable[]} qui n'était pas toujours juste par rapport à l'état actuel de la grille,et aussi le façon de jouer des IA ne correspondait pas toujours à ce qui était attendut dut au fait des priorités des \texttt{playable}.
+Ces tests nous ont permis de révéler de nombreux bugs liés aux comportements des IA. Tout d'abord sur les stratégies de \texttt{playable[]} qui n'étaient pas toujours juste par rapport à l'état actuel de la grille,et aussi la façon de jouer des IA ne correspondaient pas toujours à ce qui était attendu dû au fait des priorités des \texttt{playable}.
 
-Pour chaque état de la grille ils nous étaient possible a l'aide de l'algorithme de connaitre l'état de \texttt{playable[]} et le coup que doit jouer l'IA ainsi nous avons corriger les moteurs d'IA pour qu'ils nous donnes exactement les résultats escomptés dans les cas typiques ci-dessus.
+Pour chaque état de la grille il nous était possible à l'aide de l'algorithme de connaître l'état de \texttt{playable[]} et le coup que doit jouer l'IA ainsi nous avons corrigé les moteurs d'IA pour qu'ils nous donnent exactement les résultats escomptés dans les cas typiques ci-dessus.
 
-%%%%%%%cfa%%%%%%
 
-L'ensemble des tests ci-dessus permmettent de couvrir intégralement les arrêtes de l'Automate de flow de contrôle de l'IA en mode difficile ( et donc de l'IA facil qui est une sous partie), nous sommes donc dans le cas d'une couverture TER2, la complexité du CFA ne nous permet pas d'obtenit des TER supérieur sans une démultiplication des tests.
 
+\subsubsection{FouInRowTest}
+
+La victoire d'un joueur est conditionnée par le fait qu'un joueur
+aligne 4 jetons sur la même ligne, colonne ou diagonale. Ceci sera
+testé au moyen des 3 méthodes \texttt{testCheckLine()},
+\texttt{testCheckCol()} et \texttt{testCheckDiag()}. Le résultat
+obtenu sera satisfaisant à la fois pour les tests d'alignement et
+celui de la jouabilité d'un coup donné.(cf 4.4.2)\newline
+
+
+\subsubsection{GameEngineTest}
+
+
+Tester le moteur de jeu, nous permettra de vérifier correctement que
+les modes initialement initialisés seront valides. Et dans un deuxième
+temps, de tester les différents cas de figure de fin de
+partie.\newline
+
+Dans ce dernier point, les possibilités sont multiples et quelque unes
+d'entres elles seront testés(cf 4.5.2). \newline
+Mais, nous avons determiné tout de même un cas de figure non traité et
+impossible à tester vu l'état actuelle de notre code, donc un bug lié
+à notre implémentation.\newline
+C'est lorsqu'un joueur joue le dernier coup de la partie(grille
+remplie complètement) et aligne 4 jetons suite à ce même coup,
+on est incapable de désigner le vainqueur comme étant celui qui a joué
+en dernier.\newline
