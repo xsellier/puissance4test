@@ -37,7 +37,7 @@ Le joueur humain aura une connexion étroite avec l'interface choisie. En effet, 
 
 \subsubsection{Ordinateur}
 
-L'entité représentant le joueur artificiel sera plus importante. On devra pourvoir choisir entre 2 niveaux de difficultés, ce qui se traduira par une instanciation selon un paramètre particulier, comme un entier ou un boolén. Ainsi, la classe représentant ce type de joueur contiendra des méthodes différentes et correspondant chacune à ce niveau et donc paramètre choisi. On choisira premièrement un algorithme simple représentant une stratégie triviale (exemple: jouer la même colonne ou une colonne voisine de  celle choisie par le joueur 1 précédemment), puis on cherchera à implémenter un algorithme plus 'intelligent' permettant au joueur humain de se confronter à une difficulté de jeu élevée. On se rapprochera d'une stratégie gagnante pour le joueur-ordinateur.
+L'entité représentant le joueur artificiel sera plus importante. On devra pouvoir choisir entre 2 niveaux de difficultés, ce qui se traduira par une instanciation selon un paramètre particulier, comme un entier ou un booléen. Ainsi, la classe représentant ce type de joueur contiendra des méthodes différentes et correspondant chacune à ce niveau et donc paramètre choisi. On choisira premièrement un algorithme simple représentant une stratégie triviale (exemple: jouer la même colonne ou une colonne voisine de  celle choisie par le joueur 1 précédemment), puis on cherchera à implémenter un algorithme plus 'intelligent' permettant au joueur humain de se confronter à une difficulté de jeu élevée. On se rapprochera d'une stratégie gagnante pour le joueur-ordinateur.
 
 
 \begin{figure}[H]
@@ -99,7 +99,7 @@ Ces trois dernières phases (a-b-c) seront répétées jusqu'à ce qu'une situation d
 
 Enfin, l'utilisateur choisira de terminer le programme ou de jouer une nouvelle partie. Le module de jeu sera donc capable de se réinitialiser pour revenir à une configuration initiale.\newline\newline
 
-Chacune de ces phases sera représentée par une ou des méthodes contenue dans une classe dédiée.\newline
+Chacune de ces phases sera représentée par une ou des méthodes contenue(s) dans une classe dédiée.\newline
 
 
 \begin{figure}[H]
@@ -114,7 +114,7 @@ Chacune de ces phases sera représentée par une ou des méthodes contenue dans une
 On trouvera d'autres classes d'importance mineure :\newline \newline 
 
 Une classe main sera présente et permettra d'instancier le moteur de jeu au démarrage du programme en lui communiquant le choix de configuration de l'utilisateur. D'autres interfaces pourront être ajoutées pour augmenter la modularité du programme.\newline
-Enfin, dans le cas d'une interface graphique, il sera nécessaire de représenter chaque position de la grille grâce à des éléments graphiques changeant de couleur. De la même manière, d'autres composants graphiques permetront à l'utilisateur de communiquer son choix quant au coup qu'il veut jouer. On trouvera également une zone graphique destinée à l'avertir de la terminaison de la partie.
+Enfin, dans le cas d'une interface graphique, il sera nécessaire de représenter chaque position de la grille grâce à des éléments graphiques changeant de couleur. De la même manière, d'autres composants graphiques permettront à l'utilisateur de communiquer son choix quant au coup qu'il veut jouer. On trouvera également une zone graphique destinée à l'avertir de la terminaison de la partie.
 
 
 \subsection{Tests d'intégration}
@@ -182,7 +182,7 @@ demande une nouvelle valeur à l'ordinateur.
 
 \item \texttt{Test d'intégrité de la grille}\newline
 On doit vérifier que la grille fournit à
-l'ordinateur, corresponde a celle du moteur de
+l'ordinateur, corresponde à celle du moteur de
 jeu. On doit donc vérifier que le passage en paramètre de la grille au joueur ne modifie pas cette dernière. 
 \end{itemize}
 
@@ -195,8 +195,8 @@ On doit tester si l'alternance des coups entre les deux joueurs est correcte.
 \bigskip
 
 \item Intégrité de la grille\newline
-Il faudra soumettre aux règles des grilles correcte et vérifier que la 
-grille n'est pas modifiée. Dans le cas ou il y a un
+Il faudra soumettre aux règles des grilles correctes et vérifier que la 
+grille n'est pas modifiée. Dans le cas où il y a un
 gagnant nos règles devront nous le spécifier.
 \bigskip
 
