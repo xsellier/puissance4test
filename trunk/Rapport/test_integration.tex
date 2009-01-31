@@ -1,10 +1,36 @@
 % -*- mode: latex; coding: latin-1-unix -*- %
 
 \subsection{Tests d'intégration}
+\subsubsection{Structure de données}
 
 \item \texttt{Test d'instanciation correcte}
+  Nos différents tests d'intégration sur l'instantiation de la
+  structure de données ont réussis. On retrouve exactement les
+  dimensions correspondant aux valeurs entrées pour chaque grille
+  testée. Ces grilles étant inspirées de l'analyse partionnelle vue
+  précédemment.
 
 \item \texttt{Instanciation incorrecte}\newline
+Dans le cas où le moteur de jeu initialise la grille avec des valeurs
+incorrectes une grille par défaut est générée à la place. Ce test est
+donc passé avec succés.
+
+
+
+\item \texttt{Test de lecture/modification correcte}\newline
+L'ensemble des tests unitaires effectué sur la structure de donnée et
+sur les modules joueurs (humain ou ordinateurs) permettent de déduire 
+que les valeurs échangées grâce au moteur de jeu sont toujours
+correctes.
+
+
+\item \texttt{Test de lecture/modification incorrecte}\newline
+Des bugs d'indices ont été mis en évidence par ce test, désormais lors d'une saisie incorrecte la lecture ou l'écriture est ignorée et
+un message est affiché dans le terminal.
+
+\subsubsection{Joueurs}
+
+
 Autrement dit une grille de taille inférieure à 4$\times$4.
 Pour mieux comprendre, si un utilisateur vient à modifier le code
 pour instancier une grille trop petite, la structure de données
