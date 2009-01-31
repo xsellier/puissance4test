@@ -49,6 +49,248 @@ Mais, pour les valeurs -1 et 43 le test montre une impossibilité d'affectation.\
 
 \subsubsection{IAfourInARowTest}
 
+
+Nous allons reprendre les exemples de la partie implémentation IaFourInRow en ajoutant comme prévu de nouveaux cas.
+
+Les données de tests se composent d'un ordinateur avec un mode (facile
+ou difficile) et de l'état de la structure de données, c'est à dire de
+la grille de jeu. Dans cette partie l'ensemble des tests se fera à
+l'aide d'une IA en mode difficile. Certains tests sont quand même présents dans \texttt{Junit}
+sur l'ordinateur en mode facile avec des grilles non
+conventionnelles. De même la validité des accesseurs a été
+testée. Nous avons choisi ici de ne présenter que les résultats significatifs.
+
+L'ordinateur joue de manière séquentielle, si bien qu'il est possible
+de calculer chacun de ses coups en connaissant l'état de sa grille
+\texttt{playable[i]}.
+
+Tout d'abord nous avons vérifié que \texttt{initialize(DataStructure grid, int difficulty)} initialise correctement l'objet \texttt{IaForInRow}. C'est à dire que \texttt{CpuGrid} soie le même Objet que la grille \texttt{grid} passée en référence, et que le mode de difficulté soie correct.
+
+\begin{verbatim}
+//Standard grid and easy difficulty
+ia1.initialize(grid, mode1);
+[...]
+assertNotNull(ia1.getCpuGrid());
+assertNotNull(ia1.getWidth());
+assertNotNull(ia1.getHeight());
+assertNotNull(ia1.getMode());
+assertSame(ia1.getCpuGrid(),grid);
+assertEquals(7,ia1.getWidth());
+assertEquals(6,ia1.getHeight());
+assertEquals(1,ia1.getMode());
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigempty}
+  \caption{\texttt{Grille vide}}
+\end{center}
+\end{figure}
+
+Avec une grille vide nous devons vérifier que l'ordinateur ne met pas en place de stratégie, donc que 
+\texttt{playable[i]} est remplie de 0 et ainsi que, par défaut, l'ordinateur joue au centre de la grille.
+
+
+\begin{verbatim}
+int Ia2Played = ia2.play(rule);
+assertNotNull(Ia2Played);
+assertTrue(0 <= Ia2Played && Ia2Played < grid.getWidth());
+assertEquals(3, Ia2Played);
+int[] playable2 = ia2.getPlayable();
+for ( int i =0 ; i<ia2.getCpuGrid().getWidth();i++)
+assertEquals(0,playable2[i]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigfull}
+  \caption{\texttt{Grille pleine}}
+\end{center}
+\end{figure}
+
+La grille étant pleine l'ordinateur ne peut pas jouer. Elle retourne
+la valeur -1 qui dit qu'aucune position n'est jouable. Cette valeur n'est pas
+interprétée par le GameEngine, car ça ne se produira jamais (voir
+analyse statique).
+
+\begin{verbatim}
+ int Ia2PlayedFullGrid = ia2.play(rule);
+ assertFalse(0 <= Ia2PlayedFullGrid && Ia2PlayedFullGrid < grid.getWidth());
+ assertEquals(-1, Ia2PlayedFullGrid);
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfigwin}
+  \caption{\texttt{Grille avec coup gagnant}}
+\end{center}
+\end{figure}
+
+Si il a une possibilité de gagner, il repère la colonne qui permet de
+gagner en y mettant le code \texttt{playable} à 3 pour ensuite y jouer.
+
+\begin{verbatim}
+ int Ia4PlayedForWin = ia4.play(rule);
+assertNotNull(Ia4PlayedForWin);
+assertTrue(0 <= Ia4PlayedForWin && Ia4PlayedForWin < grid_null.getWidth());
+assertEquals(6, Ia4PlayedForWin);
+int[] playable4 = ia4.getPlayable();
+for ( int i =0 ; i<ia4.getCpuGrid().getWidth();i++)
+   if ( i == 6)
+assertEquals(3,playable4[i]);
+   else
+assertEquals(0,playable4[i]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable3}
+  \caption{\texttt{Autre cas de coup gagnant}}
+\end{center}
+\end{figure}
+
+L'ordinateur peut gagner en jouant en 2, et il doit le faire avec \texttt{playable[2]=3}.
+
+\begin{verbatim}
+int Ia2Playedfig4 = ia2.play(rule);
+int[] playable7 = ia2.getPlayable();
+assertEquals(2 , Ia2Playedfig4);
+assertEquals(3, playable7[2]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable10}
+  \caption{\texttt{Colonne injouable}}
+\end{center}
+\end{figure}
+
+Si l'ordinateur joue sur la colonne 4, alors au prochain coups l'autre joueur 
+pourra gagner avec une diagonale. L'ordinateur devra avoir
+\texttt{playable[4]=1} qui correspond a un placement de pions qui fait gagner l'adversaire.
+Dans ce cas nous savons que l'ordinateur va jouer en 2
+du au fait du caractère non aléatoire de l'ordinateur et surtout que \texttt{playable[4]=1}.
+
+\begin{verbatim}
+ int Ia2Playedfig2 = ia2.play(rule);
+int[] playable5 = ia2.getPlayable();
+assertEquals(2 , Ia2Playedfig2);
+assertEquals(1 , playable5[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable2}
+  \caption{\texttt{Stratégie sur plusieur coups}}
+\end{center}
+\end{figure}
+
+Si l'ordinateur joue en 2 cela permettra à l'autre joueur de bloquer 
+un éventuel coup gagnant futur. L'ordinateur doit avoir \texttt{playable[2] = 2} ce qui est
+ un code moins fort que 1 mais il ne doit pas y jouer tout de même dans la mesure du possible. Si
+il doit choisir entre un \texttt{playable} à 1 ou 2 il choisira tout de même le code 2.
+
+\begin{verbatim}
+ int Ia2Playedfig3 = ia2.play(rule);
+int[] playable6 = ia2.getPlayable();
+assertEquals(3 , Ia2Playedfig3);
+assertEquals(2, playable6[2]);
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable4}
+  \caption{\texttt{Colonne injouable}}
+\end{center}
+\end{figure}
+
+La colonne 1 est pleine donc l'ordinateur ne doit plus y jouer et  \texttt{playable[1] = 4}.
+C'est le code qui interdit de jouer le plus fort. Si toutes les colonnes sont a 4 il renverra un code d'erreur -1.
+C'est le seul code de \texttt{playable} ou il est totalement impossible de jouer dans la colonne marquée.
+
+
+\begin{verbatim}
+int[] playable8 = ia2.getPlayable();
+assertEquals(4, playable8[1]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfig6}
+  \caption{\texttt{Strategie sur plusieurs coup}}
+\end{center}
+\end{figure}
+
+L'ordinateur doit remarquer qu'il peut gagner en deux coup il met donc \texttt{playable}
+à 5 sur les cases offrant cette possibilité : \texttt{playable[2] =  5} et \texttt{playable[5] = 5}.
+(  colonne 2 et 6 sur la grille ).Il prépare donc comme voulu sa stratégie sur 2 coups qu'il modifiera en 
+fonction de du coup jouer par l'autre joueur.
+
+\begin{verbatim}
+int Ia2Playedfig6 = ia2.play(rule);
+int[] playable9 = ia2.getPlayable();
+assertEquals(5, Ia2Playedfig6);
+assertEquals(5, playable9[1]);
+assertEquals(5, playable9[5]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable1}
+  \caption{\texttt{Stratégie de blocage}}
+\end{center}
+\end{figure}
+L'ordinateur peut aussi prévoir à l'avance les positions dangereuses des pions de l'autre joueur,
+il mettra ainsi en place la tactique \texttt{playable} 6 dans les colonnes qui couperont les alignements 
+possibles des pions adverses. Dans ce cas la \texttt{playable[1] = 6} et \texttt{playable[4] = 6}.Il jouera donc dans
+l'une de ces deux colonnes , ici la colonne 4.
+
+\begin{verbatim}
+int Ia2Playedfig7 = ia2.play(rule);
+int[] playable10 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig7);
+assertEquals(6, playable10[0]);
+assertEquals(6, playable10[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{playable6}
+  \caption{\texttt{Coup Obligatoire}}
+\end{center}
+\end{figure}
+
+L'ordinateur est obligé de jouer en colonne 4 sous peine de voir l'autre joueur gagner au prochain coup.
+Nous devons donc avoir \texttt{playable[4]=6} qui est le code
+prioritaire pour les coups à jouer après 3. 
+
+\begin{verbatim}
+ int Ia2Playedfig8 = ia2.play(rule);
+int[] playablefig8 = ia2.getPlayable();
+assertEquals(4 , Ia2Playedfig8);
+assertEquals(6, playablefig8[4]);
+\end{verbatim}
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.2]{nmfig9}
+  \caption{\texttt{Non blocage du jeu}}
+\end{center}
+\end{figure}
+Il peut arriver que l'ordinateur n'est pas le choix et doit jouer dans une colonne même si son
+\texttt{playble} est à 1  c'est a dire que jouer ce coup fera gagner l'autre joueur, nous devons vérifier que l'ordinateur le fera quand même sous peine de bloquer la partie.Donc ici \texttt{played[3]=1} , mais l'ordinateur joue en 3 (4ème colonne) et fait ainsi gagner l'autre joueur.
+
+
+
 Ces tests nous ont permis de révéler de nombreux bugs liés aux comportements des IA. Tout d'abord sur les stratégies de \texttt{playable[]} qui n'étaient pas toujours juste par rapport à l'état actuel de la grille,et aussi la façon de jouer des IA ne correspondaient pas toujours à ce qui était attendu dû au fait des priorités des \texttt{playable}.
 
 Pour chaque état de la grille il nous était possible à l'aide de l'algorithme de connaître l'état de \texttt{playable[]} et le coup que doit jouer l'IA ainsi nous avons corrigé les moteurs d'IA pour qu'ils nous donnent exactement les résultats escomptés dans les cas typiques ci-dessus.
@@ -82,3 +324,4 @@ C'est lorsqu'un joueur joue le dernier coup de la partie(grille
 remplie complètement) et aligne 4 jetons suite à ce même coup,
 on est incapable de désigner le vainqueur comme étant celui qui a joué
 en dernier.\newline
+
