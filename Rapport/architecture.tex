@@ -16,18 +16,36 @@ Nous allons décrire ici les différents modules imaginés pour répondre aux attent
 Nous implémenterons une classe contenant un tableau d'entiers et les différentes méthodes nécessaires aux accès en écriture et lecture sur celui-ci. Ainsi, on doit pouvoir instancier un tableau de dimensions variables, initialiser ses valeurs et les modifier. Le tableau doit également pouvoir être réinitialisé. Cette classe a pour but de représenter la grille et donc les coups joués par chaque joueur au long de la partie. On représentera une case vide par un entier nul à la position correspondante. Un entier dont la valeur est à 1 représentera un coup joué par le joueur 1, même chose pour le joueur 2.\newline
 C'est ce module qui va permettre au joueur ordinateur de connaître les possibilités de jeu à chaque tour (coups jouables). C'est grâce à cette représentation également que l'on saura si la partie est terminée ou non. Enfin, l'interface sera mise à jour à chaque tour en fonction de ce tableau, ce qui évitera des possibilités de confusion entre les deux entités.\newline
 
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{diagrammeDeClasseDataStructure}
+  \caption{\texttt{Illustration des connexions de la structure de données}}
+\end{center}
+\end{figure}
+
 \subsection{Joueurs}
 
 Il sera nécessaire d'implémenter 2 classes différentes pour les 2 types de joueurs. Cependant, certaines méthodes ou variables étant communes à ces entités on prévoiera une interface regroupant les méthodes nécessaires au jeu et appelées quelque soit le type de joueur. Ceci permettra au module en charge du déroulement du jeu de faire abstraction de la configuration choisie, et donc de diminuer le volume de code.
+
 
 \subsubsection{Humain}
 
 Le joueur humain aura une connexion étroite avec l'interface choisie. En effet, jouer un coup reviendra à interroger l'utilisateur via cette interface. Cette classe sera donc relativement peu volumineuse et d'une complexité faible.
 
 
+
+
 \subsubsection{Ordinateur}
 
 L'entité représentant le joueur artificiel sera plus importante. On devra pourvoir choisir entre 2 niveaux de difficultés, ce qui se traduira par une instanciation selon un paramètre particulier, comme un entier ou un boolén. Ainsi, la classe représentant ce type de joueur contiendra des méthodes différentes et correspondant chacune à ce niveau et donc paramètre choisi. On choisira premièrement un algorithme simple représentant une stratégie triviale (exemple: jouer la même colonne ou une colonne voisine de  celle choisie par le joueur 1 précédemment), puis on cherchera à implémenter un algorithme plus 'intelligent' permettant au joueur humain de se confronter à une difficulté de jeu élevée. On se rapprochera d'une stratégie gagnante pour le joueur-ordinateur.
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{diagrammeDeClassePlayers}
+  \caption{\texttt{Interactions des joueurs}}
+\end{center}
+\end{figure}
 
 \subsection{Règles}
 
@@ -49,6 +67,13 @@ Lorsqu'un joueur communique son choix pour le coup en cours, le tableau d'entier
 \end{itemize}
 
 L'ensemble de ces outils permettront au moteur de jeu décrit ci-dessous d'assurer le bon déroulement du jeu et donc du programme.
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{diagrammeDeClasseRules}
+  \caption{\texttt{Illustration des interactions du module de règles de jeu}}
+\end{center}
+\end{figure}
 
 \subsection{Moteur de jeu}
 
@@ -76,6 +101,14 @@ Enfin, l'utilisateur choisira de terminer le programme ou de jouer une nouvelle 
 
 Chacune de ces phases sera représentée par une ou des méthodes contenue dans une classe dédiée.\newline
 
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{diagrammeDeClasseGameEngine}
+  \caption{\texttt{Connexions du moteur de jeu}}
+\end{center}
+\end{figure}
+
 \subsection{Composants annexes}
 
 On trouvera d'autres classes d'importance mineure :\newline \newline 
@@ -85,8 +118,6 @@ Enfin, dans le cas d'une interface graphique, il sera nécessaire de représenter 
 
 
 \subsection{Tests d'intégration}
-
-
 
 \paragraph{Moteur de jeu} - interaction avec les différents modules.
 
@@ -186,4 +217,4 @@ non ces grilles.
 Il doit être possible d'implémenter une nouvelle interface ou un nouveau niveau de jeu en changeant une seule ligne de code.
 Si un tel changement nécessite une modification plus vaste le test n'est pas considéré comme réussi.
 
- 
+
