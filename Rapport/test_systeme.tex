@@ -1,7 +1,62 @@
-% -*- mode: latex; coding: latin-1-unix -*- %
 
 \section{Résultats}
 
-\subsection{Tests système}
+\subsection{Tests de validation}
 
-TO DO
+Nous allons voir ici les résultats des tests imaginés pour s'assurer que le programme obtenu respecte bien les termes précisés dans la spécification.\newline\newline
+
+
+\subsubsection{Règles de puissance 4}
+
+\begin{itemize}
+\item \texttt{Test 1}\newline
+Lancer Humain vs Humain : succès.\newline
+Lancer Humain vs Cpu niveau 1 : succès.\newline
+Lancer Humain vs Cpu niveau 2 : succès.\newline
+
+\item \texttt{Test 2}\newline
+Pour éprouver le programme nous avons défini une relation d'équivalence comme tel:\newline
+Deux données de tests dt1 et dt2 (ici des entiers représentant les 2 dimensions de la grille) sont en relation : $dt1 \diamond dt2$ si et seulement si leur valeur appartient au même intervalle $I \in N$. On forme une partition de ces intervalles sur l'ensemble des valeurs logiques d'instantiation. On entend par valeur logique d'instanciation une valeur susceptible d'être instanciée car elle permet de jouer une partie (i.e on n'instanciera jamais une grille de dimensions inférieures à 4). Voici les intervalles concernés :\newline
+
+On suppose que dtH représente la hauteur de la grille, dtL la largeur. Les valeurs par défaut étant dtH = 6 et dtL = 7, on va s'interesser aux intervalles inférieurs et supérieurs et lancer les tests sur chaque combinaison des classes d'équivalences formées par la méthode expliquée ci-dessus. Ainsi, pour la hauteur, on obtient les intervalles $ I_{H1}=[4,6]$ , $I_{H2}=]6,+\infty]$ et pour la largeur, $I_{L1}=[4,7]$, $I_{H2}=]7,+\infty]$.
+
+On choisit alors les combinaisons suivantes : \texttt{dtH = 4, dtL = 5}, \texttt{dtH = 15, dtL = 6}, \texttt{dtH = 5, dtL = 20}, \texttt{dtH = 9, dtL = 9}.
+
+Chacune de ces instantiations a été réalisée avec succès et le comportement du programme correspondait à nos atttentes.
+
+\item \texttt{Test 3}\newline
+On utilise le mode humain vs humain pour arriver à une partie nulle et on vérifie que l'on est averti de cette issue.\newline\newline
+\end{itemize}
+
+On soumettra ensuite le programme à un échantillon d'utilisateurs connaissant les règles et on receuillera leur avis concernant leur application.\newline
+
+\begin{itemize}
+\item \texttt{Test 4}\newline
+Demander aux personnes composant l'échantillon si elles jugent que les règles de puissance 4 attendues ont été respectées pendant leur partie.
+\end{itemize}
+
+Enfin, on pourra utiliser le joueur ordinateur pour générer des parties aléatoires et en vérifiant à chaque fois que l'empilement des pions respecte les règles.\newline
+
+\begin{itemize}
+\item \texttt{Test 5}\newline
+Générer des parties aléatoires et vérifier les coups joués.
+\end{itemize}
+
+\subsubsection{Configurations de jeu}
+
+Il suffit d'un test fonctionnel basique dont l'objet est de vérifier que lorsque le programme est lancé, les différentes configurations de jeu sont disponibles.\newline\newline
+
+\begin{itemize}
+\item \texttt{Test 6}\newline
+Essayer chaque action possible dans le menu lance et vérifier que l'on obtient la configuration attendue.\newline
+\end{itemize}
+
+\subsubsection{Types de joueurs}
+
+On vérifiera que des moyens de modularités permettant d'interchanger la façon dont l'ordinateur joue on été mis en place (voir section intégration).\newline
+On implémentera alors si possible de nouveaux niveaux pour vérifier cette modularité.\newline
+
+\begin{itemize}
+\item \texttt{Test 7}\newline
+Test exhaustif d'exécution vérifiant qu'au moins deux niveaux de jeu sont présents.\newline
+\end{itemize}
