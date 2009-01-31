@@ -12,17 +12,19 @@ Pour plus de clarté les deux CFA principaux que sont \texttt{start} et
 \texttt{IA} sont amputés des fonctions auquel ils font appel. On considèrera dès
 lors que ces appels effectuent la fonctions pour lesquel ils sont
 écrits et ne provoquent pas de bug du programme. Ces fonctions sont
-représentées par la suite et sont analysées séparément. 
+représentées par la suite et sont analysées séparément. Dans cette
+partie tous les tests sont effectués en boîte blanche.
 \subsection{GameEngine}
 
 \begin{figure}[h]
 \begin{center}
-  \includegraphics[scale=0.6]{start}
+  \includegraphics[scale=0.5]{start}
   \caption{Fonction start}
 \end{center}
 \end{figure}
 
 \newpage
+
 DT1=\{joueur1,joueur2,0=<choixJoueur1=<6,0=<choixJoueur2=<6,grille\_vide\}
 En supposant qu'aucun des deux joueurs ne réinitialise la partie, et
 que celle-ci ce termine, nous obtenons deux chemins possible :\\
@@ -32,7 +34,14 @@ que celle-ci ce termine, nous obtenons deux chemins possible :\\
 En prenant comme critère de couverture l'ensemble de tous les noeuds
 nous obtenons un TER 1 = 9/11 = 81\%.\\
 
-DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
+DT2=\{joueur1,joueur2,choixJoueur1=aléatoire,choixJoueur2=aléatoire,grille\_vide\}\\
+
+Si un des deux joueurs à un moment donné réinitialise la partie nous
+obtenons :\\
+\{0-2-5-6-7-0-3-4-6-7-...-0-2-1-0-...-9-10\}\\
+\{0-2-5-6-7-0-3-4-6-7-...-0-2-1-0-...-8-10\}\\
+
+En prenant le même critère de couverture on a TER1=10/11= 90\%;
 
 \subsubsection{Les fonctions}
 \texttt{vérification\_choix()}\\
@@ -43,17 +52,61 @@ DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
 \end{center}
 \end{figure}
 
-\newpage
+Cette fonction doit retourner un booléen servant à savoir si la valeur
+jouée est comprise entre les valeurs de la grille et si la colone dans
+laquel on veut jouer est pleine.\\
+
+DT1=\{0=<play=<6,grille\_vide\}\\
+DT2=\{0=<play=<6,grille\_pleine\}\\
+DT3=\{play=9,grille\_vide\}\\
+
+Si nous prenons toujours le critère de couverture de l'ensemble de
+tous les noeuds, nous obtenons :\\
+
+
+DT1 : TER1=3/4 = 75\% \{11-13-14\}\\
+DT2 : TER1=3/4 = 75\% \{11-12-14\}\\
+DT3 : TER1=3/4 = 75\% \{11-12-14\}\\
+
+
+
 \texttt{vérification\_gagnant()}\\
 \begin{figure}[h]
 \begin{center}
-  \includegraphics[scale=0.6]{verification_gagnant}
+  \includegraphics[scale=0.7]{verification_gagnant}
   \caption{Fonction vérification gagnant}
 \end{center}
 \end{figure}
 
 \newpage
+Pour ce CFA si dans les DT il exite une ligne gagnante, une colone
+gagnante ou une diagonale gagnante, on admetra que l'assertion dans le
+programme retourne true.
+
+DT1=\{grille\_en\_cours\_ de\_ partie,ligne\_gagnante\}\\
+DT2=\{grille\_en\_cours\_ de\_ partie,colone\_gagnante\}\\
+DT3=\{grille\_en\_cours\_ de\_ partie,diagonale\_gagnante\}\\
+DT4=\{grille\_en\_cours\_ de\_ partie,pas\_de\_gagnant\}\\
+
+DT1=\{15-16-16-15-18-15-16-17-...-20-21\}\\
+DT2=\{15-16-16-15-18-15-16-17-...-20-22-21\}\\
+DT3=\{15-16-16-15-18-15-16-17-...-20-22-23-21\}\\
+DT4=\{15-16-16-15-18-15-16-17-...-15-18-19\}\\
+
+Critère de couverture : L'ensemble des sommets du graphe.
+
+DT1 : TER1=6/9=66\%\\
+DT2 : TER1=7/9=77\%\\
+DT3 : TER1=8/9=88\%\\
+DT4 : TER1=5/9=55\%\\
+
+
+\newpage
 \subsection{IA}
+
+Dans cette partie nous avons seulement modélisé le CFA de l'IA en mode
+difficile car celui de l'IA facile est le même à la différence près de
+ne pas comporter les fonction startegy et breakStrategy.
 
 \begin{figure}[h]
 \begin{center}
@@ -62,8 +115,19 @@ DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
 \end{center}
 \end{figure}
 
+DT1=\{grille\_vide\}\\
+DT2=\{grille\_pleine\_1\_position\_libre\}\\
 
-\newpage
+DT1=\{24-25-26-27-25-29-31\}\\
+DT2=\{24-25-26-28-27-25-29-30-32-31\}\\
+
+Critère de couverture : L'ensemble des sommets du graphe.
+
+DT1 : TER1= 21\%\\
+DT2 : TER1= 31\%\\
+
+
+
 \subsubsection{Les fonctions}
 \texttt{fillPlayable()}\\
 \begin{figure}[h]
@@ -72,6 +136,18 @@ DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
   \caption{Fonction fillPlayable}
 \end{center}
 \end{figure}
+
+DT1=\{grille\_vide\}\\
+DT2=\{grille\_remplie\_avec\_positions\_libres\}\\
+
+DT1=\{88-89-90-93-92-89-...-89-exit\}\\
+DT2=\{88-89-90-93-92-89-...-89-90-91-92-89-exit\}\\
+
+Critère de couverture : L'ensemble des sommets du graphe.
+
+DT1 : TER1= 85\%\\
+DT2 : TER1= 100\%\\
+
 
 \newpage
 \texttt{winningPlayable()}\\
@@ -82,7 +158,21 @@ DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
 \end{center}
 \end{figure}
 
-\newpage
+DT1=\{grille\_vide\}\\
+DT2=\{grille\_remplie\_avec\_positions\_libres\}\\
+
+DT1=\{44-45-47-48-50-52-51-49-47-...-46-45-exit\}\\
+DT2=\{44-45-47-48-49-47-...-46-45-exit\}\\
+
+Critère de couverture : L'ensemble des sommets du graphe.
+
+DT1 : TER1= 100\%\\
+DT2 : TER1= 70\%\\
+
+Pour les 3 derniers CFA nous n'avons pas trouvé de DT suffisament
+pertinentes pour être intégrés dans le rapport. Nous les avons
+néanmoins fournis en consultation dans les pages suivantes.\\ 
+
 \texttt{noPlaybale()}\\
 \begin{figure}[h]
 \begin{center}
@@ -108,3 +198,8 @@ DT2=\{joueur1,joueur2,choixJoueur1,0=<choixJoueur2=<6,grille\_vide\}
   \caption{Fonction figure}
 \end{center}
 \end{figure}
+
+\section{conclusion analyse statique :}
+
+Cette annalyse des CFA nous a permit de trouver des DT avec un pourcentage de
+couverture suffisant pour être pertinentes.
