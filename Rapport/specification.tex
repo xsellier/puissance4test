@@ -44,28 +44,62 @@ Eventuellement, il doit alors pouvoir jouer une nouvelle partie.\newline
 
 Nous allons voir ici les tests imaginés pour s'assurer que le programme obtenu respectera les termes précisés dans la partie précedente, et ne génèrera pas de comportements interdits.
 
-\begin{itemize}
-\item Règles de puissance 4\newline\newline
 
-On pourra d'abord vérifier l'application des règles avec de tests semi-exhaustifs au moyen de l'utilisation de joueurs humains. En effet, on prendra une à une les règles du jeu spécifiées et on vérifiera que lors des parties jouées, chacune de ces règles est bien respectée.\newline
+\subsubsection{Règles de puissance 4}
+Voici les tests système liés aux règles du jeu :\newline\newline
+
+\begin{itemize}
+\item \texttt{Test 1}\newline
+On lance toutes les configurations disponibles dans le menu et on vérifie que deux entités peuvent jouer des coups de couleur différente.\newline\newline
+
+\item \texttt{Test 2}\newline
+On instancie une grille de taille 6x7 puis de tailles différentes.\newline\newline
+
+\item \texttt{Test 3}\newline
+On utilise le mode humain vs humain pour arriver à une partie nulle et on vérifie que l'on est averti de cette issue.\newline\newline
+\end{itemize}
+
 On soumettra ensuite le programme à un échantillon d'utilisateurs connaissant les règles et on receuillera leur avis concernant leur application.\newline
+
+\begin{itemize}
+\item \texttt{Test 4}\newline
+Demander aux personnes composant l'échantillon si elles jugent que les règles de puissance 4 attendues ont été respectées pendant leur partie.
+\end{itemize}
+
 Enfin, on pourra utiliser le joueur ordinateur pour générer des parties aléatoires et en vérifiant à chaque fois que l'empilement des pions respecte les règles.\newline
 
-\item Configurations de jeu\newline\newline
+\begin{itemize}
+\item \texttt{Test 5}\newline
+Générer des parties aléatoires et vérifier les coups joués.
+\end{itemize}
 
-Il suffit d'un test fonctionnel basique dont l'objet est de vérifier que lorsque le programme est lancé, les différentes configurations de jeu sont disponibles. On s'assurera alors que chaque action lance bien la configuration attendue.\newline
+\subsubsection{Configurations de jeu}
 
-\item Types de joueurs\newline\newline
+Il suffit d'un test fonctionnel basique dont l'objet est de vérifier que lorsque le programme est lancé, les différentes configurations de jeu sont disponibles.
 
-On vérifiera que des moyens de modularités permettant d'interchanger la façon dont l'ordinateur joue on été mis en place. On vériefiera par de simples tests exhaustifs qu'au moins deux niveaux de jeu sont présents.\newline
+\begin{itemize}
+\item \texttt{Test 6}\newline
+Essayer chaque action possible dans le menu lance et vérifier que l'on obtient la configuration attendue.\newline
+\end{itemize}
+
+\subsubsection{Types de joueurs}
+
+On vérifiera que des moyens de modularités permettant d'interchanger la façon dont l'ordinateur joue on été mis en place (voir section intégration).\newline
 On implémentera alors si possible de nouveaux niveaux pour vérifier cette modularité.\newline\newline
 
-\item Visualisation
+\begin{itemize}
+\item \texttt{Test 6}\newline
+Test exhaustif d'exécution vérifiant qu'au moins deux niveaux de jeu sont présents.\newline
+\end{itemize}
+
+
+
+\subsubsection{Visualisation}
+
+Les tests de visualisation n'étant pas l'objectif de ce projet nous résumerons les tests à effectuer comme suivant, et ne présenterons pas de résultats dans la partie correspondante. On admettra que l'interface graphique sera exempte de bug dans la suite du rapport.
 
 On vérifiera que lorsque le programme est lancé, il est possible à tout moment de jouer l'ensemble des coups autorisés. Ceci peut être effectué à la fois manuellement et automatiquement grâce à un mode ordinateur aléatoire. Rappelons ici qu'un joueur ordinateur aléatoire ne devra alors être présent que dans une situation de test et non pas dans la version livrable du programme. Ce type de joueur devra être testé séparément pour s'assurer que les conclusions tirées de son utilisation ne sont pas faussées par nature.\newline
 Dans le cas d'une interface graphique, chaque bouton sera testé dans une démarche exhaustive.\newline\newline
 
 Il est nécessaire de rappeler qu'en raison de la simplicité du jeu ici modélisé, les tests systèmes ne représentent pas une difficulté élevée et il sera trivial de vérifier la plupart de ces spécifications dans la mesure ou les tests unitaires et les tests d'intégration (décrits plus tard) seront passés avec succès.
-
-\end{itemize}
 
