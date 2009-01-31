@@ -375,7 +375,29 @@ milieu de la grille. Sinon dans l'ordre des priorités pour
 
 \subsubsection{Jeux de test}
 
+Nos données de tests devront permettre de couvrir l'ensemble des
+retours de l'IA (mode facile et difficile) et des stratégies , c'est à dire :
+\begin{itemize}
+\item L'ensemble des coups possibles de l'ordinateur (toutes les
+  colonnes de la grille).
+\item L'ensemble des valeurs de \texttt{playable} possible.
+\item Un retour d'erreur en cas d'impossibilitée de jouer.
+\end{itemize}
 
+Une donnée de test est composé de :
+\begin{itemize}
+\item Un grille vide , pleine , ou partiellement remplie.
+\item un mode de difficulté : deux sont prévus.
+\item Des règles de jeux (ici règles standard).
+\end {itemize}
+
+Pour cela nous allons reprendre les grilles d'exemples ci dessus afin de
+d'atteindre tout les valeurs possible de \texttt{playable},en y
+ajoutant une grille pleine pour le code d'erreur. Nous devons tester
+ces grilles avec les deux modes de difficulté et avec les règles
+standard du puissance 4.Nous obtiendrons ainsi un jeu de test couvrant
+un maximum de cas d'état de l'IA et soulevant un maximum de
+comportement inattendut.
 
 \subsection{Rules}
 

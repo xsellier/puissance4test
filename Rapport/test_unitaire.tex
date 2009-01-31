@@ -287,11 +287,16 @@ assertEquals(6, playablefig8[4]);
 \end{center}
 \end{figure}
 Il peut arriver que l'ordinateur n'est pas le choix et doit jouer dans une colonne même si son
-\texttt{playble} est à 1  c'est a dire que jouer ce coup fera gagner l'autre joueur, nous devons vérifier que l'ordinateur le fera quand même sous peine de bloquer la partie.Donc ici \texttt{played[3]=1} , mais l'ordinateur joue en 3 (4ème colonne) et fait ainsi gagner l'autre joueur.
+\texttt{playble} est à 1  c'est a dire que jouer ce coup fera gagner l'autre joueur, nous devons vérifier que l'ordinateur le fera quand même sous peine de bloquer la partie.Donc ici \texttt{played[3]=1} , mais l'ordinateur joue en 3 (4ème colonne) et fait ainsi gagner l'autre joueur.\newline
 
 
 
-Ces tests nous ont permis de révéler de nombreux bugs liés aux comportements des IA. Tout d'abord sur les stratégies de \texttt{playable[]} qui n'étaient pas toujours juste par rapport à l'état actuel de la grille,et aussi la façon de jouer des IA ne correspondaient pas toujours à ce qui était attendu dû au fait des priorités des \texttt{playable}.
+Ces tests nous ont permis de révéler de nombreux bugs liés aux
+comportements des IA. Tout d'abord sur les stratégies de
+\texttt{playable[]} qui n'étaient pas toujours juste par rapport à
+l'état actuel de la grille,et aussi la façon de jouer des IA ne
+correspondaient pas toujours à ce qui était attendu dû au fait des
+priorités des \texttt{playable}.\newline
 
 Pour chaque état de la grille il nous était possible à l'aide de l'algorithme de connaître l'état de \texttt{playable[]} et le coup que doit jouer l'IA ainsi nous avons corrigé les moteurs d'IA pour qu'ils nous donnent exactement les résultats escomptés dans les cas typiques ci-dessus.
 
