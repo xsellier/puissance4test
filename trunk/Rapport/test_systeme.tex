@@ -15,12 +15,18 @@ Lancer Humain vs Cpu niveau 1 : succès.\newline
 Lancer Humain vs Cpu niveau 2 : succès.\newline
 
 \item \texttt{Test 2}\newline
+Nous avons décider pour ce test de réaliser une analyse partitionnelle basée sur l'agrandissement et la réduction de la grille d'origine.\newline
+
 Pour éprouver le programme nous avons défini une relation d'équivalence comme tel:\newline
-Deux données de tests dt1 et dt2 (ici des entiers représentant les 2 dimensions de la grille) sont en relation : $dt1 \diamond dt2$ si et seulement si leur valeur appartient au même intervalle $I \in N$. On forme une partition de ces intervalles sur l'ensemble des valeurs logiques d'instantiation. On entend par valeur logique d'instanciation une valeur susceptible d'être instanciée car elle permet de jouer une partie (i.e on n'instanciera jamais une grille de dimensions inférieures à 4). Voici les intervalles concernés :\newline
+Deux données de tests $dt1$ et $dt2$ (ici des entiers représentant les 2 dimensions de la grille) sont en relation : $dt1 \diamond dt2$ si et seulement si leur valeur appartient au même intervalle $I \in N$.\newline
+On forme une partition de ces intervalles sur l'ensemble des valeurs logiques d'instantiation $ I_{logique}=[4,+\infty]$. On entend par valeur logique d'instanciation une valeur susceptible d'être instanciée car elle permet de jouer une partie (i.e on n'instanciera jamais une grille de dimensions -1,3 car une valeur négative n'a aucun sens et une valeur comprise entre 0 et 4 n'est pas suffisante pour qu'il soit possible de gagner). Voici donc les intervalles concernés :\newline
 
-On suppose que dtH représente la hauteur de la grille, dtL la largeur. Les valeurs par défaut étant dtH = 6 et dtL = 7, on va s'interesser aux intervalles inférieurs et supérieurs et lancer les tests sur chaque combinaison des classes d'équivalences formées par la méthode expliquée ci-dessus. Ainsi, pour la hauteur, on obtient les intervalles $ I_{H1}=[4,6]$ , $I_{H2}=]6,+\infty]$ et pour la largeur, $I_{L1}=[4,7]$, $I_{H2}=]7,+\infty]$.
+On suppose que $dtH$ représente la hauteur de la grille, $dtL$ la largeur. Les valeurs par défaut étant $dtH = 6$ et $dtL = 7$, on va s'interesser aux intervalles inférieurs et supérieurs et lancer les tests sur chaque combinaison des classes d'équivalences formées par la méthode expliquée ci-dessus. Ainsi, pour la hauteur, on obtient les intervalles $ I_{H1}=[4,6]$ , $I_{H2}=]6,+\infty]$ et pour la largeur, $I_{L1}=[4,7]$, $I_{H2}=]7,+\infty]$.
 
-On choisit alors les combinaisons suivantes : \texttt{dtH = 4, dtL = 5}, \texttt{dtH = 15, dtL = 6}, \texttt{dtH = 5, dtL = 20}, \texttt{dtH = 9, dtL = 9}.
+On détermine alors exhaustivement l'ensemble des combinaisons des classes d'équivalence :\texttt{$(I_{H1}$,$ I_{L1})$},\texttt{$(I_{H2}$,$ I_{L1})$},\texttt{$(I_{H1}$,$ I_{L2})$},\texttt{$(I_{H2}$,$ I_{L2})$}\newline
+
+Enfin, on choisit arbitrairement une $dt$ par classe d'équivalence et on obtient les 4 jeux de test suivants dérivant des couples précédents:
+ \texttt{(dtH = 4, dtL = 5)}, \texttt{(dtH = 15, dtL = 6)}, \texttt{(dtH = 5, dtL = 20)}, \texttt{(dtH = 9, dtL = 9)}.
 
 Chacune de ces instantiations a été réalisée avec succès et le comportement du programme correspondait à nos atttentes.
 
