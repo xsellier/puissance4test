@@ -9,10 +9,10 @@ Nous allons voir ici les résultats des tests imaginés pour s'assurer que le prog
 \subsubsection{Règles de puissance 4}
 
 \begin{itemize}
-\item \texttt{Test 1 : configurations de jeu}\newline
-Lancer Humain vs Humain : succès.\newline
-Lancer Humain vs Cpu niveau 1 : succès.\newline
-Lancer Humain vs Cpu niveau 2 : succès.\newline
+\item \texttt{Test 1 : existence des configurations de jeu}\newline\newline
+Partie Humain vs Humain : succès.\newline
+Partie Humain vs Cpu niveau 1 : succès.\newline
+Partie Humain vs Cpu niveau 2 : succès.\newline
 
 \item \texttt{Test 2 : tailles de grilles}\newline
 
@@ -31,24 +31,20 @@ On détermine alors exhaustivement l'ensemble des combinaisons des classes d'équi
 Enfin, on choisit arbitrairement une $dt$ par classe d'équivalence et on obtient les 4 jeux de test suivants dérivant des couples précédents:
  \texttt{(dtH = 4, dtL = 5)}, \texttt{(dtH = 15, dtL = 6)}, \texttt{(dtH = 5, dtL = 20)}, \texttt{(dtH = 9, dtL = 9)}.
 
-Chacune de ces instantiations a été réalisée avec succès et le comportement du programme correspondait à nos atttentes.
+Chacune de ces instantiations a été réalisée avec succès et le comportement du programme correspondait à nos atttentes.\newline \newline
 
-\item \texttt{Test 3}\newline
-On utilise le mode humain vs humain pour arriver à une partie nulle et on vérifie que l'on est averti de cette issue.\newline\newline
+\item \texttt{Test 3 : match nul}\newline
+Nous avons joué une partie de manière à obtenir un match nul, un élément de l'interface graphique nous a effectivement averti de cette terminaison.\newline\newline
 \end{itemize}
 
-On soumettra ensuite le programme à un échantillon d'utilisateurs connaissant les règles et on receuillera leur avis concernant leur application.\newline
-
 \begin{itemize}
-\item \texttt{Test 4}\newline
-Demander aux personnes composant l'échantillon si elles jugent que les règles de puissance 4 attendues ont été respectées pendant leur partie.
+\item \texttt{Test 4 : échantillon d'utilisateurs}\newline
+L'ensemble des étudiants auquels nous avons soumis le programme ont été d'accord pour dire que les règles avaient été respectées lors de leur partie.\newline
 \end{itemize}
 
-Enfin, on pourra utiliser le joueur ordinateur pour générer des parties aléatoires et en vérifiant à chaque fois que l'empilement des pions respecte les règles.\newline
-
 \begin{itemize}
-\item \texttt{Test 5}\newline
-Générer des parties aléatoires et vérifier les coups joués.
+\item \texttt{Test 5 : parties aléatoires}\newline
+Nous avons testé avec succès la progression et terminaison correcte de dizaines de parties générées à l'aide d'un algorithme aléatoire pour le choix du coup à jouer par les 2 joueurs ordinateurs. Cette fonction est accessible en démarrant le programme avec l'option \texttt{-test}.
 \end{itemize}
 
 \subsubsection{Configurations de jeu}
@@ -56,16 +52,13 @@ Générer des parties aléatoires et vérifier les coups joués.
 Il suffit d'un test fonctionnel basique dont l'objet est de vérifier que lorsque le programme est lancé, les différentes configurations de jeu sont disponibles.\newline\newline
 
 \begin{itemize}
-\item \texttt{Test 6}\newline
-Essayer chaque action possible dans le menu lance et vérifier que l'on obtient la configuration attendue.\newline
+\item \texttt{Test 6 : accès aux différentes configurations}\newline
+Chacun des boutons de l'interface graphique entraîne la création de la partie correspondante. Nous avons vérifié exhaustivement chaque bouton.\newline
 \end{itemize}
 
 \subsubsection{Types de joueurs}
 
-On vérifiera que des moyens de modularités permettant d'interchanger la façon dont l'ordinateur joue on été mis en place (voir section intégration).\newline
-On implémentera alors si possible de nouveaux niveaux pour vérifier cette modularité.\newline
-
 \begin{itemize}
-\item \texttt{Test 7}\newline
-Test exhaustif d'exécution vérifiant qu'au moins deux niveaux de jeu sont présents.\newline
+\item \texttt{Test 7 : deux niveaux de jeu}\newline
+De multiples parties avec les 2 niveaux de jeu ont été réalisées avec succès.\newline
 \end{itemize}
