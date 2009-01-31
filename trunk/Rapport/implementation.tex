@@ -108,9 +108,9 @@ Sert à mémoriser la position que le joueur a choisi.
 \end{verbatim}
 Cette méthode va attendre que le joueur fasse son choix à travers
 l'interface graphique. Elle récupère aussi bien une position jouée
-qu'un reset de la grille. Cette méthode retourne la position choisit
+qu'un reset de la grille.Elle retourne la position choisit
 par le joueur mais ne vérifie pas si elle est correcte. Cela s'effectue
-plus loin au moment du \texttt{GameEngine}.
+plus loin dans le \texttt{GameEngine}.
 
 \subsubsection{CpuPlayer}
 \begin{verbatim}
@@ -118,15 +118,15 @@ plus loin au moment du \texttt{GameEngine}.
     private int currently_played;
     private Rules rule;
 \end{verbatim}
-La première variable va stocker le mode, 0 pour deux humains, 1 pour
+La première variable stocke le mode; 0 pour deux humains, 1 pour
 un ordinateur facile et 2 pour un ordinateur difficile.
 
 La seconde variable, \texttt{currently\_played}, stocke la position
 jouée par le joueur (humain ou ordinateur).
 
-La troisième variable, \texttt{rule}, va stocker les règles du
+La troisième variable, \texttt{rule}, stock les règles du
 jeu. Cela est utile pour l'ordinateur, afin de bien respecter les
-règles du jeu lorsqu'il effectue un choix. Nous reverrons plus en
+règles lorsqu'il effectue un choix. Nous reverrons plus en
 détail cette partie dans la classe \texttt{IaFourInARow} qui
 implémente l'intelligence artificielle.
 
@@ -135,11 +135,11 @@ implémente l'intelligence artificielle.
     public int play(DataStructure grid, GUI gui);
 \end{verbatim}
 
-Notre première méthode est un constructeur. Elle attribue donc un \texttt{mode}
+Notre première méthode est un constructeur. Elle attribue un \texttt{mode}
 au CpuPlayer mais aussi les règles à utiliser (\texttt{Rules}).
 
-Notre seconde méthode, \texttt{play}, similaire à celle de
-HumanPlayer. Elle va quand à elle vraiment instancier l'intelligence
+Notre seconde méthode, \texttt{play}, est similaire à celle de
+HumanPlayer. Elle va instancier l'intelligence
 artificielle en fonction du mode choisi. Cela se fait à l'aide des lignes 21-22 :
 \begin{verbatim}
      Cpu cpu1 = new IaFourInARow();
@@ -166,16 +166,16 @@ s'écrira :
 
 \bigskip
 \subsection{Cpu}
-\texttt{Cpu} est une interface. Le fait d'avoir créé une interface va nous
+\texttt{Cpu} est une interface. Le fait d'en avoir créé une va nous
 permettre de pouvoir implémenter de nouvelles IA sans modifier plus
-d'une ligne du code actuel.
+d'une ligne du code.
 
 \subsubsection{IaFourInARow}
-Pour ce qui concerne l'intelligence artificielle, nous avons choisi
-d'en implémenter une séquentielle. Il n'y aucune part
-d'aléatoire. Cette IA n'implémente pas la stratégie gagnante. Nous nous sommes
-renseigné et il faudrait implémenté un arbre faisant intervenir des
-statistiques de meilleurs coups a jouer. Cela ne semble pas évident au
+En ce qui concerne l'intelligence artificielle, nous avons choisi
+d'en implémenter une séquentielle. Il n'y a aucune part
+aléatoire. Cette IA n'implémente pas la stratégie gagnante. Nous nous sommes
+renseigné sur celle-ci et il faudrait implémenté un arbre faisant intervenir des
+statistiques de meilleurs coups à jouer. Cela ne semble pas évident au
 premier abord à implémenter, c'est pourquoi nous avons implémenté une
 IA $maison$ qui donne des résultats assez satisfaisants.
 
@@ -198,7 +198,7 @@ grille à chaque fois, mais cela ajoute la contrainte de ne pas
 modifier la grille lors du calcul de notre stratégie.
 
 La variable \texttt{playable} va etre de la taille de
-\texttt{width}. Elle va servir pour déterminer quelle colonne jouer ou
+\texttt{width}. Elle va servir à déterminer quel colonne jouer ou
 quelle colonne ne pas jouer. Tout cela se fait à l'aide d'un codage
 simple.\newpage
 
@@ -208,11 +208,10 @@ simple.\newpage
   \caption{\texttt{playable[i] = 0}}
 \end{center}
 \end{figure}
-Dans ce cas, tous les playable[i] sont égaux à 0. autrement dit on
-peut jouer sur n'importe quelle case. Seulement notre intelligence
+Dans ce cas, tous les playable[i] sont à 0. Nous
+pouvons jouer sur n'importe quelle case. Seulement notre intelligence
 artificielle choisiera de jouer au centre du jeu, car la probabilité
-de gagner lors qu'on joue au centre est supérieure aux autres (par
-exemple si on joue sur les cotés).
+de gagner lors qu'on joue au centre est supérieure aux autres cas.
 
 \begin{figure}[H]
 \begin{center}
@@ -232,7 +231,7 @@ cette colonne alors cela peut faire gagner le joueur humain.
   \caption{\texttt{playable[i] = 2}}
 \end{center}
 \end{figure}
-Dans ce cas \texttt{playable[2] = 2}. Autrement dit, si l'ordinateur
+Dans ce cas \texttt{playable[2] = 2}.Si l'ordinateur
 joue sur la colonne deux, le joueur humain pourra le bloquer.
 
 \begin{figure}[H]
@@ -284,7 +283,7 @@ possibilité de mouvement de l'humain.
 Si le joueur humain place un pion dans la colonne 4 il remportera la
 victoire. Pour eviter de perdre aussi facilement on met
 \texttt{playable[4]=6}, et l'ordinateur va bloquer la victoire du
-joeur humain.
+joueur humain.
 
 \begin{verbatim}
     private Rules rule;
@@ -305,37 +304,32 @@ suivantes contiennent la hauteur, respectivement la largeur de notre \texttt{cpu
 La méthode \texttt{strategie()} va parcourir la grille et calculer les
 positions que l'ordinateur peut jouer pour pouvoir gagner en deux
 coups. une fois qu'elle a repérer les colonnes et remplie en
-conséquence \texttt{playable[i]}. La méthode suivante,
-\texttt{breakStrategy()} va parcourir la grille et va regarder si
-lorsque l'ordinateur joue un coup, alors cela permettra a l'humain de
-la bloquer alors qu'avant il ne le pouvait pas. (pour plus de détails
-voir les captures d'écran précédemment). Dans ce cas
-\texttt{playable[i] = 5}.
+conséquence \texttt{playable[i]}.
 
 La méthode \texttt{noPlayable} a un double usage. tout d'abord elle
 regarde si le joueur humain peut gagner au prochain coups. Dans ce cas
 elle marque \texttt{playable[i] = 6} (i correspondant à la
-colonne). Mais elle va aussi vérifier si en jouant une colonne cela
+colonne). Mais elle va aussi vérifier si en jouant dans une colonne cela
 permet à l'humain, au coups d'après, de gagner la partie. Dans ce cas
 \texttt{playable[i] = 1}.
 
 Pour \texttt{winningPlayable()}, on regarde si l'ordinateur peut
-gagner au prochain coups, et on marque la colonne correspondante par 3
-autrement dit \texttt{playable[i] = 3}.
+gagner au prochain coups, et on marque la colonne correspondante par 3,
+\texttt{playable[i] = 3}.
 
 La méthode \texttt{fillPlayable()} quand a elle initialise
 \texttt{playable[i] = 0} pour les colonnes ou on peut encore
-jouer. Pour ce qui concerne les colonnes pleines, alors
+jouer. En ce qui concerne les colonnes pleines, alors
 \texttt{fillPlayable()} va mettre \texttt{playable[i]=4}.
 
 \begin{verbatim}
     public void initialize(DataStructure grid, int difficulty);
     public int play(Rules new_rule);
 \end{verbatim}
-La méthode \texttt{initialize()} nést pas un constructeur, mais comme
+La méthode \texttt{initialize()} n'est pas un constructeur, mais comme
 son nom l'indique, elle va initialiser le \texttt{Cpu}. Quand à la
 méthode \texttt{play()} elle va vérifier selon le \texttt{mode},
-autrement dit la \texttt{difficulty}, quelle IA appeler.
+autrement dit la \texttt{difficulty}, quel IA appeler.
 
 \begin{verbatim}
     public int perfectCpu();
@@ -343,9 +337,9 @@ autrement dit la \texttt{difficulty}, quelle IA appeler.
 \end{verbatim}
 Ces deux méthodes sont très similaires, à la différence que le
 \texttt{perfectCpu()} appelle les méthodes \texttt{breakStrategy()} et
-\texttt{strategy()}, ce que ne fais pas la méthode
+\texttt{strategy()}, ce que ne fait pas la méthode
 \texttt{easyCpu()}. Le mode \texttt{easyCpu} est moins agressif que le
-mode \texttt{perfectCpu()}, qui en passant n'est pas parfait ;-)\newline
+mode \texttt{perfectCpu()}, qui en passant n'est pas parfait \newline
 Dans notre méthode \texttt{perfectCpu()} on commence par remplir la
 grille avec \texttt{fillGrid()} et continue par vérifier si
 on peut gagner au prochain coup à l'aide de la méthode
@@ -360,7 +354,7 @@ Si on est dans le \texttt{perfectCpu()} alors on établie une
 stratégie. Pour cela on évite de jouer une colonne ou l'humain
 pourrait nous bloquer par la suite, avec la méthode
 \texttt{breakStrategy()}. Ensuite on essaie d'établir une stratégie,
-si on a 2 jetons alignés, alors on va essayer dén aligner 2 de plus
+si on a 2 jetons alignés, alors on va essayer d'en aligner 2 de plus
 pour faire un 4 à la suite, à l'aide de la méthode
 \texttt{strategy()}. Cela ne se fait que dans la méthode \texttt{perfectCpu()}
 
@@ -392,9 +386,9 @@ Une donnée de test est composé de :
 
 Pour cela nous allons reprendre les grilles d'exemples ci dessus afin de
 d'atteindre tout les valeurs possible de \texttt{playable},en y
-ajoutant une grille pleine pour le code d'erreur. Nous devons tester
+ajoutant une grille pleine pour le code d'erreur.  Nous devons tester
 ces grilles avec les deux modes de difficulté et avec les règles
-standard du puissance 4.Nous obtiendrons ainsi un jeu de test couvrant
+standard du puissance 4. Nous obtiendrons ainsi un jeu de test couvrant
 un maximum de cas d'état de l'IA et soulevant un maximum de
 comportement inattendut.
 
@@ -429,7 +423,7 @@ cette méthode retourne \texttt{true}, sinon elle renvoie
 position passée en argument est jouable, elle renvoie \texttt{true} si
 cést jouable, et \texttt{false} sinon.
 
-La dernière méthode, \texttt{greyOut()}, va quand a elle griser les bouttons des colonnes
+La dernière méthode, \texttt{greyOut()}, va quand à elle griser les bouttons des colonnes
 pleines correspondantes.
 
 \subsubsection{Tests de FourInARow}
@@ -470,11 +464,11 @@ jetons sur une ligne donnée.\newline
 \end{center}
 
 
-\item Qu'une position donnée est jouable en remplissant la grille
+\item Tester qu'une position donnée est jouable en remplissant la grille
   aléatoirement mais de manière à ce qu'une position soit jouable/non
   jouable.  \newline
 
-Tester qu'un coup sur la ligne 0 de la grille n'est pas jouable
+\item Tester qu'un coup sur la ligne 0 de la grille n'est pas jouable
 s'écrira :\newline
 \begin{center}
 
@@ -620,13 +614,13 @@ menu de départ. cést le \texttt{Main()} qui va dire au
 instancier les joueurs avec l'appel à la méthode
 \texttt{g.initMode(my\_menu.choice)}.\newline
 \newline
-Pour ce qui concerne le menu, on aurait pu l'intégrer dans l'interface
+En ce qui concerne le menu, on aurait pu l'intégrer dans l'interface
 graphique, mais nous n'avions pas assez de temps pour faire cette
 petite modification, et nous avons préféré passer aux tests directement.
 
 \subsection{GUI}
 
-\texttt{GUI} est une interface, cela nous permettra, au besoin, de branher une autre interface graphique à notre application.
+\texttt{GUI} est une interface, cela nous permettra, au besoin, de brancher une autre interface graphique à notre application.
 
 \subsubsection{GuiOwn}
 Cette classe, implémente \texttt{GUI}. 
@@ -636,7 +630,7 @@ Cette classe, implémente \texttt{GUI}.
     public boolean reset;
     public boolean game_ended;
 \end{verbatim}
-La première variable \texttt{choice} contient la colonne sélectionné par le joueur humain. La seconde variable \texttt{played} est a \texttt{true} lorsqu'un joueur a choisi une colonne et est a \texttt{false} sinon. Il en est de même pour \texttt{reset} et pour \texttt{game\_ended}. A savoir que \texttt{reset} concerne le reset de la grille et \texttt{game\_ended} dit si le jeu est terminé ou non.
+La première variable \texttt{choice} contient la colonne sélectionné par le joueur humain. La seconde variable \texttt{played} est à \texttt{true} lorsqu'un joueur a choisi une colonne et est à \texttt{false} sinon. Il en est de même pour \texttt{reset} et pour \texttt{game\_ended}. A savoir que \texttt{reset} concerne le reset de la grille et \texttt{game\_ended} dit si le jeu est terminé ou non.
 
 \begin{verbatim}
     public abstract void initGui(DataStructure grid);
@@ -675,7 +669,7 @@ Cette méthode rend tous les bouttons correspondant aux colonnes non-grisés. Elle
     public void show();
     public abstract void dispose();
 \end{verbatim}
-La première méthode permet de définir la taille de la fenêtre de jeu. La seconde sert à définir la position de la fenêtre par défaut. La troisième est une méthode définit dans les librairies de \texttt{Swing} qui permet d'afficher l'interface graphique. Quand à la dernière méthode, elle permet de d'afficher/fermer une fenêtre. La méthode \texttt{dispose()} est aussi définit dans els librairies de \texttt{Swing}.
+La première méthode permet de définir la taille de la fenêtre de jeu. La seconde sert à définir la position de la fenêtre par défaut. La troisième est une méthode définit dans les librairies de \texttt{Swing} qui permet d'afficher l'interface graphique. Quand à la dernière méthode, elle permet d'afficher/fermer une fenêtre. La méthode \texttt{dispose()} est aussi définit dans les librairies de \texttt{Swing}.
 
 \begin{verbatim}
     public boolean getPlayed();
