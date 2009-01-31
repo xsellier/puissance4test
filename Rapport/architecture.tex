@@ -104,13 +104,13 @@ indépendamment.
 \paragraph{Moteur de jeu} - interaction avec les autres modules.
 
 \bigskip
-Nous sommes conscient que ce sera notre moteur de jeu qui va prendre
-le plus de temps pour nos tests d'intégrations. C'est lui qui va
-instancier notre structure de données, nos joueurs, nos règles ainsi
-que l'interface graphique.
-
-C'est pourquoi nous ne mettrons dans cette partie que les données de tests
-qui concernent les différents modules avec le moteur de jeu.
+La classe GameEngine qui représente le moteur de jeu est centrale dans notre
+application. C'est le point de connexion de la plupart de nos
+modules. C'est cette classe qui va
+instancier la structure de données, les joueurs, les règle de jeu ainsi
+que l'interface graphique. On concentre donc nos efforts de test
+d'intégration sur ces points de connexion. Les parties qui suivent
+porteront donc sur des tests entre chaque module et le moteur du jeu.
 
 \paragraph{Structure de données} - instanciation et modification(s)
 
@@ -118,33 +118,33 @@ qui concernent les différents modules avec le moteur de jeu.
 \begin{itemize}
 
 \item Instanciation correcte\newline
-Lors du lancement du jeu, notre moteur va instancier notre structure
-de données. Nous avons déjà pensé que ce sera une matrice, qui devra
-être, d'après les spécifications, de taille minimale 6$\times$7. Nous devrons
-vérifier que lorsqu'une grille correcte est instanciée, l'objet
-retourné soit un objet de la taille souhaitée.
+Lors du lancement du jeu, le moteur va instancier la structure
+de données. On teste donc l'instanciation en rentrant des valeurs
+particulières pour la grille. On vérifie que l'objet crée a la taille demandée.
+
 \bigskip
 \item Instanciation incorrecte\newline
-Dans un soucis de robustesse, nous pensons traiter le cas ou une
-grille de taille incorrecte soit instanciée par notre moteur de
+Dans un soucis de robustesse, on traite le cas ou une
+grille de taille incorrecte est instanciée par le moteur de
 jeu. Autrement dit une grille de taille inférieure à 6$\times$7.
-Pour mieux comprendre, si un utilisateur vient a modifier notre code
-pour instancier une grille trpo petite, notre structure de données
-doit en tenir compte est construire une grille de taille minimale 6$\times$7.
+Pour mieux comprendre, si un utilisateur vient à modifier le code
+pour instancier une grille trop petite, la structure de données
+doit en tenir compte et construire une grille de taille minimale 6$\times$7.
 \bigskip
 \item Lecture/Modification correcte\newline
-Lors d'une partie notre moteur de jeu doit pouvoir lire et modifier
+Lors d'une partie le moteur de jeu doit pouvoir lire et modifier
 sans difficulté la grille. Nous devrons tester si les modifications
-apportées par notre moteur de jeu soient bien effectuées par notre
-structure de données et comparer les valeurs que notre moteur jeu lit
-dans notre structure de données avec celles renvoyée par notre
-structure de données.
+apportées par le moteur de jeu sont bien effectuées par la structure
+de données.
+
+
+
 \bigskip
 \item Lecture/Modification incorrecte\newline
-Encore une fois, dans un soucis de robustesse, la structure de données
-devra pouvoir traiter des saisies incorrecte. Pourtant cela ne
+Toujours dans un soucis de robustesse, la structure de données
+doit pouvoir traiter les saisies incorrecte. Cela ne
 ne veut pas dire qu'elle devra les interpréter, mais plutôt qu'elle
-signifiera à l'utilisateur qu'il y a eu une mauvaise saisie à travers
+doit avertir l'utilisateur qu'il y a eu une mauvaise saisie à travers
 la console, et renvoiera un booléen \texttt{false}.
 \end{itemize}
 
@@ -154,10 +154,9 @@ la console, et renvoiera un booléen \texttt{false}.
 \begin{itemize}
 
 \item Instanciation\newline
-Lorsque nous créons un joueur, il ne peut être que créé
-correctement. Nous ne trouvons pas encore d'utilité a un constructeur
-prenant en compte des paramètres.
-La seule chose qui sera a vérifier, sera le type de l'instance du
+Il n'y a pas d'erreur possible sur les paramètres du constructeur de
+joueur car ce dernier n'admet pas de paramètres.
+Le seul point qui doit être vérifié, est le type de l'instance du
 joueur. A savoir si c'est bien un ordinateur, ou alors un humain.
 \bigskip
 \item Interaction\newline
