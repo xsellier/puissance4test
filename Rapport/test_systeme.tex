@@ -9,13 +9,16 @@ Nous allons voir ici les résultats des tests imaginés pour s'assurer que le prog
 \subsubsection{Règles de puissance 4}
 
 \begin{itemize}
-\item \texttt{Test 1}\newline
+\item \texttt{Test 1 : configurations de jeu}\newline
 Lancer Humain vs Humain : succès.\newline
 Lancer Humain vs Cpu niveau 1 : succès.\newline
 Lancer Humain vs Cpu niveau 2 : succès.\newline
 
-\item \texttt{Test 2}\newline
-Nous avons décider pour ce test de réaliser une analyse partitionnelle basée sur l'agrandissement et la réduction de la grille d'origine.\newline
+\item \texttt{Test 2 : tailles de grilles}\newline
+
+L'instanciation d'une grille 6x7 a été réalisée a de multiples reprises avec succès.\newline
+
+Pour les autres dimensions, nous avons décidé de réaliser une analyse partitionnelle basée sur l'agrandissement et la réduction de la grille d'origine.\newline
 
 Pour éprouver le programme nous avons défini une relation d'équivalence comme tel:\newline
 Deux données de tests $dt1$ et $dt2$ (ici des entiers représentant les 2 dimensions de la grille) sont en relation : $dt1 \diamond dt2$ si et seulement si leur valeur appartient au même intervalle $I \in N$.\newline
