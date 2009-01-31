@@ -8,7 +8,7 @@ série de tests statiques des fonctions critiques du puissance4. Nous trouverons 
 puis dans une seconde partie les CFA représentant la partie IA du programme. 
 
 Pour plus de clarté les deux CFA principaux que sont \texttt{start} et
-\texttt{IA} sont amputés des fonctions auquel ils font appel. On considèrera dès
+\texttt{IA} sont amputés des fonctions auquelles ils font appel. On considèrera dès
 lors que ces appels effectuent la fonction pour laquelle ils sont
 écrits et ne provoquent pas de bug dans le programme. Ces fonctions sont
 représentées par la suite et sont analysées séparément. Dans cette
@@ -52,7 +52,7 @@ En prenant le même critère de couverture on a TER1=10/11= 90\%;
 \end{figure}
 
 Cette fonction doit retourner un booléen servant à savoir si la valeur
-jouée est comprise entre les valeurs de la grille et si la colone dans
+jouée est comprise entre les valeurs de la grille et si la colonne dans
 laquelle on veut jouer est pleine.\\
 
 DT1=\{0=<play=<6,grille\_vide\}\\
@@ -208,5 +208,5 @@ que la création du CFA \texttt{vérification\_choix()} nous a permis de
 corriger une erreur d'écriture de fonction. En effet nous avions codé
 cette fonction de telle façon qu'elle nous renvoyait toujours true,
 même en passant des valeurs qui sortaient des limites de la
-grille. Le CFA à mis en valeur ce défaut de conception et nous à
+grille. Le CFA a mis en valeur ce défaut de conception et nous a
 permis de le corriger. 
