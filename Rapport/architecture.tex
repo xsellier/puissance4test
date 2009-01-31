@@ -1,6 +1,14 @@
 % -*- mode: latex; coding: latin-1-unix -*- %
 
 \section{Architecture}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[scale=0.5]{premiere_architecture}
+  \caption{\texttt{Notre première architecture}}
+\end{center}
+\end{figure}
+
 Nous allons décrire ici les différents modules imaginés pour répondre aux attentes formulées dans la partie spécification.\newline
 
 \subsection{Structure de données}
@@ -88,18 +96,7 @@ indépendamment.
 
 \bigskip
 \bigskip
-=================
 
-     SCHEMA A DEPLACER
-
-     =================
-
-\begin{figure}[H]
-\begin{center}
-  \includegraphics[scale=0.5]{premiere_architecture}
-  \caption{\texttt{Notre première architecture}}
-\end{center}
-\end{figure}
 
 \paragraph{Moteur de jeu} - interaction avec les autres modules.
 
@@ -160,12 +157,12 @@ Le seul point qui doit être vérifié, est le type de l'instance du
 joueur. A savoir si c'est bien un ordinateur, ou alors un humain.
 \bigskip
 \item Interaction\newline
-Nous devrons vérifier que les coups joués par l'ordinateur sont bien
-ceux récupérés par le moteur du jeu. Il faudra aussi vérifier que si
+Nous devons vérifier que les coups joués par l'ordinateur sont bien
+ceux récupérés par le moteur du jeu. Il faut aussi vérifier que si
 l'ordinateur renvoie une valeur impossible, par exemple une colonne
 pleine, cela ne perturbe pas le fonctionnement du programme, mais
 demande une nouvelle valeur à l'ordinateur.
-De la même manière on devra vérifier que la grille fournit à
+De la même manière on doit vérifier que la grille fournit à
 l'ordinateur par le moteur de jeu, corresponde a celle du moteur de
 jeu. Et une fois que l'ordinateur a joué, il faudra vérifier que la
 grille n'ait pas été modifié par notre intelligence artificielle, car
