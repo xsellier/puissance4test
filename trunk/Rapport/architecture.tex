@@ -1,4 +1,4 @@
-% -*- mode: latex; coding: latin-1-unix -*- %
+
 
 \section{Architecture}
 
@@ -110,12 +110,12 @@ de données. On teste donc l'instanciation en rentrant des valeurs
 particulières pour la grille. On vérifie que l'objet créé a la taille demandée.
 
 \bigskip
-\item \texttt{Instanciation incorrecte}\newline
+\item \texttt{Test d'instanciation incorrecte}\newline
 Dans un soucis de robustesse, on teste le cas où une
 grille de taille incorrecte est instanciée par le moteur de
 jeu.
 
-\item Lecture/Modification correcte\newline
+\item \textt{Test de lecture/modification correcte}\newline
 Lors d'une partie le moteur de jeu doit pouvoir lire et modifier
 sans difficulté la grille. Nous devrons tester si les modifications
 apportées par le moteur de jeu sont bien effectuées par la structure
@@ -124,12 +124,9 @@ de données.
 
 
 \bigskip
-\item Lecture/Modification incorrecte\newline
+\item \texttt{Test de lecture/modification incorrecte}\newline
 Toujours dans un soucis de robustesse, la structure de données
-doit pouvoir traiter les saisies incorrecte. Cela ne
-ne veut pas dire qu'elle devra les interpréter, mais plutôt qu'elle
-doit avertir l'utilisateur qu'il y a eu une mauvaise saisie à travers
-la console, et renvoiera un booléen \texttt{false}.
+doit pouvoir traiter les saisies incorrectes. \texttt{false}.
 \end{itemize}
 
 \paragraph{Joueurs} - instanciation et interaction
@@ -137,39 +134,46 @@ la console, et renvoiera un booléen \texttt{false}.
 \bigskip
 \begin{itemize}
 
-\item Instanciation\newline
+\item \texttt{Test d'instanciation}\newline
 Il n'y a pas d'erreur possible sur les paramètres du constructeur de
 joueur car ce dernier n'admet pas de paramètres.
-Le seul point qui doit être vérifié, est le type de l'instance du
-joueur. A savoir si c'est bien un ordinateur, ou alors un humain.
+Le seul point qui doit être vérifié est le type de l'instance du
+joueur.
 \bigskip
-\item Interaction\newline
+
+
+\item \testtts{Tests d'interaction}\newline
 Nous devons vérifier que les coups joués par l'ordinateur sont bien
 ceux récupérés par le moteur du jeu. Il faut aussi vérifier que si
-l'ordinateur renvoie une valeur impossible, par exemple une colonne
+l'ordinateur renvoit une valeur impossible, par exemple une colonne
 pleine, cela ne perturbe pas le fonctionnement du programme, mais
 demande une nouvelle valeur à l'ordinateur.
-De la même manière on doit vérifier que la grille fournit à
-l'ordinateur par le moteur de jeu, corresponde a celle du moteur de
-jeu. Et une fois que l'ordinateur a joué, il faudra vérifier que la
-grille n'ait pas été modifié par notre intelligence artificielle, car
-ce sera le job de notre moteur de jeu.
+
+\item \testtts{Test d'intégrité de la grille}\newline
+On doit vérifier que la grille fournit à
+l'ordinateur, corresponde a celle du moteur de
+jeu. On doit donc vérifier que le passage en paramètre de la grille au joueur ne modifie pas cette dernière. 
 \end{itemize}
 
 \paragraph{Règles} - instanciation et utilisation
 
 \bigskip
 \begin{itemize}
-
-\item Instanciation\newline
-Nos règles ne prennent aucun argument, donc leur instanciation
-ne devraient pas poser de problème.
+\item Séquence de jeu\newline
+On doit tester si l'alternance des coups entre les deux joueurs est correcte.
 \bigskip
-\item Utilisation correcte\newline
-Il faudra soumettre aux règles une grille correcte et vérifier
-qu'elles ne modifient pas cette grille. Dans le cas ou il y a un
+
+\item Intégrité de la grille\newline
+Il faudra soumettre aux règles des grilles correcte et vérifier que la 
+grille n'est pas modifiée. Dans le cas ou il y a un
 gagnant nos règles devront nous le spécifier.
 \bigskip
+
+\item Condition de terminaison\newline
+Les contitions de victoires ou match nul doivent être correctes. Ceci sera vérifié sur un nombre maximal de parties (manuellement ou automatiquement).
+\bigskip
+
+
 \item Utilisation incorrecte\newline
 Nous espérons avoir un module robuste pour gérer les accès incorrects
 fait par le moteur de jeu, mais aussi des grilles incorrectes. Avec
@@ -177,19 +181,9 @@ plusieurs gagnants, et encore une fois voir si nos règles valides ou
 non ces grilles.
 \end{itemize}
 
-Notons que notre moteur de jeu utilisera toutes les méthodes de notre
-structure de données, ainsi que de nos règles. Donc si l'interaction
-entre notre moteur de jeu, notre structure de données et nos règles
-sont correctes, alors si un autre module utilise de la même manière la
-structure de données et les règles, et bien ce dernier module
-fonctionnera sans modifications ni tests nécessaire.
+\paragraph{Modularité}
 
-Ce cas devrait surement s'appliquer a notre intelligence artificielle
-qui devrait être capable de calculer des positions possibles. Pour se
-faire, l'intelligence artificielle devra interagir avec les règles et
-aussi la structure de données.
+Il doit être possible d'implémenter une nouvelle interface ou un nouveau niveau de jeu en changeant une seule ligne de code.
+Si un tel changement nécessite une modification plus vaste le test n'est pas considéré comme réussi.
 
-\bigskip
- Et enfin, pour vérifier de nouveau, que notre logiciel marche, en d'autres
-terme que nos modules interagissent correctement, nous pensons
-intégrer un mode débogue qui ne serait accessible qu'en mode de test.
+ 
