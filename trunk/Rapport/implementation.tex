@@ -12,14 +12,13 @@
 Nous avons choisi d'utiliser une matrice pour modéliser une grille de
 Puissance 4. Ce sera un tableau d'entiers. Afin de faire moins de
 calculs, nous avons choisi de stocker la hauteur ainsi que la largeur
-de la matrice dans deux variables distinctes \texttt{height} respectivement \texttt{width}.
+de la matrice dans deux variables distinctes \texttt{height} et respectivement \texttt{width}.
 
 \begin{verbatim}
    public DataStructure(int height, int width);
 \end{verbatim}
-Le constructeur va prendre deux entiers en paramètres. Ce constructeur
-va vérifier si ces entiers sont valides, autrement dit si ils ne sont
-pas négatifs ou nuls.
+Le constructeur va prendre deux entiers en paramètres. Il va vérifier
+si les entiers sont valides c'est à qu'ils ne soient pas négatifs ou nuls.
 
 \begin{verbatim}
    public int getHeight();
@@ -29,12 +28,11 @@ pas négatifs ou nuls.
 \end{verbatim}
 Nous avons préféré mettre nos variables (\texttt{matrix}, \texttt{height} et \texttt{width}) en
 private pour éviter toutes modifications inattendues de notre
-matrice. d'où l'existence de ces accesseurs. Nous n'avons pas fait
-d'accesseur direct à la matrice, autrement dit qui retournerait notre
-matrice, toujours dans le soucis de modifications inattendues.
-
+matrice. C'est pourquoi nous avons implémenté des accesseurs. Ce ne
+sont pas des accesseurs directs. Il n'y a pas de risque de
+modification inattendues.
 La méthode \texttt{setValue} va modifier notre matrice en respectant la
-contrainte disant que \texttt{i} et \texttt{j} doivent être compris entre 0 et respectivement
+contrainte exigeant que \texttt{i} et \texttt{j} doivent être compris entre 0 et respectivement
 \texttt{height} et \texttt{width}.
 
 Nous n'avons pas mis de restriction sur color, etant donné que la
@@ -42,7 +40,7 @@ structure de données ne gère pas les règles du jeu, elle ne sait pas
 de quoi il s'agit exactement.
 
 Cette méthode retourne un booléen qui renvoie \texttt{true}
-respectivement \texttt{false} si la modification a pu être apporté ou pas.
+respectivement \texttt{false} si la modification a pu être apportée ou pas.
 
 \begin{verbatim}
    public void reset_matrix();
@@ -51,7 +49,7 @@ respectivement \texttt{false} si la modification a pu être apporté ou pas.
 La méthode \texttt{reset\_matrix} va, comme son nom l'indique, faire un
 simple reset de la matrice.
 
-La méthode \texttt{print} va elle afficher la matrice.
+La méthode \texttt{print} affiche la matrice.
 
 
 \subsubsection{Tests de la matrice}
@@ -141,7 +139,7 @@ Notre première méthode est un constructeur. Elle attribue donc un \texttt{mode}
 au CpuPlayer mais aussi les règles à utiliser (\texttt{Rules}).
 
 Notre seconde méthode, \texttt{play}, similaire à celle de
-HumanPlayer. Elle va quand a elle vraiment instancier l'intelligence
+HumanPlayer. Elle va quand à elle vraiment instancier l'intelligence
 artificielle en fonction du mode choisi. Cela se fait à l'aide des lignes 21-22 :
 \begin{verbatim}
      Cpu cpu1 = new IaFourInARow();
@@ -151,7 +149,7 @@ Si on veut utiliser une autre intelligence artificielle, il suffirait
 de créer une nouvelle classe qui implémente \texttt{Cpu} et qui fonctionne
 globalement comme l'IA actuelle. Notre Intelligence artificielle est
 donc totallement indépendante du reste du programme et peut être
-changé facilement.
+changée facilement.
 
 \subsubsection{Jeux de test}
 Tester la classe \texttt{HumanPlayer} se limitera à tester la méthode \texttt{play(DataStructure , GUI gui)}.\newline
@@ -168,7 +166,7 @@ s'écrira :
 
 \bigskip
 \subsection{Cpu}
-\texttt{Cpu} est une interface. le fait d'avoir créé une interface va nous
+\texttt{Cpu} est une interface. Le fait d'avoir créé une interface va nous
 permettre de pouvoir implémenter de nouvelles IA sans modifier plus
 d'une ligne du code actuel.
 
@@ -177,13 +175,13 @@ Pour ce qui concerne l'intelligence artificielle, nous avons choisi
 d'en implémenter une séquentielle. Il n'y aucune part
 d'aléatoire. Cette IA n'implémente pas la stratégie gagnante. Nous nous sommes
 renseigné et il faudrait implémenté un arbre faisant intervenir des
-statistiques de meilleurs coups a jouer. cela ne semble pas évident au
+statistiques de meilleurs coups a jouer. Cela ne semble pas évident au
 premier abord à implémenter, c'est pourquoi nous avons implémenté une
-IA maison qui donne des résultats assez satisfaisant car non triviale.
+IA $maison$ qui donne des résultats assez satisfaisants.
 
-cependant si on veut implémenter la stratégie gagnante cela est
+Cependant si on veut implémenter la stratégie gagnante cela est
 possible en créant une classe qui implémente l'interface \texttt{Cpu}
-et qui respecte le fonctionnement de l'IA actuelle qui est décrit ci-après.
+et qui respecte le fonctionnement de l'IA actuelle comme décrit ci-après.
 
 \begin{verbatim}
     private int mode;
@@ -196,12 +194,12 @@ facile, 2 pour difficile.
 \texttt{cpugrid} n'est pas une copie de la grille, mais un pointeur sur
 la grille, donc si on modifie cpugrid on modifie aussi la grille de
 puissance 4. Nous avons fait ce choix pour éviter de recopier la
-grille à chaque fois, mais cela ajoute de la contrainte de ne pas
+grille à chaque fois, mais cela ajoute la contrainte de ne pas
 modifier la grille lors du calcul de notre stratégie.
 
 La variable \texttt{playable} va etre de la taille de
 \texttt{width}. Elle va servir pour déterminer quelle colonne jouer ou
-quelle colonne ne pas jouer. tout cela se fait à l'aide d'un codage
+quelle colonne ne pas jouer. Tout cela se fait à l'aide d'un codage
 simple.\newpage
 
 \begin{figure}[H]
@@ -222,6 +220,7 @@ exemple si on joue sur les cotés).
   \caption{\texttt{playable[i] = 1}}
 \end{center}
 \end{figure}
+
 Si l'ordinateur joue sur la colonne 4, alors au prochain coups le
 joueur humain pourra gagner avec une diagonale. Par conséquent
 \texttt{playable[4]=1}. Ce code signifie que si l'ordinateur joue sur
@@ -243,7 +242,7 @@ joue sur la colonne deux, le joueur humain pourra le bloquer.
 \end{center}
 \end{figure}
 Dans ce cas \texttt{playable[2] = 3}. Par conséquent l'ordinateur peut
-gagner au prochain coups, et jouera la position 2.
+gagner au prochain coup, et jouera la position 2.
 
 \begin{figure}[H]
 \begin{center}
